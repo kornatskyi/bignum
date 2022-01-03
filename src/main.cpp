@@ -2,11 +2,8 @@
 
 #include "BigInt.h"
 
-int main(int, char **)
-{
-
-    BigInt bigInt(-2342340);
-    bigInt.print();
-
-    return 0;
+int main(int, char **) {
+  BigInt bigInt("12312");
+  bigInt.print();
+  return 0;
 }
