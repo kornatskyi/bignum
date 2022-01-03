@@ -3,10 +3,13 @@
 
 class BigInt
 {
+    static const int LENGTH = 10;
 // Using char array datastructure with fixed length to store big int
-    char _number[10] = {'+', 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    char _number[LENGTH];
+    char _sign = '+';
 
 public:
+    BigInt();
     BigInt(int initial);
     BigInt(std::string initial);
 
@@ -15,6 +18,15 @@ public:
     void setNumber(int number);
     void setNumber(char* number);
     void setNumber(std::string  number);
+
+    /* Operations */
+
+    BigInt add(BigInt rhnumber); 
+    BigInt substruct(BigInt rhnumber); 
+    BigInt multiply(BigInt rhnumber);
+    BigInt divide(BigInt rhnumber);
+
+
 
     void print();
 };

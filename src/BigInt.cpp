@@ -1,10 +1,19 @@
+#include <string>
 #include "BigInt.h"
+
+
+BigInt::BigInt(){
+    for (int i = 0; i < LENGTH; i++)
+    {
+        _number[i] = 0;   
+    }
+}
 
 BigInt::BigInt(int initial)
 {
     if (initial < 0)
     {
-        _number[0] = '-';
+        _sign = '-';
         initial *= -1;
     }
 
@@ -27,9 +36,31 @@ void BigInt::print()
     for (char c : _number)
     {
         if(!c) continue;
-        // str += std::to_string(c);
-        std::cout << c;
+        str += c;
+        // std::cout << c;
     }
-    std::cout << std::endl;
+    std::cout << str << std::endl;
 
 }
+
+    BigInt  BigInt::add(BigInt rhnumber) {
+        BigInt sum;
+
+
+
+
+        return sum;
+    }
+    BigInt BigInt::substruct(BigInt rhnumber){
+        BigInt difference;
+        return difference; 
+    } 
+    BigInt BigInt::multiply(BigInt rhnumber){
+        BigInt product;
+        return product;
+    }
+    BigInt BigInt::divide(BigInt rhnumber){
+        BigInt quotient;
+        return quotient;
+    }
+
