@@ -27,5 +27,9 @@ public:
   BigInt multiply(BigInt rhnumber);
   BigInt divide(BigInt rhnumber);
 
+  /* Validation */
+
+  bool isValidString(std::string str);
+
   void print();
 };

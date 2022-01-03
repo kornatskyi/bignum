@@ -34,6 +34,7 @@ BigInt::BigInt(int initial) : BigInt() {
   }
 }
 BigInt::BigInt(std::string digits) : BigInt() {
+  isValidString(digits);
   // Sign correction. If sign exists start do iteration to the sign index (0)
   int sC = 0;
   if (digits[0] == '-' || digits[0] == '+') {
@@ -88,3 +89,54 @@ BigInt BigInt::divide(BigInt rhnumber) {
   BigInt quotient;
   return quotient;
 }
+
+/* Validation */
+
+bool BigInt::isValidString(std::string str) {
+
+  bool isValid = false;
+  int hasSign = 0;
+  const char SIGNS[] = {
+      '-',
+      '+',
+  };
+  const char DIGITS[] = {
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+  };
+  // Check if the firs char is a sign
+  if (str[0] == SIGNS[0] || str[0] == SIGNS[1]) {
+    hasSign++;
+  }
+  // Check if firs digit isn't 0
+  if (str[hasSign] == '0' && str.length() > 1 + hasSign) {
+    isValid = false;
+  } else {
+    // Validate rest of the characters in the string
+    for (int i = hasSign; i < str.length(); i++) {
+      isValid = false;
+      for (char c : DIGITS) {
+        if (str[i] == c) {
+          isValid = true;
+          break;
+        }
+      }
+      if (!isValid) {
+        return isValid;
+      }
+    }
+  }
+
+  return isValid;
+}
+/*
+
+Bottom space
+
+
+
+
+
+
+
+
+*/

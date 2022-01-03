@@ -1,9 +1,11 @@
 #include <iostream>
 
 #include "BigInt.h"
+#include "test/TestBigInt.h"
 
 int main(int, char **) {
-  BigInt bigInt("12312");
+  BigInt bigInt("012312");
   bigInt.print();
+
   return 0;
 }
