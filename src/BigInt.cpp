@@ -34,8 +34,12 @@ BigInt::BigInt(int initial) : BigInt() {
   }
 }
 BigInt::BigInt(std::string digits) : BigInt() {
-  isValidString(digits);
-  // Sign correction. If sign exists start do iteration to the sign index (0)
+  if (!isValidString(digits)) {
+    throw "Error: Invalid string of digits";
+  }
+
+  // Sign correction. If sign exists start do iteration to the sign index
+  // (0)
   int sC = 0;
   if (digits[0] == '-' || digits[0] == '+') {
     _sign = digits[0];
