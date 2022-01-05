@@ -70,14 +70,29 @@ void BigInt::print() {
   std::cout << str << std::endl;
 }
 
-// void setNumber(int number) {
-
 // }
 // void setNumber(char *number) {}
 // void setNumber(std::string number) {}
 
 BigInt BigInt::add(BigInt rhnumber) {
+  BigInt lnum = *this;
+  BigInt rnum = rhnumber;
+  std::string result = "";
+  int leftOver = 0;
 
+  for (int i = LENGTH - 1; i > 0; i--) {
+    int sum = (int)((lnum._digits[i] == '\0' ? '0' : lnum._digits[i]) - '0') +
+              (int)((rnum._digits[i] == '\0' ? '0' : rnum._digits[i]) - '0') +
+              leftOver;
+    if (sum > 9) {
+      leftOver = 1;
+      result = std::to_string((sum % 10)) + result;
+    } else {
+      leftOver = 0;
+      result = std::to_string(sum) + result;
+    }
+  }
+  std::cout << result << std::endl;
   BigInt sum;
   return sum;
 }
