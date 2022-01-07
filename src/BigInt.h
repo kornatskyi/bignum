@@ -15,6 +15,7 @@ public:
   BigInt(std::string digits);
 
   char getNumber();
+  int getDigit(int index);
 
   //   void setNumber(int number);
   //   void setNumber(char *number);

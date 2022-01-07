@@ -70,32 +70,55 @@ void BigInt::print() {
   std::cout << str << std::endl;
 }
 
+int BigInt::getDigit(int index) { return this->_digits[index] - '0'; }
+
 // }
 // void setNumber(char *number) {}
 // void setNumber(std::string number) {}
 
 BigInt BigInt::add(BigInt rhnumber) {
-  BigInt lnum = *this;
-  BigInt rnum = rhnumber;
-  std::string result = "";
-  int leftOver = 0;
 
+  int lnumSign = this->_sign == '+' ? 1 : -1;
+  int rnumSign = rhnumber._sign == '+' ? 1 : -1;
+
+  int leftOver = 0;
+  BigInt result;
+  char *res = result._digits;
   for (int i = LENGTH - 1; i > 0; i--) {
-    int sum = (int)((lnum._digits[i] == '\0' ? '0' : lnum._digits[i]) - '0') +
-              (int)((rnum._digits[i] == '\0' ? '0' : rnum._digits[i]) - '0') +
-              leftOver;
+    int sum = (char)(lnumSign * this->getDigit(i) +
+                     rnumSign * rhnumber.getDigit(i) + leftOver + '0');
     if (sum > 9) {
       leftOver = 1;
-      result = std::to_string((sum % 10)) + result;
+      res[i] = (sum % 10) + '0';
     } else {
       leftOver = 0;
-      result = std::to_string(sum) + result;
+      result = (sum % 10) + '0';
     }
+
+    std::cout << res[i] << std::endl;
   }
-  std::cout << result << std::endl;
+
+  result.print();
+  // std::string result = "";
+
+  // for (int i = LENGTH - 1; i > 0; i--) {
+  //   int sum = (int)((lnum._digits[i] == '\0' ? '0' : lnum._digits[i]) - '0')
+  //   +
+  //             (int)((rnum._digits[i] == '\0' ? '0' : rnum._digits[i]) - '0')
+  //             + leftOver;
+  //   if (sum > 9) {
+  //     leftOver = 1;
+  //     result = std::to_string((sum % 10)) + result;
+  //   } else {
+  //     leftOver = 0;
+  //     result = std::to_string(sum) + result;
+  //   }
+  // }
+  // std::cout << result << std::endl;
   BigInt sum;
   return sum;
 }
+
 BigInt BigInt::substruct(BigInt rhnumber) {
   BigInt difference;
   return difference;
