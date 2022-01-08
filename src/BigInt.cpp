@@ -77,44 +77,13 @@ int BigInt::getDigit(int index) { return this->_digits[index] - '0'; }
 // void setNumber(std::string number) {}
 
 BigInt BigInt::add(BigInt rhnumber) {
-
-  int lnumSign = this->_sign == '+' ? 1 : -1;
-  int rnumSign = rhnumber._sign == '+' ? 1 : -1;
-
   int leftOver = 0;
-  BigInt result;
-  char *res = result._digits;
-  for (int i = LENGTH - 1; i > 0; i--) {
-    int sum = (char)(lnumSign * this->getDigit(i) +
-                     rnumSign * rhnumber.getDigit(i) + leftOver + '0');
-    if (sum > 9) {
-      leftOver = 1;
-      res[i] = (sum % 10) + '0';
-    } else {
-      leftOver = 0;
-      result = (sum % 10) + '0';
-    }
-
-    std::cout << res[i] << std::endl;
+  for (int i = LENGTH; i > 0; i--) {
+    int lhs = this->getSignMult() * this->getDigit(i);
+    int rhs = rhnumber.getSignMult() * rhnumber.getDigit(i);
+    int res = lhs + rhs + leftOver;
   }
 
-  result.print();
-  // std::string result = "";
-
-  // for (int i = LENGTH - 1; i > 0; i--) {
-  //   int sum = (int)((lnum._digits[i] == '\0' ? '0' : lnum._digits[i]) - '0')
-  //   +
-  //             (int)((rnum._digits[i] == '\0' ? '0' : rnum._digits[i]) - '0')
-  //             + leftOver;
-  //   if (sum > 9) {
-  //     leftOver = 1;
-  //     result = std::to_string((sum % 10)) + result;
-  //   } else {
-  //     leftOver = 0;
-  //     result = std::to_string(sum) + result;
-  //   }
-  // }
-  // std::cout << result << std::endl;
   BigInt sum;
   return sum;
 }
@@ -170,6 +139,10 @@ bool BigInt::isValidString(std::string str) {
 
   return isValid;
 }
+
+int BigInt::parseInt(char c) { return c - '0'; }
+int BigInt::getSignMult() { return (_sign == '+' ? 1 : -1); }
+
 /*
 
 Bottom space

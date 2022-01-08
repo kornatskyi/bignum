@@ -14,9 +14,6 @@ public:
   BigInt(int initial);
   BigInt(std::string digits);
 
-  char getNumber();
-  int getDigit(int index);
-
   //   void setNumber(int number);
   //   void setNumber(char *number);
   //   void setNumber(std::string number);
@@ -32,5 +29,14 @@ public:
 
   bool isValidString(std::string str);
 
+  /* Utils */
+  static int parseInt(char c);
+
   void print();
+
+private:
+  void changeDigit(int index, int value);
+  int getLength();
+  int getDigit(int index);
+  int getSignMult();
 };
