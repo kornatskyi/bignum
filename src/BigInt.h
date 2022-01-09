@@ -3,7 +3,7 @@
 
 class BigInt {
   // TODO: Public for now, change later
-public:
+private:
   static const int LENGTH = 10;
   // Using char array datastructure with fixed length to store big int
   char _digits[LENGTH];
@@ -34,8 +34,10 @@ public:
 
   void print();
 
-private:
+  // TODO: Change to private later
+public:
   void changeDigit(int index, int value);
+  void setDigit(int index, int value);
   int getLength();
   int getDigit(int index);
   int getSignMult();

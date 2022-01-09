@@ -7,7 +7,12 @@
 
 int main(int, char **) {
 
+  // TestBigInt::stringValidationTest();
+
   try {
+    BigInt bi(543);
+    bi.print();
+
     BigInt bigInt1("678");
     BigInt bigInt2("123");
     bigInt1.print();

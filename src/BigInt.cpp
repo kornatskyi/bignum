@@ -1,6 +1,8 @@
 #include "BigInt.h"
 #include <string>
 
+/* Constructors */
+
 BigInt::BigInt() {
   // Initialize _digits to the null values
   for (int i = 0; i < LENGTH; i++) {
@@ -12,7 +14,7 @@ BigInt::BigInt(int initial) : BigInt() {
 
   // Special case when initial == 0
   if (initial == 0) {
-    _digits[LENGTH - 1] = '0';
+    _digits[0] = '0';
     return;
   }
 
@@ -24,13 +26,13 @@ BigInt::BigInt(int initial) : BigInt() {
 
   // Transform integer to the _digits array
   int digit;
-  int i = sizeof(_digits) / sizeof(_digits[0]);
+  int i = 0;
   while (initial != 0) {
     digit = initial % 10;
     initial = (initial - digit) / 10;
     char c = '0' + digit;
-    _digits[i - 1] = c;
-    i--;
+    _digits[i] = c;
+    i++;
   }
 }
 BigInt::BigInt(std::string digits) : BigInt() {
@@ -47,20 +49,33 @@ BigInt::BigInt(std::string digits) : BigInt() {
   }
 
   int j = LENGTH - 1;
-  for (int i = digits.size() - 1; i >= sC; i--) {
-
+  for (int i = sC; i < digits.size(); i++) {
     _digits[j] = digits[i];
     j--;
   }
 }
 
+/* Private Utils */
+int BigInt::getDigit(int index) { return this->_digits[index] - '0'; }
+void BigInt::setDigit(int index, int value) {
+
+  if (value > 9 || value < 0) {
+    throw "Value must be > 0 and < 9";
+  }
+  this->_digits[index] = value + '0';
+}
+int BigInt::parseInt(char c) { return c - '0'; }
+int BigInt::getSignMult() { return (_sign == '+' ? 1 : -1); }
+
+/* Operations (operators in future) */
 void BigInt::print() {
   std::string str;
   for (char c : _digits) {
     if (!c)
       continue;
 
-    str += c;
+    // Creating string in reverse from _digits array
+    str = c + str;
     // std::cout << c;
   }
   // Printing a minus sign
@@ -70,19 +85,7 @@ void BigInt::print() {
   std::cout << str << std::endl;
 }
 
-int BigInt::getDigit(int index) { return this->_digits[index] - '0'; }
-
-// }
-// void setNumber(char *number) {}
-// void setNumber(std::string number) {}
-
 BigInt BigInt::add(BigInt rhnumber) {
-  int leftOver = 0;
-  for (int i = LENGTH; i > 0; i--) {
-    int lhs = this->getSignMult() * this->getDigit(i);
-    int rhs = rhnumber.getSignMult() * rhnumber.getDigit(i);
-    int res = lhs + rhs + leftOver;
-  }
 
   BigInt sum;
   return sum;
@@ -139,9 +142,6 @@ bool BigInt::isValidString(std::string str) {
 
   return isValid;
 }
-
-int BigInt::parseInt(char c) { return c - '0'; }
-int BigInt::getSignMult() { return (_sign == '+' ? 1 : -1); }
 
 /*
 
