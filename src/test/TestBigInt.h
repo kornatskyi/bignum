@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "../BigInt.h"
 
@@ -13,6 +15,7 @@ class TestBigInt {
 public:
   static void stringValidationTest() {
     BigInt bigInt;
+
     assertion(true, bigInt.isValidString("0"), "0");
     assertion(true, bigInt.isValidString("1"), "1");
     assertion(true, bigInt.isValidString("11111"), "11111");
@@ -60,6 +63,37 @@ public:
     assertion(false, bigInt.isValidString("-9999999999a"), "-9999999999a");
     assertion(false, bigInt.isValidString("+9999999999a"), "+9999999999a");
     assertion(false, bigInt.isValidString("a9999999999a"), "a9999999999a");
+    assertion(false, bigInt.isValidString("--123"), "--123");
+  }
+
+  static void additionTest() {
+
+    // typedef void (BigInt::*PrintFuncPtr)();
+    // void *func = &BigInt::print;
+    // BigInt num;
+    // (num.*func)();
+    auto func = &BigInt::add;
+
+    std::vector<std::string> firstValues{
+        "1",   "0",  "3",  "1",  "2",          "0",
+        "-10", "-3", "99", "88", "9999999999", "5",
+    };
+    std::vector<std::string> secondValues{
+        "1", "0", "3", "-1", "0", "2", "1", "4", "1", "-89", "1", "-555",
+    };
+    std::vector<std::string> expectedValues{
+        "2",  "0", "6",   "0",  "2",           "0",
+        "-9", "1", "100", "-1", "10000000000", "-550",
+    };
+
+    for (int i = 0; i < firstValues.size(); i++) {
+      BigInt bi1(firstValues[i]);
+      BigInt bi2(secondValues[i]);
+      std::vector<std::string> params{firstValues[i], secondValues[i]};
+      assertionEquals(
+          bi1.add(bi2).toString(), expectedValues[i],
+          std::vector<std::string>{firstValues[i], secondValues[i]});
+    }
   }
 
   static void assertion(bool val1, bool val2) {
@@ -77,6 +111,25 @@ public:
       std::cout << BOLDRED << "Expected: " << (expected ? "true" : "false")
                 << " Get: " << (excact ? "true" : "false")
                 << " [value]: " << val << RESET << std::endl;
+    }
+  }
+
+  static void assertionEquals(std::string exact, std::string expected,
+                              std::vector<std::string> values) {
+    std::string valsstr = "";
+    int i = 1;
+    for (auto val : values) {
+      valsstr = valsstr + "value" + std::to_string(i) + ": " + val + " ";
+      i++;
+    }
+
+    if (exact.compare(expected) == 0) {
+      std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+    } else {
+      std::cout << BOLDRED << "[FAILED] Expected: " << expected
+                << " Get: " << exact << std::endl
+                << " - [values]: " << valsstr << RESET << std::endl
+                << std::endl;
     }
   }
 };

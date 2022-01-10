@@ -48,47 +48,100 @@ BigInt::BigInt(std::string digits) : BigInt() {
     sC++;
   }
 
-  int j = LENGTH - 1;
-  for (int i = sC; i < digits.size(); i++) {
-    _digits[j] = digits[i];
+  int j = digits.size() - 1;
+  for (int i = 0; i < digits.size() - sC; i++) {
+    setDigit(i, digits[j]);
     j--;
   }
 }
 
 /* Private Utils */
-int BigInt::getDigit(int index) { return this->_digits[index] - '0'; }
+char BigInt::getCharAt(int index) { return _digits[index]; }
+
+int BigInt::getDigit(int index) {
+
+  if (this->_digits[index] == '\0') {
+    return 0;
+  }
+
+  return this->_digits[index] - '0';
+}
+void BigInt::setDigit(int index, char value) { this->_digits[index] = value; }
+
 void BigInt::setDigit(int index, int value) {
 
   if (value > 9 || value < 0) {
     throw "Value must be > 0 and < 9";
   }
+
   this->_digits[index] = value + '0';
+}
+void BigInt::setSign(char sign) {
+  if (!(sign != '-' || sign != '+')) {
+    throw "Wrong sign character in setSign() method";
+  }
+
+  _sign = sign;
 }
 int BigInt::parseInt(char c) { return c - '0'; }
 int BigInt::getSignMult() { return (_sign == '+' ? 1 : -1); }
 
 /* Operations (operators in future) */
-void BigInt::print() {
-  std::string str;
-  for (char c : _digits) {
-    if (!c)
-      continue;
 
-    // Creating string in reverse from _digits array
-    str = c + str;
+std::string BigInt::toString() {
+  bool isPadding = true;
+  std::string str;
+  for (int i = LENGTH - 1; i >= 0; i--) {
+    if (!this->getCharAt(i) || (this->getCharAt(i) == '0' && isPadding)) {
+      continue;
+    }
+
+    if (this->getCharAt(i)) {
+      isPadding = false;
+    }
+
+    str = str + this->getCharAt(i);
     // std::cout << c;
   }
   // Printing a minus sign
   if (_sign == '-') {
     str = '-' + str;
   }
-  std::cout << str << std::endl;
+  return str;
 }
+void BigInt::print() { std::cout << toString() << std::endl; }
 
 BigInt BigInt::add(BigInt rhnumber) {
 
-  BigInt sum;
-  return sum;
+  BigInt ln = *this;
+  BigInt rn = rhnumber;
+
+  int ls = ln.getSignMult();
+  int rs = rn.getSignMult();
+
+  int temp;
+  int leftOver = 0;
+
+  BigInt result;
+  for (int i = 0; i < LENGTH; i++) {
+
+    temp = (ls * ln.getDigit(i)) + (rs * rn.getDigit(i)) + leftOver;
+    if (temp > 9) {
+      result.setDigit(i, temp % 10);
+      leftOver = 1;
+    } else if (temp < 0) {
+      result.setDigit(i, -(temp % 10));
+      leftOver = -1;
+    } else {
+      result.setDigit(i, temp);
+      leftOver = 0;
+    }
+  }
+  if (leftOver == -1) {
+    result.setSign('-');
+  }
+
+  return result;
 }
 
 BigInt BigInt::substruct(BigInt rhnumber) {

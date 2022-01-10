@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 class BigInt {
   // TODO: Public for now, change later
-private:
+public:
   static const int LENGTH = 10;
   // Using char array datastructure with fixed length to store big int
   char _digits[LENGTH];
@@ -32,13 +33,19 @@ public:
   /* Utils */
   static int parseInt(char c);
 
+  std::string toString();
+
   void print();
 
   // TODO: Change to private later
 public:
   void changeDigit(int index, int value);
   void setDigit(int index, int value);
-  int getLength();
+  void setDigit(int index, char value);
+
+  char getCharAt(int index);
+
+  void setSign(char sign);
   int getDigit(int index);
   int getSignMult();
 };
