@@ -148,8 +148,28 @@ bool BigInt::isLessThen(BigInt rhnumber) {
 
   return false;
 }
-bool BigInt::isMoreThen(BigInt rhnumber) { return false; }
-bool BigInt::isEqualTo(BigInt rhnumber) { return false; }
+bool BigInt::isMoreThen(BigInt rhnumber) {
+  for (int i = getLength() - 1; i >= 0; i--) {
+    int x = this->getSignMult() * this->getDigit(i);
+    int y = rhnumber.getSignMult() * rhnumber.getDigit(i);
+    if (x > y) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool BigInt::isEqualTo(BigInt rhnumber) {
+  for (int i = getLength() - 1; i >= 0; i--) {
+    int x = this->getSignMult() * this->getDigit(i);
+    int y = rhnumber.getSignMult() * rhnumber.getDigit(i);
+    if (x != y) {
+      return false;
+    }
+  }
+  return true;
+}
 
 /* Validation */
 

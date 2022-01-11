@@ -80,6 +80,26 @@ public:
     }
   }
 
+  static void isEqualToTest() {
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json isEqualsToTestCases = j["isEqualsToTestCases"];
+
+    while (!isEqualsToTestCases[i].is_null()) {
+      BigInt bi1((std::string)isEqualsToTestCases[i]["values"][0]);
+      BigInt bi2((std::string)isEqualsToTestCases[i]["values"][1]);
+      assertionEquals(
+          bi1.isEqualTo(bi2), isEqualsToTestCases[i]["expected"],
+          std::vector<std::string>{isEqualsToTestCases[i]["values"][0],
+                                   isEqualsToTestCases[i]["values"][1]});
+      i++;
+    }
+  }
+
   static void assertion(bool val1, bool val2) {
     if (val1 == val2) {
       std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;

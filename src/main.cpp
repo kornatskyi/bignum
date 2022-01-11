@@ -13,7 +13,8 @@ int main(int, char **) {
 
   // TestBigInt::stringValidationTest();
   // TestBigInt::additionTest();
-  TestBigInt::isLessThenTest();
+  // TestBigInt::isLessThenTest();
+  TestBigInt::isEqualToTest();
 
   // try {
 
