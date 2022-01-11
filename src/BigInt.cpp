@@ -177,9 +177,11 @@ BigInt BigInt::add(BigInt rhnumber) {
 }
 
 BigInt BigInt::substruct(BigInt rhnumber) {
-  BigInt difference;
-  return difference;
+  // Creating new number with minus sign, and then perform addition operation
+  BigInt minusNumber("-" + rhnumber.toString());
+  return add(minusNumber);
 }
+
 BigInt BigInt::multiply(BigInt rhnumber) {
   BigInt product;
   return product;
