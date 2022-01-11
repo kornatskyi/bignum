@@ -22,60 +22,25 @@ class TestBigInt {
 public:
   static void stringValidationTest() {
     BigInt bigInt;
-
     std::ifstream stream("../src/test/testData.json");
     json j;
     stream >> j;
+    if (j["stringValidation"][1].is_null()) {
+      std::cout << "/* message */" << std::endl;
+    }
+    // std::cout << str << std::endl;
+
     int i = 0;
+    json stringValidation = j["stringValidation"];
 
-    assertion(true, bigInt.isValidString("0"), "0");
-    assertion(true, bigInt.isValidString("1"), "1");
-    assertion(true, bigInt.isValidString("11111"), "11111");
-    assertion(true, bigInt.isValidString("321"), "321");
-    assertion(true, bigInt.isValidString("99939129"), "99939129");
-    assertion(true, bigInt.isValidString("-1"), "-1");
-    assertion(true, bigInt.isValidString("+1010"), "+1010");
-    assertion(true, bigInt.isValidString("+0"), "+0");
-    assertion(true, bigInt.isValidString("-0"), "-0");
-    assertion(true, bigInt.isValidString("9999999999"), "9999999999");
-    assertion(true, bigInt.isValidString("-9999999999"), "-9999999999");
-    assertion(false, bigInt.isValidString("-"), "-");
-    assertion(false, bigInt.isValidString("--"), "--");
-    assertion(false, bigInt.isValidString("--1"), "--1");
-    assertion(false, bigInt.isValidString("--10"), "--10");
-    assertion(false, bigInt.isValidString("--0"), "--0");
-    assertion(false, bigInt.isValidString("++"), "++");
-    assertion(false, bigInt.isValidString("+"), "+");
-    assertion(false, bigInt.isValidString("+++1"), "+++1");
-    assertion(false, bigInt.isValidString("++3"), "++3");
-    assertion(false,
-              bigInt.isValidString(
-                  "++++++++++++++++++++++++++++++++++++++++++++++++"),
-              "++++++++++++++++++++++++++++++++++++++++++++++++");
+    while (!stringValidation[i].is_null()) {
 
-    assertion(
-        false,
-        bigInt.isValidString("------------------------------------------"),
-        "------------------------------------------");
-    assertion(false, bigInt.isValidString("slfdh"), "slfdh");
-    assertion(false, bigInt.isValidString("a"), "a");
-    assertion(false, bigInt.isValidString(""), "");
-    assertion(false, bigInt.isValidString("1r"), "1r");
-    assertion(false, bigInt.isValidString("3f"), "3f");
-    assertion(false, bigInt.isValidString("f3"), "f3");
-    assertion(false, bigInt.isValidString("-1f"), "-1f");
-    assertion(false, bigInt.isValidString("-f"), "-f");
-    assertion(false, bigInt.isValidString("-f3"), "-f3");
-    assertion(false, bigInt.isValidString("-a"), "-a");
-    assertion(false, bigInt.isValidString("-o"), "-o");
-    assertion(false, bigInt.isValidString("-O"), "-O");
-    assertion(false, bigInt.isValidString("-l"), "-l");
-    assertion(false, bigInt.isValidString("-23r"), "-23r");
-    assertion(false, bigInt.isValidString("9999999999a"), "9999999999a");
-    assertion(false, bigInt.isValidString("-9999999999a"), "-9999999999a");
-    assertion(false, bigInt.isValidString("+9999999999a"), "+9999999999a");
-    assertion(false, bigInt.isValidString("a9999999999a"), "a9999999999a");
-    assertion(false, bigInt.isValidString("--123"), "--123");
+      assertion(stringValidation[i]["expected"],
+                bigInt.isValidString(stringValidation[i]["value"]),
+                stringValidation[i]["value"]);
+
+      i++;
+    }
   }
 
   static void additionTest() {

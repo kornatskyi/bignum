@@ -7,17 +7,6 @@
 #include "BigInt.h"
 #include "test/TestBigInt.h"
 
-class MyClass {
-public:
-  void print() { std::cout << "Hello" << std::endl; }
-};
-
-void newFunc(void (MyClass::*func)()) {
-
-  MyClass o;
-  (o.*func)();
-}
-
 int main(int, char **) {
   // std::ifstream i("../src/text.txt");
   // std::cout << i.rdbuf() << std::endl;
