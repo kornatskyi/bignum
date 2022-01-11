@@ -1,4 +1,5 @@
 #include "BigInt.h"
+#include <cmath>
 #include <string>
 
 /* Constructors */
@@ -71,7 +72,7 @@ void BigInt::setDigit(int index, char value) { this->_digits[index] = value; }
 void BigInt::setDigit(int index, int value) {
 
   if (value > 9 || value < 0) {
-    throw "Value must be > 0 and < 9";
+    throw "[setDigit()]: Value must be > 0 and < 9";
   }
 
   this->_digits[index] = value + '0';
@@ -127,22 +128,48 @@ BigInt BigInt::add(BigInt rhnumber) {
   int temp;
   int leftOver = 0;
 
+  int sign = 0;
+
   BigInt result;
+  // If both numbers are negative will do just regular addition and then set
+  // sign to '-'
+  if (ls == -1 && rs == -1) {
+    rs = 1;
+    ls = 1;
+    result.setSign('-');
+  }
+
   for (int i = 0; i < LENGTH; i++) {
 
     temp = (ls * ln.getDigit(i)) + (rs * rn.getDigit(i)) + leftOver;
+
+    // Skip setting sign when temp == 0
+    if (temp == 0) {
+      result.setDigit(i, 0);
+      continue;
+    }
     if (temp > 9) {
       result.setDigit(i, temp % 10);
       leftOver = 1;
-    } else if (temp < 0) {
+      sign = 1;
+    } else if (temp < (-9)) {
       result.setDigit(i, -(temp % 10));
       leftOver = -1;
+      sign = -1;
+
     } else {
-      result.setDigit(i, temp);
-      leftOver = 0;
+      if (temp < 0) {
+        result.setDigit(i, -(temp));
+        leftOver = 0;
+        sign = -1;
+      } else {
+        result.setDigit(i, temp);
+        leftOver = 0;
+        sign = 1;
+      }
     }
   }
-  if (leftOver == -1) {
+  if (sign == (-1)) {
     result.setSign('-');
   }
 

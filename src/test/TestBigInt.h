@@ -25,10 +25,6 @@ public:
     std::ifstream stream("../src/test/testData.json");
     json j;
     stream >> j;
-    if (j["stringValidation"][1].is_null()) {
-      std::cout << "/* message */" << std::endl;
-    }
-    // std::cout << str << std::endl;
 
     int i = 0;
     json stringValidation = j["stringValidation"];
@@ -45,31 +41,22 @@ public:
 
   static void additionTest() {
 
-    // typedef void (BigInt::*PrintFuncPtr)();
-    // void *func = &BigInt::print;
-    // BigInt num;
-    // (num.*func)();
-    auto func = &BigInt::add;
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
 
-    std::vector<std::string> firstValues{
-        "1",   "0",  "3",  "1",  "2",          "0",
-        "-10", "-3", "99", "88", "9999999999", "5",
-    };
-    std::vector<std::string> secondValues{
-        "1", "0", "3", "-1", "0", "2", "1", "4", "1", "-89", "1", "-555",
-    };
-    std::vector<std::string> expectedValues{
-        "2",  "0", "6",   "0",  "2",           "2",
-        "-9", "1", "100", "-1", "10000000000", "-550",
-    };
+    int i = 0;
+    json additionTestCases = j["additionTestCases"];
 
-    for (int i = 0; i < firstValues.size(); i++) {
-      BigInt bi1(firstValues[i]);
-      BigInt bi2(secondValues[i]);
-      std::vector<std::string> params{firstValues[i], secondValues[i]};
+    while (!additionTestCases[i].is_null()) {
+      BigInt bi1((std::string)additionTestCases[i]["values"][0]);
+      BigInt bi2((std::string)additionTestCases[i]["values"][1]);
       assertionEquals(
-          bi1.add(bi2).toString(), expectedValues[i],
-          std::vector<std::string>{firstValues[i], secondValues[i]});
+          bi1.add(bi2).toString(), additionTestCases[i]["expected"],
+          std::vector<std::string>{additionTestCases[i]["values"][0],
+                                   additionTestCases[i]["values"][1]});
+      i++;
     }
   }
 

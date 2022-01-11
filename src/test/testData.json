@@ -20,14 +20,8 @@
     { "value": "+", "expected": false },
     { "value": "+++1", "expected": false },
     { "value": "++3", "expected": false },
-    {
-      "value": "++++++++++++++++++++++++++++++++++++++++++++++++",
-      "expected": false
-    },
-    {
-      "value": "------------------------------------------",
-      "expected": false
-    },
+    { "value": "+++++", "expected": false },
+    { "value": "-----", "expected": false },
     { "value": "slfdh", "expected": false },
     { "value": "a", "expected": false },
     { "value": "", "expected": false },
@@ -47,5 +41,89 @@
     { "value": "+9999999999a", "expected": false },
     { "value": "a9999999999a", "expected": false },
     { "value": "--123", "expected": false }
+  ],
+  "additionTestCases": [
+    {
+      "values": ["1111111111", "9999999999"],
+      "expected": "1111111110"
+    },
+    {
+      "values": ["3", "-9"],
+      "expected": "-6"
+    },
+    {
+      "values": ["-111", "-999"],
+      "expected": "-1110"
+    },
+    {
+      "values": ["999", "111"],
+      "expected": "1110"
+    },
+    {
+      "values": ["-999", "-111"],
+      "expected": "-1110"
+    },
+    {
+      "values": ["-999", "111"],
+      "expected": "-888"
+    },
+
+    {
+      "values": ["11111111", "3"],
+      "expected": "11111114"
+    },
+    {
+      "values": ["-1", "0"],
+      "expected": "-1"
+    },
+    {
+      "values": ["-1", "-2"],
+      "expected": "-3"
+    },
+    {
+      "values": ["0", "0"],
+      "expected": "0"
+    },
+
+    {
+      "values": ["0", "1"],
+      "expected": "1"
+    },
+    {
+      "values": ["-1", "-1"],
+      "expected": "-2"
+    },
+
+    {
+      "values": ["0", "-1"],
+      "expected": "-1"
+    },
+    {
+      "values": ["1", "0"],
+      "expected": "1"
+    },
+
+    {
+      "values": ["-1", "1"],
+      "expected": "0"
+    },
+    {
+      "values": ["1", "-1"],
+      "expected": "0"
+    },
+    {
+      "values": ["1", "1"],
+      "expected": "2"
+    },
+
+    {
+      "values": ["213", "-213"],
+      "expected": "0"
+    },
+
+    {
+      "values": ["0", "-5"],
+      "expected": "-5"
+    }
   ]
 }
