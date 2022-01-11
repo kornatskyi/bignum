@@ -2,6 +2,8 @@
 #include <iostream>
 #include <math.h>
 
+#include <fstream>
+
 #include "BigInt.h"
 #include "test/TestBigInt.h"
 
@@ -17,9 +19,11 @@ void newFunc(void (MyClass::*func)()) {
 }
 
 int main(int, char **) {
+  // std::ifstream i("../src/text.txt");
+  // std::cout << i.rdbuf() << std::endl;
 
-  // TestBigInt::stringValidationTest();
-  TestBigInt::additionTest();
+  TestBigInt::stringValidationTest();
+  // TestBigInt::additionTest();
 
   // try {
 

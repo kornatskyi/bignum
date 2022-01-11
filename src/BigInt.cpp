@@ -107,8 +107,13 @@ std::string BigInt::toString() {
   if (_sign == '-') {
     str = '-' + str;
   }
+  // If all values are 0 or \0 and firs digit is 0 return "0"
+  if (str.length() == 0 && this->getCharAt(0) == '0') {
+    return "0";
+  }
   return str;
 }
+
 void BigInt::print() { std::cout << toString() << std::endl; }
 
 BigInt BigInt::add(BigInt rhnumber) {

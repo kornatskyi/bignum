@@ -1,5 +1,12 @@
 #pragma once
+#include <fstream>
 #include <iostream>
+
+#include "../../libs/nlohmann_json//single_include/nlohmann/json.hpp"
+
+// for convenience
+using json = nlohmann::json;
+
 #include <string>
 #include <vector>
 
@@ -15,6 +22,11 @@ class TestBigInt {
 public:
   static void stringValidationTest() {
     BigInt bigInt;
+
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+    int i = 0;
 
     assertion(true, bigInt.isValidString("0"), "0");
     assertion(true, bigInt.isValidString("1"), "1");
@@ -82,7 +94,7 @@ public:
         "1", "0", "3", "-1", "0", "2", "1", "4", "1", "-89", "1", "-555",
     };
     std::vector<std::string> expectedValues{
-        "2",  "0", "6",   "0",  "2",           "0",
+        "2",  "0", "6",   "0",  "2",           "2",
         "-9", "1", "100", "-1", "10000000000", "-550",
     };
 

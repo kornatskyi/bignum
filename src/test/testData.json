@@ -1,0 +1,51 @@
+{
+  "stringValidation": [
+    { "input": "0", "expected": true },
+    { "input": "1", "expected": true },
+    { "input": "11111", "expected": true },
+    { "input": "321", "expected": true },
+    { "input": "99939129", "expected": true },
+    { "input": "-1", "expected": true },
+    { "input": "+1010", "expected": true },
+    { "input": "+0", "expected": true },
+    { "input": "-0", "expected": true },
+    { "input": "9999999999", "expected": true },
+    { "input": "-9999999999", "expected": true },
+    { "input": "-", "expected": false },
+    { "input": "--", "expected": false },
+    { "input": "--1", "expected": false },
+    { "input": "--10", "expected": false },
+    { "input": "--0", "expected": false },
+    { "input": "++", "expected": false },
+    { "input": "+", "expected": false },
+    { "input": "+++1", "expected": false },
+    { "input": "++3", "expected": false },
+    {
+      "input": "++++++++++++++++++++++++++++++++++++++++++++++++",
+      "expected": false
+    },
+    {
+      "input": "------------------------------------------",
+      "expected": false
+    },
+    { "input": "slfdh", "expected": false },
+    { "input": "a", "expected": false },
+    { "input": "", "expected": false },
+    { "input": "1r", "expected": false },
+    { "input": "3f", "expected": false },
+    { "input": "f3", "expected": false },
+    { "input": "-1f", "expected": false },
+    { "input": "-f", "expected": false },
+    { "input": "-f3", "expected": false },
+    { "input": "-a", "expected": false },
+    { "input": "-o", "expected": false },
+    { "input": "-O", "expected": false },
+    { "input": "-l", "expected": false },
+    { "input": "-23r", "expected": false },
+    { "input": "9999999999a", "expected": false },
+    { "input": "-9999999999a", "expected": false },
+    { "input": "+9999999999a", "expected": false },
+    { "input": "a9999999999a", "expected": false },
+    { "input": "--123", "expected": false }
+  ]
+}
