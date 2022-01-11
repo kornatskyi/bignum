@@ -7,7 +7,7 @@
 BigInt::BigInt() {
   // Initialize _digits to the null values
   for (int i = 0; i < LENGTH; i++) {
-    _digits[i] = '\0';
+    _digits[i] = '0';
   }
 }
 
@@ -126,8 +126,26 @@ BigInt BigInt::substruct(BigInt rhnumber) {
 }
 
 BigInt BigInt::multiply(BigInt rhnumber) {
-  BigInt product;
-  return product;
+
+  BigInt result;
+  int leftOver = 0;
+  for (int i = 0; i < getLength(); i++) {
+    BigInt temp;
+    for (int j = 0; j < getLength(); j++) {
+      int mult = (getDigit(j) * rhnumber.getDigit(i)) + leftOver;
+      leftOver = mult / 10;
+      if ((i + j) < 9) {
+        temp.setDigit(i + j, mult % 10);
+      }
+    }
+
+    result = result.add(temp);
+  }
+  if ((this->getSignMult() * rhnumber.getSignMult()) == -1) {
+    result.setSign('-');
+  }
+
+  return result;
 }
 BigInt BigInt::divide(BigInt rhnumber) {
   BigInt quotient;
@@ -159,7 +177,6 @@ bool BigInt::isMoreThen(BigInt rhnumber) {
 
   return false;
 }
-
 bool BigInt::isEqualTo(BigInt rhnumber) {
   for (int i = getLength() - 1; i >= 0; i--) {
     int x = this->getSignMult() * this->getDigit(i);
@@ -215,6 +232,7 @@ bool BigInt::isValidString(std::string str) {
 std::string BigInt::toString() {
   bool isPadding = true;
   std::string str;
+
   for (int i = LENGTH - 1; i >= 0; i--) {
     if (!this->getCharAt(i) || (this->getCharAt(i) == '0' && isPadding)) {
       continue;
@@ -226,6 +244,9 @@ std::string BigInt::toString() {
 
     str = str + this->getCharAt(i);
     // std::cout << c;
+  }
+  if (str == "") {
+    return "0";
   }
   // Printing a minus sign
   if (_sign == '-') {
@@ -278,7 +299,7 @@ void BigInt::setDigit(int index, int value) {
 }
 
 void BigInt::setSign(char sign) {
-  if (!(sign != '-' || sign != '+')) {
+  if (sign != '-' && sign != '+') {
     throw "Wrong sign character in setSign() method";
   }
 

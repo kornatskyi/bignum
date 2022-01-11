@@ -11,23 +11,24 @@ int main(int, char **) {
   // std::ifstream i("../src/text.txt");
   // std::cout << i.rdbuf() << std::endl;
 
-  // TestBigInt::stringValidationTest();
-  // TestBigInt::additionTest();
-  // TestBigInt::isLessThenTest();
-  TestBigInt::isEqualToTest();
+  try {
 
-  // try {
+    // BigInt bigInt1("0");
+    // BigInt bigInt2("-1");
+    // bigInt1.print();
+    // bigInt2.print();
+    // BigInt sum = bigInt1.multiply(bigInt2);
+    // sum.print();
 
-  //   BigInt bigInt1("13");
-  //   BigInt bigInt2("93");
-  //   bigInt1.print();
-  //   bigInt2.print();
-  //   BigInt sum = bigInt1.substruct(bigInt2);
-  //   sum.print();
+    // TestBigInt::stringValidationTest();
+    // TestBigInt::additionTest();
+    // TestBigInt::isLessThenTest();
+    // TestBigInt::isEqualToTest();
+    // TestBigInt::multiplyTest();
 
-  // } catch (char const *e) {
-  //   std::cout << e << std::endl;
-  // }
+  } catch (char const *e) {
+    std::cout << e << std::endl;
+  }
 
   return 0;
 }

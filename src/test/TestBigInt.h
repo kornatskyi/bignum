@@ -100,6 +100,27 @@ public:
     }
   }
 
+  static void multiplyTest() {
+
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json multiplyTestCases = j["multiplyTestCases"];
+
+    while (!multiplyTestCases[i].is_null()) {
+      BigInt bi1((std::string)multiplyTestCases[i]["values"][0]);
+      BigInt bi2((std::string)multiplyTestCases[i]["values"][1]);
+      assertionEquals(
+          bi1.multiply(bi2).toString(), multiplyTestCases[i]["expected"],
+          std::vector<std::string>{multiplyTestCases[i]["values"][0],
+                                   multiplyTestCases[i]["values"][1]});
+      i++;
+    }
+  }
+
   static void assertion(bool val1, bool val2) {
     if (val1 == val2) {
       std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;

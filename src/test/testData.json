@@ -1,4 +1,53 @@
 {
+  "multiplyTestCases": [
+    {
+      "values": ["11111", "-22222"],
+      "expected": "-246908642"
+    },
+    {
+      "values": ["11111", "22222"],
+      "expected": "246908642"
+    },
+    {
+      "values": ["2", "2"],
+      "expected": "4"
+    },
+
+    {
+      "values": ["1", "2"],
+      "expected": "2"
+    },
+
+    {
+      "values": ["1", "0"],
+      "expected": "0"
+    },
+
+    {
+      "values": ["1", "1"],
+      "expected": "1"
+    },
+    {
+      "values": ["5695", "4452"],
+      "expected": "25354140"
+    },
+    {
+      "values": ["-1", "1"],
+      "expected": "-1"
+    },
+    {
+      "values": ["-1", "-1"],
+      "expected": "1"
+    },
+    {
+      "values": ["0", "-1"],
+      "expected": "0"
+    },
+    {
+      "values": ["123", "-1"],
+      "expected": "-123"
+    }
+  ],
   "isEqualsToTestCases": [
     {
       "values": ["2", "2"],
