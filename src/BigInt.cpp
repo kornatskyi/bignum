@@ -56,64 +56,7 @@ BigInt::BigInt(std::string digits) : BigInt() {
   }
 }
 
-/* Private Utils */
-char BigInt::getCharAt(int index) { return _digits[index]; }
-
-int BigInt::getDigit(int index) {
-
-  if (this->_digits[index] == '\0') {
-    return 0;
-  }
-
-  return this->_digits[index] - '0';
-}
-void BigInt::setDigit(int index, char value) { this->_digits[index] = value; }
-
-void BigInt::setDigit(int index, int value) {
-
-  if (value > 9 || value < 0) {
-    throw "[setDigit()]: Value must be > 0 and < 9";
-  }
-
-  this->_digits[index] = value + '0';
-}
-void BigInt::setSign(char sign) {
-  if (!(sign != '-' || sign != '+')) {
-    throw "Wrong sign character in setSign() method";
-  }
-
-  _sign = sign;
-}
-int BigInt::parseInt(char c) { return c - '0'; }
-int BigInt::getSignMult() { return (_sign == '+' ? 1 : -1); }
-
 /* Operations (operators in future) */
-
-std::string BigInt::toString() {
-  bool isPadding = true;
-  std::string str;
-  for (int i = LENGTH - 1; i >= 0; i--) {
-    if (!this->getCharAt(i) || (this->getCharAt(i) == '0' && isPadding)) {
-      continue;
-    }
-
-    if (this->getCharAt(i)) {
-      isPadding = false;
-    }
-
-    str = str + this->getCharAt(i);
-    // std::cout << c;
-  }
-  // Printing a minus sign
-  if (_sign == '-') {
-    str = '-' + str;
-  }
-  // If all values are 0 or \0 and firs digit is 0 return "0"
-  if (str.length() == 0 && this->getCharAt(0) == '0') {
-    return "0";
-  }
-  return str;
-}
 
 void BigInt::print() { std::cout << toString() << std::endl; }
 
@@ -191,6 +134,23 @@ BigInt BigInt::divide(BigInt rhnumber) {
   return quotient;
 }
 
+/* Comparison operators */
+
+bool BigInt::isLessThen(BigInt rhnumber) {
+
+  for (int i = getLength() - 1; i >= 0; i--) {
+    int x = this->getSignMult() * this->getDigit(i);
+    int y = rhnumber.getSignMult() * rhnumber.getDigit(i);
+    if (x < y) {
+      return true;
+    }
+  }
+
+  return false;
+}
+bool BigInt::isMoreThen(BigInt rhnumber) { return false; }
+bool BigInt::isEqualTo(BigInt rhnumber) { return false; }
+
 /* Validation */
 
 bool BigInt::isValidString(std::string str) {
@@ -229,6 +189,84 @@ bool BigInt::isValidString(std::string str) {
 
   return isValid;
 }
+
+/* Public utils methods*/
+
+std::string BigInt::toString() {
+  bool isPadding = true;
+  std::string str;
+  for (int i = LENGTH - 1; i >= 0; i--) {
+    if (!this->getCharAt(i) || (this->getCharAt(i) == '0' && isPadding)) {
+      continue;
+    }
+
+    if (this->getCharAt(i)) {
+      isPadding = false;
+    }
+
+    str = str + this->getCharAt(i);
+    // std::cout << c;
+  }
+  // Printing a minus sign
+  if (_sign == '-') {
+    str = '-' + str;
+  }
+  // If all values are 0 or \0 and firs digit is 0 return "0"
+  if (str.length() == 0 && this->getCharAt(0) == '0') {
+    return "0";
+  }
+  return str;
+}
+
+/* Private Utils */
+char BigInt::getCharAt(int index) { return _digits[index]; }
+
+int BigInt::getDigit(int index) {
+
+  if (this->_digits[index] == '\0') {
+    return 0;
+  }
+
+  return this->_digits[index] - '0';
+}
+
+// Getting digit from the bigest grade to the lowest.
+// Example: num=452, num.getHighestDigit(0) => 4
+int BigInt::getHighestDigit(int index) {
+  bool isStarted = false;
+  for (int i = getLength() - 1; i >= 0; i--) {
+    if (!(this->_digits[i] == '0' || this->_digits[i] == '\0')) {
+      isStarted = true;
+    }
+    if (isStarted) {
+      return this->_digits[i + index] - '0';
+    }
+  }
+
+  return 0;
+}
+int BigInt::getLength() { return LENGTH; }
+void BigInt::setDigit(int index, char value) { this->_digits[index] = value; }
+
+void BigInt::setDigit(int index, int value) {
+
+  if (value > 9 || value < 0) {
+    throw "[setDigit()]: Value must be > 0 and < 9";
+  }
+
+  this->_digits[index] = value + '0';
+}
+
+void BigInt::setSign(char sign) {
+  if (!(sign != '-' || sign != '+')) {
+    throw "Wrong sign character in setSign() method";
+  }
+
+  _sign = sign;
+}
+int BigInt::parseInt(char c) { return c - '0'; }
+
+int BigInt::getSignMult() { return (_sign == '+' ? 1 : -1); }
 
 /*
 

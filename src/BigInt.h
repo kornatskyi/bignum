@@ -26,6 +26,11 @@ public:
   BigInt multiply(BigInt rhnumber);
   BigInt divide(BigInt rhnumber);
 
+  /* Comparison operators */
+  bool isLessThen(BigInt rhnumber);
+  bool isMoreThen(BigInt rhnumber);
+  bool isEqualTo(BigInt rhnumber);
+
   /* Validation */
 
   bool isValidString(std::string str);
@@ -47,5 +52,7 @@ public:
 
   void setSign(char sign);
   int getDigit(int index);
+  int getHighestDigit(int index);
+  int getLength();
   int getSignMult();
 };

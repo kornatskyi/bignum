@@ -13,19 +13,20 @@ int main(int, char **) {
 
   // TestBigInt::stringValidationTest();
   // TestBigInt::additionTest();
+  TestBigInt::isLessThenTest();
 
-  try {
+  // try {
 
-    BigInt bigInt1("13");
-    BigInt bigInt2("93");
-    bigInt1.print();
-    bigInt2.print();
-    BigInt sum = bigInt1.substruct(bigInt2);
-    sum.print();
+  //   BigInt bigInt1("13");
+  //   BigInt bigInt2("93");
+  //   bigInt1.print();
+  //   bigInt2.print();
+  //   BigInt sum = bigInt1.substruct(bigInt2);
+  //   sum.print();
 
-  } catch (char const *e) {
-    std::cout << e << std::endl;
-  }
+  // } catch (char const *e) {
+  //   std::cout << e << std::endl;
+  // }
 
   return 0;
 }

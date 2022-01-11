@@ -1,4 +1,52 @@
 {
+  "isLessThenTestCases": [
+    {
+      "values": ["-2", "-1"],
+      "expected": true
+    },
+    {
+      "values": ["0", "1"],
+      "expected": true
+    },
+    {
+      "values": ["1111111111", "9999999999"],
+      "expected": true
+    },
+
+    {
+      "values": ["-1", "1"],
+      "expected": true
+    },
+    {
+      "values": ["-2", "1111111111"],
+      "expected": true
+    },
+    {
+      "values": ["0", "1"],
+      "expected": true
+    },
+    {
+      "values": ["1", "1"],
+      "expected": false
+    },
+
+    {
+      "values": ["5", "-5"],
+      "expected": false
+    },
+    {
+      "values": ["0", "0"],
+      "expected": false
+    },
+    {
+      "values": ["0", "-9999999999"],
+      "expected": false
+    },
+    {
+      "values": ["88", "87"],
+      "expected": false
+    }
+  ],
   "stringValidation": [
     { "value": "0", "expected": true },
     { "value": "1", "expected": true },

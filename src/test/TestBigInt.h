@@ -60,6 +60,26 @@ public:
     }
   }
 
+  static void isLessThenTest() {
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json isLessThenTestCases = j["isLessThenTestCases"];
+
+    while (!isLessThenTestCases[i].is_null()) {
+      BigInt bi1((std::string)isLessThenTestCases[i]["values"][0]);
+      BigInt bi2((std::string)isLessThenTestCases[i]["values"][1]);
+      assertionEquals(
+          bi1.isLessThen(bi2), isLessThenTestCases[i]["expected"],
+          std::vector<std::string>{isLessThenTestCases[i]["values"][0],
+                                   isLessThenTestCases[i]["values"][1]});
+      i++;
+    }
+  }
+
   static void assertion(bool val1, bool val2) {
     if (val1 == val2) {
       std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
@@ -88,6 +108,25 @@ public:
     }
 
     if (exact.compare(expected) == 0) {
+      std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+    } else {
+      std::cout << BOLDRED << "[FAILED] Expected: " << expected
+                << " Get: " << exact << std::endl
+                << " - [values]: " << valsstr << RESET << std::endl
+                << std::endl;
+    }
+  }
+
+  static void assertionEquals(bool exact, bool expected,
+                              std::vector<std::string> values) {
+    std::string valsstr = "";
+    int i = 1;
+    for (auto val : values) {
+      valsstr = valsstr + "value" + std::to_string(i) + ": " + val + " ";
+      i++;
+    }
+
+    if (exact == expected) {
       std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
     } else {
       std::cout << BOLDRED << "[FAILED] Expected: " << expected
