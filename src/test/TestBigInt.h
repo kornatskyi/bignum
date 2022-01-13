@@ -53,9 +53,30 @@ public:
       BigInt bi1((std::string)additionTestCases[i]["values"][0]);
       BigInt bi2((std::string)additionTestCases[i]["values"][1]);
       assertionEquals(
-          bi1.add(bi2).toString(), additionTestCases[i]["expected"],
+          additionTestCases[i]["expected"], bi1.add(bi2).toString(),
           std::vector<std::string>{additionTestCases[i]["values"][0],
                                    additionTestCases[i]["values"][1]});
+      i++;
+    }
+  }
+
+  static void substructTest() {
+
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json substructTestTestCases = j["substructTestTestCases"];
+
+    while (!substructTestTestCases[i].is_null()) {
+      BigInt bi1((std::string)substructTestTestCases[i]["values"][0]);
+      BigInt bi2((std::string)substructTestTestCases[i]["values"][1]);
+      assertionEquals(
+          substructTestTestCases[i]["expected"], bi1.add(bi2).toString(),
+          std::vector<std::string>{substructTestTestCases[i]["values"][0],
+                                   substructTestTestCases[i]["values"][1]});
       i++;
     }
   }
@@ -73,7 +94,7 @@ public:
       BigInt bi1((std::string)isLessThenTestCases[i]["values"][0]);
       BigInt bi2((std::string)isLessThenTestCases[i]["values"][1]);
       assertionEquals(
-          bi1.isLessThen(bi2), isLessThenTestCases[i]["expected"],
+          isLessThenTestCases[i]["expected"], bi1.isLessThen(bi2),
           std::vector<std::string>{isLessThenTestCases[i]["values"][0],
                                    isLessThenTestCases[i]["values"][1]});
       i++;
@@ -93,10 +114,37 @@ public:
       BigInt bi1((std::string)isEqualsToTestCases[i]["values"][0]);
       BigInt bi2((std::string)isEqualsToTestCases[i]["values"][1]);
       assertionEquals(
-          bi1.isEqualTo(bi2), isEqualsToTestCases[i]["expected"],
+          isEqualsToTestCases[i]["expected"], bi1.isEqualTo(bi2),
           std::vector<std::string>{isEqualsToTestCases[i]["values"][0],
                                    isEqualsToTestCases[i]["values"][1]});
       i++;
+    }
+  }
+
+  static void isLessThenBrootTest() {
+
+    for (int i = -100; i < 100; i++) {
+      for (int j = -100; j < 100; j++) {
+        BigInt n1(i);
+        BigInt n2(j);
+
+        assertionEquals(
+            (i < j), n1.isLessThen(n2),
+            std::vector<std::string>{std::to_string(i), std::to_string(j)});
+      }
+    }
+  }
+
+  static void isMoreThenBrootTest() {
+
+    for (int i = -100; i < 100; i++) {
+      for (int j = -100; j < 100; j++) {
+        BigInt n1(i);
+        BigInt n2(j);
+        assertionEquals(
+            (i > j), n1.isMoreThen(n2),
+            std::vector<std::string>{std::to_string(i), std::to_string(j)});
+      }
     }
   }
 
@@ -117,6 +165,26 @@ public:
           bi1.multiply(bi2).toString(), multiplyTestCases[i]["expected"],
           std::vector<std::string>{multiplyTestCases[i]["values"][0],
                                    multiplyTestCases[i]["values"][1]});
+      i++;
+    }
+  }
+
+  static void devideTest() {
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json devideTestCases = j["devideTestCases"];
+
+    while (!devideTestCases[i].is_null()) {
+      BigInt bi1((std::string)devideTestCases[i]["values"][0]);
+      BigInt bi2((std::string)devideTestCases[i]["values"][1]);
+      assertionEquals(
+          bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
+          std::vector<std::string>{devideTestCases[i]["values"][0],
+                                   devideTestCases[i]["values"][1]});
       i++;
     }
   }
@@ -158,7 +226,7 @@ public:
     }
   }
 
-  static void assertionEquals(bool exact, bool expected,
+  static void assertionEquals(bool expected, bool exact,
                               std::vector<std::string> values) {
     std::string valsstr = "";
     int i = 1;
@@ -168,7 +236,7 @@ public:
     }
 
     if (exact == expected) {
-      std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+      // std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
     } else {
       std::cout << BOLDRED << "[FAILED] Expected: " << expected
                 << " Get: " << exact << std::endl

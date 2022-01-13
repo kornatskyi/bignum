@@ -1,4 +1,60 @@
 {
+  "substructTestTestCases": [
+    {
+      "values": ["10", "2"],
+      "expected": "8"
+    }
+  ],
+  "devideTestCases": [
+    {
+      "values": ["123", "1"],
+      "expected": "123"
+    },
+    {
+      "values": ["5", "5"],
+      "expected": "1"
+    },
+    {
+      "values": ["15", "5"],
+      "expected": "3"
+    },
+    {
+      "values": ["13", "13"],
+      "expected": "1"
+    },
+    {
+      "values": ["-1", "1"],
+      "expected": "-1"
+    },
+    {
+      "values": ["-1", "-1"],
+      "expected": "1"
+    },
+    {
+      "values": ["-99", "-11"],
+      "expected": "9"
+    },
+    {
+      "values": ["0", "5"],
+      "expected": "0"
+    },
+    {
+      "values": ["0", "-3"],
+      "expected": "0"
+    },
+    {
+      "values": ["12", "6"],
+      "expected": "2"
+    },
+    {
+      "values": ["43974", "63"],
+      "expected": "698"
+    },
+    {
+      "values": ["892737886", "15874"],
+      "expected": "56239"
+    }
+  ],
   "multiplyTestCases": [
     {
       "values": ["11111", "-22222"],
@@ -170,6 +226,10 @@
     { "value": "--123", "expected": false }
   ],
   "additionTestCases": [
+    {
+      "values": ["10", "-2"],
+      "expected": "8"
+    },
     {
       "values": ["1111111111", "9999999999"],
       "expected": "1111111110"

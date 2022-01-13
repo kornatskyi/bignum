@@ -53,6 +53,10 @@ public:
   void setSign(char sign);
   int getDigit(int index);
   int getHighestDigit(int index);
+  std::string getNDigitsFromHighest(int n);
+  std::string getNDigitsFromLowest(int n);
   int getLength();
   int getSignMult();
+  int getNumberOfDigits();
+  bool isDigit(char c);
 };
