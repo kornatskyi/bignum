@@ -184,6 +184,7 @@
   ],
   "stringValidation": [
     { "value": "0", "expected": true },
+    { "value": "5", "expected": true },
     { "value": "1", "expected": true },
     { "value": "11111", "expected": true },
     { "value": "321", "expected": true },

@@ -46,7 +46,7 @@ public:
     }
   }
 
-  bool assertionEquals(std::string exact, std::string expected,
+  bool assertionEquals(std::string expected, std::string exact,
                        std::vector<std::string> values) {
     std::string valsstr = "";
     int i = 1;

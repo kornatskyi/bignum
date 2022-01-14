@@ -38,7 +38,9 @@ BigInt::BigInt(int initial) : BigInt() {
 }
 BigInt::BigInt(std::string digits) : BigInt() {
   if (!isValidString(digits)) {
-    throw "Error: Invalid string of digits";
+    std::cout << "Cannot create number of this string: " + digits << std::endl;
+    BigInt();
+    return;
   }
 
   // Sign correction. If sign exists start do iteration to the sign index

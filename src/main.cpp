@@ -27,11 +27,11 @@ int main(int, char **) {
     // auto f = ;
 
     tests.stringValidationTest();
-    tests.additionTest();
-    tests.substructTest();
-    tests.isLessThenTest();
-    tests.isEqualToTest();
-    tests.multiplyTest();
+    // tests.additionTest();
+    // tests.substructTest();
+    // tests.isLessThenTest();
+    // tests.isEqualToTest();
+    // tests.multiplyTest();
     // tests.devideTest();
 
     // tests.isMoreThenBrootTest();
@@ -45,20 +45,15 @@ int main(int, char **) {
     // BigInt sum = bigInt1.add(bigInt2);
     // sum.print();
 
+    int n1 = 5;
+    int n2 = 5;
+
+    BigInt bn1(n1);
+    BigInt bn2(n2);
+    BigInt res = bn1.divide(bn2);
   } catch (char const *e) {
     std::cout << e << std::endl;
   }
-  int n1 = 98;
-  int n2 = 89;
 
-  BigInt bn1(n1);
-  BigInt bn2(n2);
-
-  std::vector<std::string> vals = {std::to_string(n1), std::to_string(n2)};
-
-  // TestBigInt::assertionEquals(n1 < n2, bn1.isLessThen(bn2), vals);
-
-  std::for_each(vals.begin(), vals.end(),
-                [](std::string s) { std::cout << s << std::endl; });
   return 0;
 }

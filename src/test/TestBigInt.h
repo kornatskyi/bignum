@@ -26,6 +26,14 @@ using json = nlohmann::json;
 class TestBigInt : public Testing {
 public:
   void stringValidationTest() {
+
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[stringValidationTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
+
     BigInt bigInt;
     std::ifstream stream("../src/test/testData.json");
     json j;
@@ -36,11 +44,25 @@ public:
 
     while (!stringValidation[i].is_null()) {
 
-      assertion(stringValidation[i]["expected"],
-                bigInt.isValidString(stringValidation[i]["value"]),
-                stringValidation[i]["value"]);
+      if (!assertionEquals(
+              stringValidation[i]["expected"],
+              bigInt.isValidString(stringValidation[i]["value"]),
+              std::vector<std::string>{stringValidation[i]["value"]})) {
+        isFailed = true;
+      }
 
       i++;
+    }
+
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[stringValidationTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[stringValidationTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     }
   }
 
@@ -76,6 +98,24 @@ public:
 
       i++;
     }
+
+    // Broot force test cases
+
+    int valuesFrom = -100;
+    int valuesTo = 150;
+
+    for (int i = valuesFrom; i < valuesTo; i++) {
+      for (int j = valuesFrom; j < valuesTo; j++) {
+        BigInt bi1(i);
+        BigInt bi2(j);
+        if (!assertionEquals(std::to_string((i + j)), bi1.add(bi2).toString(),
+                             std::vector<std::string>{std::to_string(i),
+                                                      std::to_string(j)})) {
+          isFailed = true;
+        }
+      }
+    }
+
     // Test finish message
     if (isFailed) {
       testString = (std::string)BOLDRED + "[additionTest FAILED]!" +
@@ -121,6 +161,24 @@ public:
       }
       i++;
     }
+
+    // Broot force test cases
+    int valuesFrom = -100;
+    int valuesTo = 150;
+
+    for (int i = valuesFrom; i < valuesTo; i++) {
+      for (int j = valuesFrom; j < valuesTo; j++) {
+        BigInt bi1(i);
+        BigInt bi2(j);
+        if (!assertionEquals(std::to_string((i - j)),
+                             bi1.substruct(bi2).toString(),
+                             std::vector<std::string>{std::to_string(i),
+                                                      std::to_string(j)})) {
+          isFailed = true;
+        }
+      }
+    }
+
     // Test finish message
     if (isFailed) {
       testString = (std::string)BOLDRED + "[substructTest FAILED]!" +
@@ -165,6 +223,23 @@ public:
       i++;
     }
 
+    // Broot force test cases
+    int valuesFrom = -100;
+    int valuesTo = 150;
+
+    for (int i = valuesFrom; i < valuesTo; i++) {
+      for (int j = valuesFrom; j < valuesTo; j++) {
+        BigInt bi1(i);
+        BigInt bi2(j);
+        if (!assertionEquals(std::to_string((i * j)),
+                             bi1.multiply(bi2).toString(),
+                             std::vector<std::string>{std::to_string(i),
+                                                      std::to_string(j)})) {
+          isFailed = true;
+        }
+      }
+    }
+
     // Test finish message
     if (isFailed) {
       testString = (std::string)BOLDRED + "[multiplyTest FAILED]!" +
@@ -185,38 +260,75 @@ public:
 
     // Test start message
     std::string testString = (std::string)BOLDYELLOW +
-                             "[multiplyTest starts here]:" + (std::string)RESET;
+                             "[devideTest starts here]:" + (std::string)RESET;
     _logs.push_back(testString);
 
     bool isFailed = false;
+    std::string val1;
+    std::string val2;
 
-    BigInt bigInt;
-    std::ifstream stream("../src/test/testData.json");
-    json j;
-    stream >> j;
+    try {
 
-    int i = 0;
-    json devideTestCases = j["devideTestCases"];
+      BigInt bigInt;
+      std::ifstream stream("../src/test/testData.json");
+      json j;
+      stream >> j;
 
-    while (!devideTestCases[i].is_null()) {
-      BigInt bi1((std::string)devideTestCases[i]["values"][0]);
-      BigInt bi2((std::string)devideTestCases[i]["values"][1]);
-      if (!assertionEquals(
-              bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
-              std::vector<std::string>{devideTestCases[i]["values"][0],
-                                       devideTestCases[i]["values"][1]})) {
-        isFailed = true;
+      int i = 0;
+      json devideTestCases = j["devideTestCases"];
+
+      while (!devideTestCases[i].is_null()) {
+        val1 = (std::string)devideTestCases[i]["values"][0];
+        val2 = (std::string)devideTestCases[i]["values"][1];
+        BigInt bi1((std::string)devideTestCases[i]["values"][0]);
+        BigInt bi2((std::string)devideTestCases[i]["values"][1]);
+        if (!assertionEquals(
+                bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
+                std::vector<std::string>{devideTestCases[i]["values"][0],
+                                         devideTestCases[i]["values"][1]})) {
+          isFailed = true;
+        }
+        i++;
       }
-      i++;
+    } catch (const char *e) {
+      std::string exception = "Caught exceptions in devideTest. " +
+                              (std::string)RED + e + RESET +
+                              "Values: val1: " + val1 + " val2: " + val2;
+      _logs.push_back(exception);
+      isFailed = true;
+    }
+
+    // Broot force test cases
+    int valuesFrom = -100;
+    int valuesTo = 150;
+
+    try {
+      for (int i = valuesFrom; i < valuesTo; i++) {
+        for (int j = valuesFrom; j < valuesTo; j++) {
+          BigInt bi1(i);
+          BigInt bi2(j);
+          if (!assertionEquals(std::to_string((i / j)),
+                               bi1.divide(bi2).toString(),
+                               std::vector<std::string>{std::to_string(i),
+                                                        std::to_string(j)})) {
+            isFailed = true;
+          }
+        }
+      }
+    } catch (const char *e) {
+      std::string exception =
+          "Caught exceptions in devideTest. " + (std::string)RED + e + RESET;
+      _logs.push_back(exception);
+      isFailed = true;
     }
 
     // Test finish message
     if (isFailed) {
-      testString = (std::string)BOLDRED + "[multiplyTest FAILED]!" +
+      testString = (std::string)BOLDRED + "[devideTest FAILED]!" +
                    (std::string)RESET + "\n";
       _logs.push_back(testString);
     } else {
-      testString = (std::string)BOLDGREEN + "[multiplyTest PASSED]!" +
+      testString = (std::string)BOLDGREEN + "[devideTest PASSED]!" +
                    (std::string)RESET + "\n";
       _logs.push_back(testString);
     }
