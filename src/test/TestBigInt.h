@@ -152,8 +152,9 @@ public:
     while (!substructTestTestCases[i].is_null()) {
       BigInt bi1((std::string)substructTestTestCases[i]["values"][0]);
       BigInt bi2((std::string)substructTestTestCases[i]["values"][1]);
+
       if (!assertionEquals(substructTestTestCases[i]["expected"],
-                           bi1.add(bi2).toString(),
+                           bi1.substruct(bi2).toString(),
                            std::vector<std::string>{
                                substructTestTestCases[i]["values"][0],
                                substructTestTestCases[i]["values"][1]})) {
@@ -170,6 +171,7 @@ public:
       for (int j = valuesFrom; j < valuesTo; j++) {
         BigInt bi1(i);
         BigInt bi2(j);
+
         if (!assertionEquals(std::to_string((i - j)),
                              bi1.substruct(bi2).toString(),
                              std::vector<std::string>{std::to_string(i),
@@ -267,35 +269,26 @@ public:
     std::string val1;
     std::string val2;
 
-    try {
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+    std::cout << "Size: " << j.size() << std::endl;
+    int i = 0;
+    json devideTestCases = j["devideTestCases"];
 
-      BigInt bigInt;
-      std::ifstream stream("../src/test/testData.json");
-      json j;
-      stream >> j;
-
-      int i = 0;
-      json devideTestCases = j["devideTestCases"];
-
-      while (!devideTestCases[i].is_null()) {
-        val1 = (std::string)devideTestCases[i]["values"][0];
-        val2 = (std::string)devideTestCases[i]["values"][1];
-        BigInt bi1((std::string)devideTestCases[i]["values"][0]);
-        BigInt bi2((std::string)devideTestCases[i]["values"][1]);
-        if (!assertionEquals(
-                bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
-                std::vector<std::string>{devideTestCases[i]["values"][0],
-                                         devideTestCases[i]["values"][1]})) {
-          isFailed = true;
-        }
-        i++;
+    while (!devideTestCases[i].is_null()) {
+      val1 = (std::string)devideTestCases[i]["values"][0];
+      val2 = (std::string)devideTestCases[i]["values"][1];
+      BigInt bi1((std::string)devideTestCases[i]["values"][0]);
+      BigInt bi2((std::string)devideTestCases[i]["values"][1]);
+      if (!assertionEquals(
+              bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
+              std::vector<std::string>{devideTestCases[i]["values"][0],
+                                       devideTestCases[i]["values"][1]})) {
+        isFailed = true;
       }
-    } catch (const char *e) {
-      std::string exception = "Caught exceptions in devideTest. " +
-                              (std::string)RED + e + RESET +
-                              "Values: val1: " + val1 + " val2: " + val2;
-      _logs.push_back(exception);
-      isFailed = true;
+      i++;
     }
 
     // Broot force test cases

@@ -1,4 +1,5 @@
 #include "BigInt.h"
+#include <algorithm>
 #include <cmath>
 #include <string>
 
@@ -64,130 +65,122 @@ void BigInt::print() { std::cout << toString() << std::endl; }
 
 BigInt BigInt::add(BigInt rhnumber) {
 
-  BigInt ln = *this;
-  BigInt rn = rhnumber;
-
-  int ls = ln.getSignMult();
-  int rs = rn.getSignMult();
-
-  int temp;
-  int leftOver = 0;
-
-  ln.setSign('+');
-  rn.setSign('+');
-
-  int sign = 0;
-
+  BigInt n1 = *this;
+  BigInt n2 = rhnumber;
   BigInt result;
 
-  if (ls == rs) {
+  // Initialising sings multipliers to -1 if '-' or 1 if '+'
+  int n1sm = n1.getSignMult();
+  int n2sm = n2.getSignMult();
 
-    for (int i = 0; i < getLength(); i++) {
-      temp = ln.getDigit(i) + rn.getDigit(i) + leftOver;
-
-      if (temp > 9) {
-        leftOver = 1;
-      } else {
-        leftOver = 0;
-      }
-      result.setDigit(i, temp % 10);
-    }
-    result.setSign(ls == (-1) ? '-' : '+');
-  } else if (ls == -1) {
-
-    if (ln.isLessThen(rn)) {
-      for (int i = 0; i < ln.getNumberOfDigits(); i++) {
-        ln.setDigit(i, (10 - ln.getDigit(i)) % 10);
-      }
-    } else {
-      for (int i = 0; i < rn.getNumberOfDigits(); i++) {
-        rn.setDigit(i, (10 - rn.getDigit(i)) % 10);
-      }
-    }
-
-    for (int i = 0; i < getLength(); i++) {
-      temp = ln.getDigit(i) + rn.getDigit(i) + leftOver;
-
-      if (temp < 10 && temp > 0) {
-        leftOver = -1;
-      } else {
-        leftOver = 0;
-      }
-      result.setDigit(i, std::abs(temp % 10));
-    }
-    if (leftOver == 0) {
-      result.setSign('-');
-    }
-  } else if (rs == -1) {
-
-    if (ln.isLessThen(rn)) {
-      for (int i = 0; i < ln.getNumberOfDigits(); i++) {
-        ln.setDigit(i, (10 - ln.getDigit(i)) % 10);
-      }
-    } else {
-      for (int i = 0; i < rn.getNumberOfDigits(); i++) {
-        rn.setDigit(i, (10 - rn.getDigit(i)) % 10);
-      }
-    }
-    for (int i = 0; i < getLength(); i++) {
-      temp = ln.getDigit(i) + rn.getDigit(i) + leftOver;
-
-      if (temp < 10 && temp > 0) {
-        leftOver = -1;
-      } else {
-        leftOver = 0;
-      }
-      result.setDigit(i, std::abs(temp % 10));
-    }
-    if (leftOver == 0) {
-      result.setSign('-');
-    }
+  if (n1sm > 0 && n2sm < 0) {
+    BigInt local = n2;
+    local.setSign('+');
+    return n1.substruct(local);
   }
 
-  // // If both numbers are negative will do just regular addition and then set
-  // // sign to '-'
+  if (n1sm < 0 && n2sm > 0) {
+    BigInt local = n1;
+    local.setSign('+');
+    return n2.substruct(local);
+  }
 
-  // for (int i = 0; i < LENGTH; i++) {
-  //   temp = (ls * ln.getDigit(i)) + (rs * rn.getDigit(i)) + leftOver;
-  //   if (ln.getDigit(i))
-  //     std::cout << temp << std::endl;
-  //   // Skip setting sign when temp == 0
-  //   if (temp == 0) {
-  //     result.setDigit(i, 0);
-  //     continue;
-  //   }
-  //   if (temp > 9) {
-  //     result.setDigit(i, temp % 10);
-  //     leftOver = 1;
-  //     sign = 1;
-  //   } else if (temp < (-9)) {
-  //     result.setDigit(i, -(temp % 10));
-  //     leftOver = -1;
-  //     sign = -1;
+  int carry = 0;
 
-  //   } else {
-  //     if (temp < 0) {
-  //       result.setDigit(i, -(temp));
-  //       leftOver = 0;
-  //       sign = -1;
-  //     } else {
-  //       result.setDigit(i, temp);
-  //       leftOver = 0;
-  //       sign = 1;
-  //     }
-  //   }
-  // }
-  // if (sign == (-1)) {
-  //   result.setSign('-');
-  // }
+  int resLength = std::max(n1.getNumberOfDigits(), n2.getNumberOfDigits()) + 1;
+  for (int i = 0; i < resLength; i++) {
+    int res = carry;
+
+    if (i < n1.getNumberOfDigits()) {
+      res = res + n1.getDigit(i);
+    }
+    if (i < n2.getNumberOfDigits()) {
+      res = res + n2.getDigit(i);
+    }
+
+    if (res >= 10) {
+      res = res - 10;
+      carry = 1;
+    } else {
+      carry = 0;
+    }
+    result.setDigit(i, res);
+  }
+  // If both numbers is negative the sum will be negative as well
+  //  -n1 + -n2 = -(n1 + n2)
+  if (n1.getSignMult() < 0 && n2.getSignMult() < 0) {
+    result.setSign('-');
+  }
 
   return result;
 }
 
 BigInt BigInt::substruct(BigInt rhnumber) {
-  // Creating new number with minus sign, and then perform addition operation
-  BigInt minusNumber("-" + rhnumber.toString());
-  return add(minusNumber);
+
+  BigInt n1;
+  BigInt n2;
+  // Switch numbers is left number less then right
+  // to be able to use subtraction algorithm
+  BigInt abs1 = (*this);
+  abs1.setSign('+');
+  BigInt abs2 = rhnumber;
+  abs2.setSign('+');
+  BigInt result;
+  if (abs1.isLessThen(abs2)) {
+    n1 = rhnumber;
+    n2 = *this;
+  } else {
+    n1 = *this;
+    n2 = rhnumber;
+  }
+
+  if ((*this).isLessThen(rhnumber)) {
+    result.setSign('-');
+  } else {
+    result.setSign('+');
+  }
+
+  // Initialising sings multipliers to -1 if '-' or 1 if '+'
+  int n1sm = (*this).getSignMult();
+  int n2sm = rhnumber.getSignMult();
+
+  if (n2sm < 0 && n1sm > 0) {
+    BigInt local = rhnumber;
+    local.setSign('+');
+    return (*this).add(local);
+  }
+  if (n1sm < 0 && n2sm > 0) {
+    BigInt local = rhnumber;
+    local.setSign('-');
+    return (*this).add(local);
+  }
+
+  int carry = 0;
+
+  int resLength = std::max(n1.getNumberOfDigits(), n2.getNumberOfDigits());
+
+  for (int i = 0; i < resLength; i++) {
+    int res = 10 + n1.getDigit(i);
+
+    if (n1.getNumberOfDigits() > i) {
+      res = res - carry - n2.getDigit(i);
+
+      if (res < 10) {
+        // res = res * (-1);
+
+        carry = 1;
+      } else {
+        carry = 0;
+      }
+
+      res = res % 10;
+      // std::cout << res << std::endl;
+
+      result.setDigit(i, res);
+    }
+  }
+
+  return result;
 }
 
 BigInt BigInt::multiply(BigInt rhnumber) {
@@ -213,39 +206,39 @@ BigInt BigInt::multiply(BigInt rhnumber) {
   return result;
 }
 BigInt BigInt::divide(BigInt rhnumber) {
-  // BigInt result;
-  int result[10];
-  int i = 0;
-  BigInt n1 = *this;
-  BigInt n2 = rhnumber;
-  auto recursion = [&n1, &n2, &result](auto &&self, int i) {
-    int counter = 0;
+  // // BigInt result;
+  // int result[10];
+  // int i = 0;
+  // BigInt n1 = *this;
+  // BigInt n2 = rhnumber;
+  // auto recursion = [&n1, &n2, &result](auto &&self, int i) {
+  //   int counter = 0;
 
-    BigInt temp(n1.getNDigitsFromHighest(n2.getNumberOfDigits()));
-    if (temp.isLessThen(n2)) {
-      temp = BigInt(n1.getNDigitsFromHighest(n2.getNumberOfDigits() + 1));
-    }
-    while (n2.isLessThen(temp)) {
-      counter++;
-      n2.print();
-      temp.print();
-      temp = temp.substruct(n2);
-      // temp.print();
-    }
-    // std::cout << i << std::endl;
-    result[i] = counter;
-    // std::cout << counter << std::endl;
-    i++;
-    n1 = BigInt(temp.toString() +
-                n1.getNDigitsFromLowest(n1.getNumberOfDigits() -
-                                        n2.getNumberOfDigits()));
-    if (i > 9)
-      return 0;
+  //   BigInt temp(n1.getNDigitsFromHighest(n2.getNumberOfDigits()));
+  //   if (temp.isLessThen(n2)) {
+  //     temp = BigInt(n1.getNDigitsFromHighest(n2.getNumberOfDigits() + 1));
+  //   }
+  //   while (n2.isLessThen(temp)) {
+  //     counter++;
+  //     n2.print();
+  //     temp.print();
+  //     temp = temp.substruct(n2);
+  //     // temp.print();
+  //   }
+  //   // std::cout << i << std::endl;
+  //   result[i] = counter;
+  //   // std::cout << counter << std::endl;
+  //   i++;
+  //   n1 = BigInt(temp.toString() +
+  //               n1.getNDigitsFromLowest(n1.getNumberOfDigits() -
+  //                                       n2.getNumberOfDigits()));
+  //   if (i > 9)
+  //     return 0;
 
-    // self(self, i);
-    return 0;
-  };
-  recursion(recursion, i);
+  //   // self(self, i);
+  //   return 0;
+  // };
+  // recursion(recursion, i);
 
   BigInt r;
   return r;

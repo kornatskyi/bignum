@@ -27,11 +27,11 @@ int main(int, char **) {
     // auto f = ;
 
     tests.stringValidationTest();
-    // tests.additionTest();
-    // tests.substructTest();
-    // tests.isLessThenTest();
-    // tests.isEqualToTest();
-    // tests.multiplyTest();
+    tests.additionTest();
+    tests.substructTest();
+    tests.isLessThenTest();
+    tests.isEqualToTest();
+    tests.multiplyTest();
     // tests.devideTest();
 
     // tests.isMoreThenBrootTest();
@@ -45,12 +45,13 @@ int main(int, char **) {
     // BigInt sum = bigInt1.add(bigInt2);
     // sum.print();
 
-    int n1 = 5;
-    int n2 = 5;
+    int n1 = -1;
+    int n2 = 149;
 
     BigInt bn1(n1);
     BigInt bn2(n2);
-    BigInt res = bn1.divide(bn2);
+    BigInt res = bn1.add(bn2);
+    res.print();
   } catch (char const *e) {
     std::cout << e << std::endl;
   }
