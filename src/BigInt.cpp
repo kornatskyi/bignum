@@ -1,7 +1,6 @@
 #include "BigInt.h"
 #include <cmath>
 #include <string>
-#include <valarray>
 
 /* Constructors */
 

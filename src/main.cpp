@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bitset>
 #include <iostream>
 #include <math.h>
@@ -7,6 +8,8 @@
 
 #include "BigInt.h"
 #include "test/TestBigInt.h"
+
+void someFunc() { std::cout << "Hello func" << std::endl; }
 
 int main(int, char **) {
   // std::ifstream i("../src/text.txt");
@@ -20,17 +23,22 @@ int main(int, char **) {
     // bigInt2.print();
     // BigInt sum = bigInt1.divide(bigInt2);
     // sum.print();
+    TestBigInt tests;
+    // auto f = ;
 
-    // TestBigInt::stringValidationTest();
-    // TestBigInt::additionTest();
-    // TestBigInt::substructTest();
-    // TestBigInt::isLessThenTest();
-    // TestBigInt::isEqualToTest();
-    // TestBigInt::multiplyTest();
-    // TestBigInt::devideTest();
+    tests.stringValidationTest();
+    tests.additionTest();
+    tests.substructTest();
+    tests.isLessThenTest();
+    tests.isEqualToTest();
+    tests.multiplyTest();
+    // tests.devideTest();
 
-    TestBigInt::isMoreThenBrootTest();
-    TestBigInt::isLessThenBrootTest();
+    // tests.isMoreThenBrootTest();
+    // tests.isLessThenBrootTest();
+    // tests.isEqualToBrootTest();
+
+    tests.printLogs();
 
     // BigInt bigInt1("11");
     // BigInt bigInt2("-2");
@@ -48,6 +56,9 @@ int main(int, char **) {
 
   std::vector<std::string> vals = {std::to_string(n1), std::to_string(n2)};
 
-  TestBigInt::assertionEquals(n1 < n2, bn1.isLessThen(bn2), vals);
+  // TestBigInt::assertionEquals(n1 < n2, bn1.isLessThen(bn2), vals);
+
+  std::for_each(vals.begin(), vals.end(),
+                [](std::string s) { std::cout << s << std::endl; });
   return 0;
 }

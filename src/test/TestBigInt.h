@@ -1,4 +1,5 @@
 #pragma once
+
 #include <fstream>
 #include <iostream>
 
@@ -12,15 +13,19 @@ using json = nlohmann::json;
 
 #include "../BigInt.h"
 
+#include "./Testing.h"
+
 #define RESET "\033[0m"
 #define RED "\033[31m"              /* Red */
 #define GREEN "\033[32m"            /* Green */
 #define BOLDRED "\033[1m\033[31m"   /* Bold Red */
 #define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
+#define BOLDYELLOW "\033[1m\033[33m"
+#define YELLOW "\033[33m"
 
-class TestBigInt {
+class TestBigInt : public Testing {
 public:
-  static void stringValidationTest() {
+  void stringValidationTest() {
     BigInt bigInt;
     std::ifstream stream("../src/test/testData.json");
     json j;
@@ -39,8 +44,18 @@ public:
     }
   }
 
-  static void additionTest() {
+  /*
+      Test addition operation(+).
+      Parsing test data from the JSON file.
+  */
+  void additionTest() {
+    // Test start message
+    std::string testString = (std::string)BOLDYELLOW +
+                             "[additionTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
 
+    // Test body
     BigInt bigInt;
     std::ifstream stream("../src/test/testData.json");
     json j;
@@ -52,16 +67,40 @@ public:
     while (!additionTestCases[i].is_null()) {
       BigInt bi1((std::string)additionTestCases[i]["values"][0]);
       BigInt bi2((std::string)additionTestCases[i]["values"][1]);
-      assertionEquals(
-          additionTestCases[i]["expected"], bi1.add(bi2).toString(),
-          std::vector<std::string>{additionTestCases[i]["values"][0],
-                                   additionTestCases[i]["values"][1]});
+      if (!assertionEquals(
+              additionTestCases[i]["expected"], bi1.add(bi2).toString(),
+              std::vector<std::string>{additionTestCases[i]["values"][0],
+                                       additionTestCases[i]["values"][1]})) {
+        isFailed = true;
+      }
+
       i++;
+    }
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[additionTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[additionTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     }
   }
 
-  static void substructTest() {
+  /*
+      Test substruct operation(-).
+      Parsing test data from the JSON file.
+  */
+  void substructTest() {
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[substructTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
 
+    // Test body
     BigInt bigInt;
     std::ifstream stream("../src/test/testData.json");
     json j;
@@ -73,83 +112,39 @@ public:
     while (!substructTestTestCases[i].is_null()) {
       BigInt bi1((std::string)substructTestTestCases[i]["values"][0]);
       BigInt bi2((std::string)substructTestTestCases[i]["values"][1]);
-      assertionEquals(
-          substructTestTestCases[i]["expected"], bi1.add(bi2).toString(),
-          std::vector<std::string>{substructTestTestCases[i]["values"][0],
-                                   substructTestTestCases[i]["values"][1]});
-      i++;
-    }
-  }
-
-  static void isLessThenTest() {
-    BigInt bigInt;
-    std::ifstream stream("../src/test/testData.json");
-    json j;
-    stream >> j;
-
-    int i = 0;
-    json isLessThenTestCases = j["isLessThenTestCases"];
-
-    while (!isLessThenTestCases[i].is_null()) {
-      BigInt bi1((std::string)isLessThenTestCases[i]["values"][0]);
-      BigInt bi2((std::string)isLessThenTestCases[i]["values"][1]);
-      assertionEquals(
-          isLessThenTestCases[i]["expected"], bi1.isLessThen(bi2),
-          std::vector<std::string>{isLessThenTestCases[i]["values"][0],
-                                   isLessThenTestCases[i]["values"][1]});
-      i++;
-    }
-  }
-
-  static void isEqualToTest() {
-    BigInt bigInt;
-    std::ifstream stream("../src/test/testData.json");
-    json j;
-    stream >> j;
-
-    int i = 0;
-    json isEqualsToTestCases = j["isEqualsToTestCases"];
-
-    while (!isEqualsToTestCases[i].is_null()) {
-      BigInt bi1((std::string)isEqualsToTestCases[i]["values"][0]);
-      BigInt bi2((std::string)isEqualsToTestCases[i]["values"][1]);
-      assertionEquals(
-          isEqualsToTestCases[i]["expected"], bi1.isEqualTo(bi2),
-          std::vector<std::string>{isEqualsToTestCases[i]["values"][0],
-                                   isEqualsToTestCases[i]["values"][1]});
-      i++;
-    }
-  }
-
-  static void isLessThenBrootTest() {
-
-    for (int i = -100; i < 100; i++) {
-      for (int j = -100; j < 100; j++) {
-        BigInt n1(i);
-        BigInt n2(j);
-
-        assertionEquals(
-            (i < j), n1.isLessThen(n2),
-            std::vector<std::string>{std::to_string(i), std::to_string(j)});
+      if (!assertionEquals(substructTestTestCases[i]["expected"],
+                           bi1.add(bi2).toString(),
+                           std::vector<std::string>{
+                               substructTestTestCases[i]["values"][0],
+                               substructTestTestCases[i]["values"][1]})) {
+        isFailed = true;
       }
+      i++;
+    }
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[substructTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[substructTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     }
   }
 
-  static void isMoreThenBrootTest() {
+  /*
+      Test multiply operation(*).
+      Parsing test data from the JSON file.
+  */
+  void multiplyTest() {
+    // Test start message
+    std::string testString = (std::string)BOLDYELLOW +
+                             "[multiplyTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
 
-    for (int i = -100; i < 100; i++) {
-      for (int j = -100; j < 100; j++) {
-        BigInt n1(i);
-        BigInt n2(j);
-        assertionEquals(
-            (i > j), n1.isMoreThen(n2),
-            std::vector<std::string>{std::to_string(i), std::to_string(j)});
-      }
-    }
-  }
-
-  static void multiplyTest() {
-
+    // Test body
     BigInt bigInt;
     std::ifstream stream("../src/test/testData.json");
     json j;
@@ -161,15 +156,40 @@ public:
     while (!multiplyTestCases[i].is_null()) {
       BigInt bi1((std::string)multiplyTestCases[i]["values"][0]);
       BigInt bi2((std::string)multiplyTestCases[i]["values"][1]);
-      assertionEquals(
-          bi1.multiply(bi2).toString(), multiplyTestCases[i]["expected"],
-          std::vector<std::string>{multiplyTestCases[i]["values"][0],
-                                   multiplyTestCases[i]["values"][1]});
+      if (!assertionEquals(
+              bi1.multiply(bi2).toString(), multiplyTestCases[i]["expected"],
+              std::vector<std::string>{multiplyTestCases[i]["values"][0],
+                                       multiplyTestCases[i]["values"][1]})) {
+        isFailed = true;
+      }
       i++;
+    }
+
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[multiplyTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[multiplyTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     }
   }
 
-  static void devideTest() {
+  /*
+      Test divide operation(/).
+      Parsing test data from the JSON file.
+  */
+  void devideTest() {
+
+    // Test start message
+    std::string testString = (std::string)BOLDYELLOW +
+                             "[multiplyTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+
+    bool isFailed = false;
+
     BigInt bigInt;
     std::ifstream stream("../src/test/testData.json");
     json j;
@@ -181,67 +201,242 @@ public:
     while (!devideTestCases[i].is_null()) {
       BigInt bi1((std::string)devideTestCases[i]["values"][0]);
       BigInt bi2((std::string)devideTestCases[i]["values"][1]);
-      assertionEquals(
-          bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
-          std::vector<std::string>{devideTestCases[i]["values"][0],
-                                   devideTestCases[i]["values"][1]});
-      i++;
-    }
-  }
-
-  static void assertion(bool val1, bool val2) {
-    if (val1 == val2) {
-      std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
-    } else {
-      std::cout << BOLDRED << "ASSERTION FAILED!" << RESET << std::endl;
-    }
-  }
-
-  static void assertion(bool expected, bool excact, std::string val) {
-    if (expected == excact) {
-      std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
-    } else {
-      std::cout << BOLDRED << "Expected: " << (expected ? "true" : "false")
-                << " Get: " << (excact ? "true" : "false")
-                << " [value]: " << val << RESET << std::endl;
-    }
-  }
-
-  static void assertionEquals(std::string exact, std::string expected,
-                              std::vector<std::string> values) {
-    std::string valsstr = "";
-    int i = 1;
-    for (auto val : values) {
-      valsstr = valsstr + "value" + std::to_string(i) + ": " + val + " ";
+      if (!assertionEquals(
+              bi1.divide(bi2).toString(), devideTestCases[i]["expected"],
+              std::vector<std::string>{devideTestCases[i]["values"][0],
+                                       devideTestCases[i]["values"][1]})) {
+        isFailed = true;
+      }
       i++;
     }
 
-    if (exact.compare(expected) == 0) {
-      std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[multiplyTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     } else {
-      std::cout << BOLDRED << "[FAILED] Expected: " << expected
-                << " Get: " << exact << std::endl
-                << " - [values]: " << valsstr << RESET << std::endl
-                << std::endl;
+      testString = (std::string)BOLDGREEN + "[multiplyTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     }
   }
 
-  static void assertionEquals(bool expected, bool exact,
-                              std::vector<std::string> values) {
-    std::string valsstr = "";
-    int i = 1;
-    for (auto val : values) {
-      valsstr = valsstr + "value" + std::to_string(i) + ": " + val + " ";
+  /*
+        Test modulus operation(%).
+        Parsing test data from the JSON file.
+    */
+  void modulusTest() {}
+
+  /*
+      Test comparison operation(<).
+      Parsing test data from the JSON file.
+  */
+  void isLessThenTest() {
+
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[isLessThenTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
+
+    // Test body
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json isLessThenTestCases = j["isLessThenTestCases"];
+
+    while (!isLessThenTestCases[i].is_null()) {
+      BigInt bi1((std::string)isLessThenTestCases[i]["values"][0]);
+      BigInt bi2((std::string)isLessThenTestCases[i]["values"][1]);
+      if (!assertionEquals(
+              isLessThenTestCases[i]["expected"], bi1.isLessThen(bi2),
+              std::vector<std::string>{isLessThenTestCases[i]["values"][0],
+                                       isLessThenTestCases[i]["values"][1]})) {
+        isFailed = true;
+      }
       i++;
     }
 
-    if (exact == expected) {
-      // std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[isLessThenTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     } else {
-      std::cout << BOLDRED << "[FAILED] Expected: " << expected
-                << " Get: " << exact << std::endl
-                << " - [values]: " << valsstr << RESET << std::endl
-                << std::endl;
+      testString = (std::string)BOLDGREEN + "[isLessThenTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    }
+  }
+
+  /*
+       Test comparison operation(==).
+       Parsing test data from the JSON file.
+   */
+  void isEqualToTest() {
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[isEqualToTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
+
+    // Test body
+    BigInt bigInt;
+    std::ifstream stream("../src/test/testData.json");
+    json j;
+    stream >> j;
+
+    int i = 0;
+    json isEqualsToTestCases = j["isEqualsToTestCases"];
+
+    while (!isEqualsToTestCases[i].is_null()) {
+      BigInt bi1((std::string)isEqualsToTestCases[i]["values"][0]);
+      BigInt bi2((std::string)isEqualsToTestCases[i]["values"][1]);
+      if (!assertionEquals(
+              isEqualsToTestCases[i]["expected"], bi1.isEqualTo(bi2),
+              std::vector<std::string>{isEqualsToTestCases[i]["values"][0],
+                                       isEqualsToTestCases[i]["values"][1]})) {
+        isFailed = true;
+      }
+      i++;
+    }
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[isEqualToTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[isEqualToTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    }
+  }
+
+  /*
+       Test comparison operation(<).
+       Generating data(numbers) in range from valsFrom to valsTo
+   */
+  void isLessThenBrootTest() {
+
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[isLessThenBrootTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
+
+    // Test body
+    int valsFrom = -100;
+    int valsTo = 100;
+
+    for (int i = valsFrom; i < valsTo; i++) {
+      for (int j = valsFrom; j < valsTo; j++) {
+        BigInt n1(i);
+        BigInt n2(j);
+
+        if (!assertionEquals((i < j), n1.isLessThen(n2),
+                             std::vector<std::string>{std::to_string(i),
+                                                      std::to_string(j)})) {
+          isFailed = true;
+        }
+      }
+    }
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[isLessThenBrootTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[isLessThenBrootTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    }
+  }
+
+  /*
+        Test comparison operation(>).
+        Generating data(numbers) in range from valsFrom to valsTo
+    */
+  void isMoreThenBrootTest() {
+
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[isMoreThenBrootTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
+
+    // Test body
+    int valsFrom = -100;
+    int valsTo = 100;
+
+    for (int i = valsFrom; i < valsTo; i++) {
+      for (int j = valsFrom; j < valsTo; j++) {
+        BigInt n1(i);
+        BigInt n2(j);
+        if (!assertionEquals((i > j), n1.isMoreThen(n2),
+                             std::vector<std::string>{std::to_string(i),
+                                                      std::to_string(j)})) {
+          isFailed = true;
+        }
+      }
+    }
+
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[isMoreThenBrootTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[isMoreThenBrootTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    }
+  }
+
+  /*
+      Test comparison operation(==).
+      Generating data(numbers) in range from valsFrom to valsTo
+  */
+  void isEqualToBrootTest() {
+
+    // Test start message
+    std::string testString =
+        (std::string)BOLDYELLOW +
+        "[isEqualToBrootTest starts here]:" + (std::string)RESET;
+    _logs.push_back(testString);
+    bool isFailed = false;
+
+    // Test body
+    int valsFrom = -100;
+    int valsTo = 100;
+
+    for (int i = valsFrom; i < valsTo; i++) {
+      for (int j = valsFrom; j < valsTo; j++) {
+        BigInt n1(i);
+        BigInt n2(j);
+        if (!assertionEquals((i == j), n1.isEqualTo(n2),
+                             std::vector<std::string>{std::to_string(i),
+                                                      std::to_string(j)})) {
+          isFailed = true;
+        }
+      }
+    }
+    // Test finish message
+    if (isFailed) {
+      testString = (std::string)BOLDRED + "[isEqualToBrootTest FAILED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
+    } else {
+      testString = (std::string)BOLDGREEN + "[isEqualToBrootTest PASSED]!" +
+                   (std::string)RESET + "\n";
+      _logs.push_back(testString);
     }
   }
 };
