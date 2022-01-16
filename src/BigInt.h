@@ -8,17 +8,27 @@ class BigInt {
 public:
   static const int LENGTH = 10;
   // Using char array datastructure with fixed length to store big int
-  char _digits[LENGTH];
-  char _sign = '+';
+
+  // int LENGTH;
+  int NUMBER_OF_DIGITS;
+  std::vector<char> _digits;
+  bool _sign = true;
 
 public:
   BigInt();
   BigInt(int initial);
   BigInt(std::string digits);
+  BigInt(const char *digits);
 
   //   void setNumber(int number);
   //   void setNumber(char *number);
   //   void setNumber(std::string number);
+
+  /* Operator overloading */
+  // Assignment
+  const BigInt &operator=(int initial);
+  const BigInt &operator=(std::string initial);
+  const BigInt &operator=(const char *initial);
 
   /* Operations */
 
@@ -48,6 +58,9 @@ public:
   void changeDigit(int index, int value);
   void setDigit(int index, int value);
   void setDigit(int index, char value);
+
+  void push(int value);
+  void push(char value);
 
   char getCharAt(int index);
 

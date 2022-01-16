@@ -19,22 +19,22 @@ int main(int, char **) {
     // bigInt2.print();
     // BigInt sum = bigInt1.divide(bigInt2);
     // sum.print();
-    TestBigInt tests;
+    // TestBigInt tests;
     // auto f = ;
 
-    tests.stringValidationTest();
-    tests.additionTest();
-    tests.substructTest();
-    tests.isLessThenTest();
-    tests.isEqualToTest();
-    tests.multiplyTest();
+    // tests.stringValidationTest();
+    // tests.additionTest();
+    // tests.substructTest();
+    // tests.isLessThenTest();
+    // tests.isEqualToTest();
+    // tests.multiplyTest();
     // tests.devideTest();
 
     // tests.isMoreThenBrootTest();
     // tests.isLessThenBrootTest();
     // tests.isEqualToBrootTest();
 
-    tests.printLogs();
+    // tests.printLogs();
 
     // BigInt bigInt1("11");
     // BigInt bigInt2("-2");
@@ -48,6 +48,11 @@ int main(int, char **) {
     // BigInt bn2(n2);
     // BigInt res = bn1.divide(bn2);
     // res.print();
+    BigInt bn = "123";
+    bn.print();
+
+    char c = 1 + '0';
+
   } catch (char const *e) {
     std::cout << e << std::endl;
   }
