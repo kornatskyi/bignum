@@ -206,39 +206,57 @@ BigInt BigInt::multiply(BigInt rhnumber) {
   return result;
 }
 BigInt BigInt::divide(BigInt rhnumber) {
-  // // BigInt result;
-  // int result[10];
-  // int i = 0;
-  // BigInt n1 = *this;
-  // BigInt n2 = rhnumber;
-  // auto recursion = [&n1, &n2, &result](auto &&self, int i) {
-  //   int counter = 0;
 
-  //   BigInt temp(n1.getNDigitsFromHighest(n2.getNumberOfDigits()));
-  //   if (temp.isLessThen(n2)) {
-  //     temp = BigInt(n1.getNDigitsFromHighest(n2.getNumberOfDigits() + 1));
-  //   }
-  //   while (n2.isLessThen(temp)) {
-  //     counter++;
-  //     n2.print();
-  //     temp.print();
-  //     temp = temp.substruct(n2);
-  //     // temp.print();
-  //   }
-  //   // std::cout << i << std::endl;
-  //   result[i] = counter;
-  //   // std::cout << counter << std::endl;
-  //   i++;
-  //   n1 = BigInt(temp.toString() +
-  //               n1.getNDigitsFromLowest(n1.getNumberOfDigits() -
-  //                                       n2.getNumberOfDigits()));
-  //   if (i > 9)
-  //     return 0;
+  // BigInt result;
+  int result[10];
+  int i = 0;
+  BigInt n1 = *this;
+  BigInt n2 = rhnumber;
+  auto recursion = [&n1, &n2, &result](auto &&self, int i) {
+    int counter = 0;
 
-  //   // self(self, i);
-  //   return 0;
-  // };
-  // recursion(recursion, i);
+    // Example: 43524 / 53
+    // this action creates temp var with value in this case 43
+    BigInt temp(n1.getNDigitsFromHighest(n2.getNumberOfDigits()));
+    std::cout << "Temp: ";
+    temp.print();
+    // 43 < 53 so we definitely need it to be bigger,
+    // so we recreate it with one more digit 435
+    if (temp.isLessThen(n2)) {
+      temp = BigInt(n1.getNDigitsFromHighest(n2.getNumberOfDigits() + 1));
+    }
+    // n2.print();
+    // now we repeat operation 435 - 53 -> 382 - 53 ... so on
+    // and counting number of time dividor fits into divideble number
+    while (n2.isLessThen(temp)) {
+      counter++;
+      temp = temp.substruct(n2);
+    }
+    // after 8 substructions counter == 8, temp == 11
+    result[i] = counter;
+    // std::cout << "Counter: " << counter << std::endl;
+    // std::cout << "Temp: ";
+    // temp.print();
+    // std::cout << counter << std::endl;
+    i++;
+    // temp.print();
+    // std::cout << n1.getNDigitsFromLowest(n1.getNumberOfDigits() -
+    //                                      n2.getNumberOfDigits())
+    //           << std::endl;
+    // n1 = BigInt(temp.toString() +
+    //             n1.getNDigitsFromLowest(n1.getNumberOfDigits() -
+    //                                     n2.getNumberOfDigits()));
+
+    if (i > 9)
+      return 0;
+
+    self(self, i);
+    return 0;
+  };
+  recursion(recursion, i);
+
+  std::for_each(result, result + 9,
+                [](int n) { std::cout << "N:" << n << std::endl; });
 
   BigInt r;
   return r;

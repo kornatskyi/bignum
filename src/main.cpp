@@ -9,11 +9,7 @@
 #include "BigInt.h"
 #include "test/TestBigInt.h"
 
-void someFunc() { std::cout << "Hello func" << std::endl; }
-
 int main(int, char **) {
-  // std::ifstream i("../src/text.txt");
-  // std::cout << i.rdbuf() << std::endl;
 
   try {
 
@@ -45,13 +41,13 @@ int main(int, char **) {
     // BigInt sum = bigInt1.add(bigInt2);
     // sum.print();
 
-    int n1 = -1;
-    int n2 = 149;
+    // int n1 = 435;
+    // int n2 = 53;
 
-    BigInt bn1(n1);
-    BigInt bn2(n2);
-    BigInt res = bn1.add(bn2);
-    res.print();
+    // BigInt bn1(n1);
+    // BigInt bn2(n2);
+    // BigInt res = bn1.divide(bn2);
+    // res.print();
   } catch (char const *e) {
     std::cout << e << std::endl;
   }
