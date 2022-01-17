@@ -47,7 +47,8 @@ BigInt::BigInt(std::string digits) : BigInt() {
   // (0)
   int sC = 0;
   if (digits[0] == '-' || digits[0] == '+') {
-    _sign = (digits[0] == '-' ? false : true);
+    setSign((digits[0] == '-' ? false : true));
+    std::cout << getSign() << std::endl;
     sC++;
   }
 
@@ -59,25 +60,41 @@ BigInt::BigInt(std::string digits) : BigInt() {
 }
 
 BigInt::BigInt(const char *digits) {
+
+  if (!isValidString(digits)) {
+    std::cout << "Cannot create number of this string: " + std::string(digits)
+              << std::endl;
+    return;
+  }
   int i = 0;
+  // Sign correction. If sign exists start do iteration to the sign index
+  // (0)
+  int sC = 0;
+
+  if (digits[0] == '-' || digits[0] == '+') {
+    setSign((digits[0] == '-' ? false : true));
+    std::cout << getSign() << std::endl;
+    sC++;
+  }
+
   // Counting char array length
   while (digits[i] != '\0') {
     i++;
   }
 
-  while (i > 0) {
+  while (i > sC) {
     i--;
     push(digits[i]);
   }
 }
 
-/* Operator overloading */
+/* Operators overloading */
 // Assignment
-const BigInt &BigInt::operator=(int initial) {
+const BigInt &BigInt::operator=(const int initial) {
   *this = BigInt(initial);
   return *this;
 }
-const BigInt &BigInt::operator=(std::string initial) {
+const BigInt &BigInt::operator=(const std::string initial) {
   *this = BigInt(initial);
   return *this;
 }
@@ -86,9 +103,183 @@ const BigInt &BigInt::operator=(const char *initial) {
   return *this;
 }
 
-void BigInt::print() { std::cout << toString() << std::endl; }
+/*** Comparison ***/
+// Comparison operators
+bool BigInt::operator==(const BigInt &rhnumber) const {
+  return isEqualTo(rhnumber);
+}
 
+bool BigInt::operator>(const BigInt &rhnumber) const {
+  return isMoreThen(rhnumber);
+}
+
+bool BigInt::operator<(const BigInt &rhnumber) const {
+  return isLessThen(rhnumber);
+}
+
+bool BigInt::operator!=(const BigInt &rhnumber) const {
+  return notEqualTo(rhnumber);
+}
+
+bool BigInt::operator<=(const BigInt &rhnumber) const {
+  return isLessOrEqualTo(rhnumber);
+}
+
+bool BigInt::operator>=(const BigInt &rhnumber) const {
+  return isMoreOrEqualTo(rhnumber);
+}
+
+// Comparison methods
+bool BigInt::isEqualTo(const BigInt rhnumber) const {
+
+  if (getSign() != rhnumber.getSign() ||
+      getNumberOfDigits() != rhnumber.getNumberOfDigits()) {
+    return false;
+  }
+
+  for (int i = 0; i < getNumberOfDigits(); i++) {
+    if (getDigit(i) != rhnumber.getDigit(i)) {
+      return false;
+    }
+  }
+  return true;
+}
+bool BigInt::isMoreThen(const BigInt rhnumber) const {
+
+  if (getSign() && !rhnumber.getSign()) {
+    return true;
+  }
+  if (!getSign() && rhnumber.getSign()) {
+    return false;
+  }
+
+  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+    return getSign() ? true : false;
+  }
+
+  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+    return getSign() ? false : true;
+  }
+
+  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
+    if (getDigit(i) < rhnumber.getDigit(i)) {
+      return getSign() ? false : true;
+    }
+    if (getDigit(i) > rhnumber.getDigit(i)) {
+      return getSign() ? true : false;
+    }
+  }
+  return false;
+}
+bool BigInt::isLessThen(const BigInt rhnumber) const {
+
+  if (getSign() && !rhnumber.getSign()) {
+    return false;
+  }
+  if (!getSign() && rhnumber.getSign()) {
+    return true;
+  }
+
+  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+    return getSign() ? false : true;
+  }
+
+  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+    return getSign() ? true : false;
+  }
+
+  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
+    if (getDigit(i) < rhnumber.getDigit(i)) {
+      return getSign() ? true : false;
+    }
+    if (getDigit(i) > rhnumber.getDigit(i)) {
+      return getSign() ? false : true;
+    }
+  }
+  return false;
+}
+bool BigInt::notEqualTo(const BigInt rhnumber) const {
+
+  if (getSign() != rhnumber.getSign() ||
+      getNumberOfDigits() != rhnumber.getNumberOfDigits()) {
+    return true;
+  }
+
+  for (int i = 0; i < getNumberOfDigits(); i++) {
+    if (getDigit(i) != rhnumber.getDigit(i)) {
+      return true;
+    }
+  }
+  return false;
+}
+bool BigInt::isLessOrEqualTo(const BigInt rhnumber) const {
+  if (getSign() && !rhnumber.getSign()) {
+    return false;
+  }
+  if (!getSign() && rhnumber.getSign()) {
+    return true;
+  }
+
+  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+    return getSign() ? false : true;
+  }
+
+  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+    return getSign() ? true : false;
+  }
+
+  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
+    if (getDigit(i) < rhnumber.getDigit(i)) {
+      return getSign() ? true : false;
+    }
+    if (getDigit(i) > rhnumber.getDigit(i)) {
+      return getSign() ? false : true;
+    }
+  }
+  return true;
+}
+bool BigInt::isMoreOrEqualTo(const BigInt rhnumber) const {
+  if (getSign() && !rhnumber.getSign()) {
+    return true;
+  }
+  if (!getSign() && rhnumber.getSign()) {
+    return false;
+  }
+
+  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+    return getSign() ? true : false;
+  }
+
+  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+    return getSign() ? false : true;
+  }
+
+  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
+    if (getDigit(i) < rhnumber.getDigit(i)) {
+      return getSign() ? false : true;
+    }
+    if (getDigit(i) > rhnumber.getDigit(i)) {
+      return getSign() ? true : false;
+    }
+  }
+  return true;
+}
 /* Public utils methods*/
+
+int BigInt::getDigit(int index) const {
+
+  if (this->_digits[index] == '\0') {
+    return 0;
+  }
+
+  return this->_digits[index] - '0';
+}
+
+int BigInt::getNumberOfDigits() const { return _digits.size(); }
+
+bool BigInt::getSign() const { return _sign; }
+
+void BigInt::setSign(const bool sign) { _sign = sign; }
 
 std::string BigInt::toString() {
   bool isPadding = true;
@@ -110,7 +301,7 @@ std::string BigInt::toString() {
     return "0";
   }
   // Printing a minus sign
-  if (_sign == false) {
+  if (getSign() == false) {
     str = '-' + str;
   }
   // If all values are 0 or \0 and firs digit is 0 return "0"
@@ -120,6 +311,14 @@ std::string BigInt::toString() {
   return str;
 }
 
+void BigInt::print() { std::cout << toString() << std::endl; }
+
+/* Private Utils */
+
+void BigInt::push(int value) { _digits.push_back(value + '0'); }
+
+void BigInt::push(char value) { _digits.push_back(value); }
+
 char BigInt::getCharAt(int index) { return _digits.at(index); }
 
 void BigInt::setDigit(int index, char value) {
@@ -128,11 +327,6 @@ void BigInt::setDigit(int index, char value) {
   }
   this->_digits.at(index) = value;
 }
-
-/* Private Utils */
-
-void BigInt::push(int value) { _digits.push_back(value + '0'); }
-void BigInt::push(char value) { _digits.push_back(value); }
 
 /* Validation */
 

@@ -478,11 +478,12 @@ public:
     bool isFailed = false;
 
     // Test body
-    int valsFrom = -100;
-    int valsTo = 100;
+    int valsFrom = -150;
+    int valsTo = 150;
 
     for (int i = valsFrom; i < valsTo; i++) {
       for (int j = valsFrom; j < valsTo; j++) {
+
         BigInt n1(i);
         BigInt n2(j);
         if (!assertionEquals((i > j), n1.isMoreThen(n2),

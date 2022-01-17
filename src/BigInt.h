@@ -29,6 +29,13 @@ public:
   const BigInt &operator=(int initial);
   const BigInt &operator=(std::string initial);
   const BigInt &operator=(const char *initial);
+  // Comparison operators
+  bool operator==(const BigInt &rhs) const;
+  bool operator!=(const BigInt &rhs) const;
+  bool operator<(const BigInt &rhs) const;
+  bool operator<=(const BigInt &rhs) const;
+  bool operator>(const BigInt &rhs) const;
+  bool operator>=(const BigInt &rhs) const;
 
   /* Operations */
 
@@ -38,9 +45,12 @@ public:
   BigInt divide(BigInt rhnumber);
 
   /* Comparison operators */
-  bool isLessThen(BigInt rhnumber);
-  bool isMoreThen(BigInt rhnumber);
-  bool isEqualTo(BigInt rhnumber);
+  bool isLessThen(const BigInt rhnumber) const;
+  bool isMoreThen(const BigInt rhnumber) const;
+  bool isEqualTo(const BigInt rhnumber) const;
+  bool notEqualTo(const BigInt rhnumber) const;
+  bool isLessOrEqualTo(const BigInt rhnumber) const;
+  bool isMoreOrEqualTo(const BigInt rhnumber) const;
 
   /* Validation */
 
@@ -54,7 +64,7 @@ public:
   void print();
 
   // TODO: Change to private later
-public:
+private:
   void changeDigit(int index, int value);
   void setDigit(int index, int value);
   void setDigit(int index, char value);
@@ -64,13 +74,17 @@ public:
 
   char getCharAt(int index);
 
+  /* Getters and setters */
+  bool getSign() const;
+  void setSign(const bool sign);
+
   void setSign(char sign);
-  int getDigit(int index);
+  int getDigit(int index) const;
   int getHighestDigit(int index);
   std::string getNDigitsFromHighest(int n);
   std::string getNDigitsFromLowest(int n);
   int getLength();
   int getSignMult();
-  int getNumberOfDigits();
+  int getNumberOfDigits() const;
   bool isDigit(char c);
 };
