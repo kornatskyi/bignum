@@ -11,8 +11,8 @@ using json = nlohmann::json;
 #include <string>
 #include <vector>
 
-#include "../src/BigInt.h"
-#include "./Testing.h"
+#include "BigInt.hpp"
+#include "Testing.hpp"
 
 #define RESET "\033[0m"
 #define RED "\033[31m"              /* Red */

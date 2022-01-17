@@ -42,7 +42,7 @@ public:
   BigInt add(const BigInt rhnumber) const;
   BigInt substruct(const BigInt rhnumber) const;
   BigInt multiply(BigInt rhnumber);
-  BigInt divide(BigInt rhnumber);
+  // BigInt divide(BigInt rhnumber);
 
   /* Comparison operators */
   bool isLessThen(const BigInt rhnumber) const;

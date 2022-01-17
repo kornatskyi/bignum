@@ -1,5 +1,5 @@
-#include "../src/BigInt.h"
-#include "TestBigInt.h"
+#include "BigInt.hpp"
+#include "TestBigInt.hpp"
 
 /*
       Test comparison operation(<).
