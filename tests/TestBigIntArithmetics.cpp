@@ -1,4 +1,5 @@
 
+#include "../src/BigInt.h"
 #include "TestBigInt.h"
 
 #define RESET "\033[0m"

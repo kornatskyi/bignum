@@ -14,8 +14,11 @@ set(source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB source_files "${source_dir}/*.cpp")
 
+
 set(build_dir "${CMAKE_CURRENT_BINARY_DIR}/build")
 
 file(MAKE_DIRECTORY "${build_dir}")
+
+list(REMOVE_ITEM source_files "${source_dir}/BigIntOld.cpp")
 
 add_executable(bignum ${source_files})

@@ -28,21 +28,25 @@ public:
     if (val1 == val2) {
       //   std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET <<
       //   std::endl;
+      return true;
     } else {
       std::cout << RED << "ASSERTION FAILED!" << RESET << std::endl;
     }
+    return false;
   }
 
   bool assertion(bool expected, bool exact, std::string val) {
     if (expected == exact) {
       //   std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET <<
       //   std::endl;
+      return true;
     } else {
 
       std::string failString =
           (std::string)RED +
           "[ASSERTION FAILED] Expected: " + (expected ? "true" : "false") +
           " Get: " + (exact ? "true" : "false") + (std::string)RESET;
+      return false;
     }
   }
 

@@ -6,8 +6,8 @@
 #include <fstream>
 #include <string>
 
+#include "../tests/TestBigInt.h"
 #include "BigInt.h"
-#include "test/TestBigInt.h"
 
 #include <stdio.h>
 
@@ -32,9 +32,9 @@ int main(int, char **) {
     // tests.multiplyTest();
     // tests.devideTest();
 
-    tests.isMoreThenBrootTest();
-    tests.isLessThenBrootTest();
-    tests.isEqualToBrootTest();
+    // tests.isMoreThenBrootTest();
+    // tests.isLessThenBrootTest();
+    // tests.isEqualToBrootTest();
 
     tests.printLogs();
 
@@ -50,15 +50,10 @@ int main(int, char **) {
     // BigInt bn2(n2);
     // BigInt res = bn1.divide(bn2);
     // res.print();
-    BigInt bn1 = "123";
+    BigInt bn1 = "12334";
     BigInt bn2 = "-123";
-
-    if (bn1.isMoreThen(bn2)) {
-      // std::cout << "/* message */" << std::endl;
-    }
-
-    bn1.print();
-    bn2.print();
+    BigInt res = bn1.add(bn2);
+    res.print();
 
   } catch (char const *e) {
     std::cout << e << std::endl;

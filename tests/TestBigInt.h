@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "../../libs/nlohmann_json//single_include/nlohmann/json.hpp"
+#include "../libs/json/single_include/nlohmann/json.hpp"
 
 // for convenience
 using json = nlohmann::json;
@@ -11,8 +11,7 @@ using json = nlohmann::json;
 #include <string>
 #include <vector>
 
-#include "../BigInt.h"
-
+#include "../src/BigInt.h"
 #include "./Testing.h"
 
 #define RESET "\033[0m"

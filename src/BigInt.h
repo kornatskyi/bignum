@@ -39,8 +39,8 @@ public:
 
   /* Operations */
 
-  BigInt add(BigInt rhnumber);
-  BigInt substruct(BigInt rhnumber);
+  BigInt add(const BigInt rhnumber) const;
+  BigInt substruct(const BigInt rhnumber) const;
   BigInt multiply(BigInt rhnumber);
   BigInt divide(BigInt rhnumber);
 
@@ -77,14 +77,17 @@ private:
   /* Getters and setters */
   bool getSign() const;
   void setSign(const bool sign);
+  void setSign(const char sign);
 
-  void setSign(char sign);
   int getDigit(int index) const;
+
   int getHighestDigit(int index);
   std::string getNDigitsFromHighest(int n);
   std::string getNDigitsFromLowest(int n);
   int getLength();
-  int getSignMult();
+  int getSignMult() const;
   int getNumberOfDigits() const;
   bool isDigit(char c);
+
+  void allocateVector(int size);
 };
