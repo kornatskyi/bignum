@@ -9,6 +9,8 @@
 #include "BigInt.h"
 #include "test/TestBigInt.h"
 
+#include <stdio.h>
+
 int main(int, char **) {
 
   try {
@@ -25,14 +27,14 @@ int main(int, char **) {
     // tests.stringValidationTest();
     // tests.additionTest();
     // tests.substructTest();
-    tests.isLessThenTest();
+    // tests.isLessThenTest();
     // tests.isEqualToTest();
     // tests.multiplyTest();
     // tests.devideTest();
 
-    // tests.isMoreThenBrootTest();
+    tests.isMoreThenBrootTest();
     tests.isLessThenBrootTest();
-    // tests.isEqualToBrootTest();
+    tests.isEqualToBrootTest();
 
     tests.printLogs();
 
@@ -50,6 +52,7 @@ int main(int, char **) {
     // res.print();
     BigInt bn1 = "123";
     BigInt bn2 = "-123";
+
     if (bn1.isMoreThen(bn2)) {
       // std::cout << "/* message */" << std::endl;
     }
