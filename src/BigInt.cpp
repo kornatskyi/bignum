@@ -221,61 +221,104 @@ BigInt BigInt::multiply(const BigInt rhnumber) const {
   return result;
 }
 
+/**
+ * @brief
+
+ * Lets use next example: *this = 173; rhnumber = -13;
+ */
+
 BigInt BigInt::divide(const BigInt rhnumber) const {
 
   if (rhnumber == BigInt(0)) {
     throw std::runtime_error("Math error: Attempted to divide by Zero\n");
   }
+  /* Creating copies of initial values */
+  BigInt dividend = *this;   //< 173
+  BigInt divisor = rhnumber; //< -13
 
-  BigInt dividend = *this;
-  BigInt divisor = rhnumber;
-  dividend.setSign(true);
-  divisor.setSign(true);
+  /* Setting absolute values */
+  dividend.setSign(true); //< 173
+  divisor.setSign(true);  //< 13
 
+  /* Check if dividend less the divisor */
   if (dividend < divisor) {
     return 0;
   }
+
+  /* Check if absolute values are equal */
   if (dividend == divisor) {
+    /* Setting a sign */
     if ((*this).getSign() != rhnumber.getSign()) {
       return -1;
     }
     return 1;
   }
 
+  /**
+   * Creating temDividend variable which will work kind of like a sliding
+   * window. Two nested while loops firs one slides the window,
+   * second one counts tempQuotient on current step.
+   * On each upper loop adding tempQuotient to the vector
+   * and in the end conver the vector to the result object
+   */
   BigInt tempDividend = getNDigitsFromHighest(divisor.getNumberOfDigits());
-  int i = 0;
+
+  /* Will iterate difference between dividend and divisor lendth. n ==
+    dividend.size() -  divisor.size() Example: 173.size() - 13.size() == 1 */
+  int i = divisor.getNumberOfDigits(); //< 2   // because (13).size() == 2
 
   // This vector will contain every quotient digit
   std::vector<int> res;
 
-  while (i + divisor.getNumberOfDigits() <= dividend.getNumberOfDigits()) {
+  while (i <= dividend.getNumberOfDigits()) {
 
+    /* After each nested loop will represend how many times divisor fits into
+     tempDivident */
     int tempQuotient = 0;
-    // every time except the firs one reassigning tempDividend to
-    // tempDivident plus one digit
-    if (i > 0) {
-      tempDividend =
-          (tempDividend == 0 ? "" : tempDividend.toString()) +
-          std::to_string(getHighestDigit(divisor.getNumberOfDigits() + i - 1));
-    }
 
+    /* every time, except the firs one, reassigning tempDividend to
+     tempDivident plus one digit (sliding window) */
+    if (i > divisor.getNumberOfDigits()) {
+      /* convert previos tempDivident to the string */
+      std::string prevTempDividentStr =
+          tempDividend == 0 ? "" : tempDividend.toString();
+      /* Getting next digit in devident as a string */
+      std::string nextDigit = std::to_string(
+          getHighestDigit(i - 1)); //< Getting next digit from the divident
+
+      /* Reassigning tempDevident to previos value that left after division and
+        next digit */
+      /* Example: on the second iteration (because on firs loop this if
+         statement will always be skiped )
+         prevTempDividentSrt = 5 (because we did 17 - 13 on firs iteration.)
+         nextDigit = 3 (because dividend.getNextDigit() == 3)
+         so tempDivident = "5" + "3" => 53
+         will repeat loop
+       */
+      tempDividend = prevTempDividentStr + nextDigit;
+    }
+    /* Performing subtraction-assignment operation until tempDivident >= divisor
+      Example: for firs loop when tempDivident == 17 and divisor == 13
+      loop will iterate only once ( (17 - 13) <= 13 )
+     */
     while (tempDividend >= divisor) {
       tempDividend -= divisor;
       tempQuotient++;
     }
     i++;
+    /* Storing quotient value to vector */
     res.push_back(tempQuotient);
   }
 
+  /* Vector to BigInt */
   BigInt result = res;
 
+  /* Checking a sign */
   if ((*this).getSign() != rhnumber.getSign()) {
     result.setSign(false);
   }
 
-  // result.print();
   return result;
-  // return rhnumber;
 }
 
 // TODO
