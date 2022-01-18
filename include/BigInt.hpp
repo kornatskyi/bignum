@@ -38,10 +38,13 @@ public:
   bool operator>=(const BigInt &rhs) const;
 
   /* Operations */
+  BigInt operator+(const BigInt rhnumber) const;
+  BigInt operator-(const BigInt rhnumber) const;
+  BigInt operator*(BigInt rhnumber) const;
 
   BigInt add(const BigInt rhnumber) const;
   BigInt substruct(const BigInt rhnumber) const;
-  BigInt multiply(BigInt rhnumber);
+  BigInt multiply(const BigInt rhnumber) const;
   // BigInt divide(BigInt rhnumber);
 
   /* Comparison operators */

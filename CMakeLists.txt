@@ -36,7 +36,7 @@ target_include_directories(bignum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_subdirectory(libs/json)
 
 # *** Test ***
-add_executable(bignum_test tests/main.cpp tests/TestBigInt.hpp tests/TestBigIntArithmetics.cpp tests/TestBigIntComparison.cpp tests/Testing.hpp)
+add_executable(bignum_test tests/main.cpp tests/TestBigInt.hpp tests/Testing.hpp)
 # Linkig the test executable to the library
 target_link_libraries(bignum_test PUBLIC bignum_lib)
 

@@ -5,11 +5,18 @@
 *** Arithmetical operations ***
 
 */
+
+BigInt BigInt::operator+(const BigInt rhnumber) const { return add(rhnumber); };
+BigInt BigInt::operator-(const BigInt rhnumber) const {
+  return substruct(rhnumber);
+}
+
 BigInt BigInt::add(const BigInt rhnumber) const {
 
   BigInt n1 = *this;
   BigInt n2 = rhnumber;
   BigInt result;
+  // tests.isEqualToBrootTest();
 
   // Initialising sings multipliers to -1 if '-' or 1 if '+'
   int n1sm = n1.getSignMult();
@@ -32,6 +39,7 @@ BigInt BigInt::add(const BigInt rhnumber) const {
   int resLength = std::max(n1.getNumberOfDigits(), n2.getNumberOfDigits()) + 1;
   // Allocating enough space for the result
   result.allocateVector(resLength);
+
   for (int i = 0; i < resLength; i++) {
     int res = carry;
 
@@ -210,7 +218,6 @@ BigInt::BigInt(std::string digits) : BigInt() {
   int sC = 0;
   if (digits[0] == '-' || digits[0] == '+') {
     setSign((digits[0] == '-' ? false : true));
-    std::cout << getSign() << std::endl;
     sC++;
   }
 
@@ -449,7 +456,8 @@ bool BigInt::isMoreOrEqualTo(const BigInt rhnumber) const {
 
 int BigInt::getDigit(int index) const {
 
-  if (this->_digits[index] == '\0') {
+  // return 0 if index is out of vector scope
+  if (index > getNumberOfDigits() - 1) {
     return 0;
   }
 
@@ -518,6 +526,10 @@ void BigInt::push(char value) { _digits.push_back(value); }
 char BigInt::getCharAt(int index) { return _digits.at(index); }
 
 void BigInt::setDigit(int index, char value) {
+  if ((value - '0') > 9 || (value - '0') < 0) {
+    std::cout << value << std::endl;
+    // throw "[setDigit()]: Value must be >= 0 and <= 9";
+  }
   if (index >= _digits.size()) {
     _digits.resize(index + 1, 0);
   }
@@ -527,6 +539,7 @@ void BigInt::setDigit(int index, char value) {
 void BigInt::setDigit(int index, int value) {
 
   if (value > 9 || value < 0) {
+    std::cout << value << std::endl;
     throw "[setDigit()]: Value must be >= 0 and <= 9";
   }
 

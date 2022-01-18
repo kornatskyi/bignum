@@ -3,24 +3,11 @@
 #include <fstream>
 #include <iostream>
 
-#include "../libs/json/single_include/nlohmann/json.hpp"
-
-// for convenience
-using json = nlohmann::json;
-
 #include <string>
 #include <vector>
 
-#include "BigInt.hpp"
+#include "../include/BigInt.hpp"
 #include "Testing.hpp"
-
-#define RESET "\033[0m"
-#define RED "\033[31m"              /* Red */
-#define GREEN "\033[32m"            /* Green */
-#define BOLDRED "\033[1m\033[31m"   /* Bold Red */
-#define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
-#define BOLDYELLOW "\033[1m\033[33m"
-#define YELLOW "\033[33m"
 
 class TestBigInt : public Testing {
 public:
@@ -30,26 +17,258 @@ public:
 
   */
 
-  void additionTest();
-  void substructTest();
-  void multiplyTest();
-  void devideTest();
-  void modulusTest();
+  void additionTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        BigInt res = BigInt(i) + BigInt(j);
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+
+        if (!assertion(std::to_string(i + j), res.toString(), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "additionTest");
+  }
+
+  void substructTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        BigInt res = BigInt(i) - BigInt(j);
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+
+        if (!assertion(std::to_string(i - j), res.toString(), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "substructTest");
+  }
+  void multiplyTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i < j, (BigInt(i) < BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isLessThenTest");
+  }
+  void devideTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i < j, (BigInt(i) < BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isLessThenTest");
+  }
+  void modulusTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i < j, (BigInt(i) < BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isLessThenTest");
+  }
 
   /*
 
     Comperison operations testing
 
   */
-  void isLessThenTest();
-  void isEqualToTest();
-  void isLessThenBrootTest();
-  void isMoreThenBrootTest();
-  void isEqualToBrootTest();
+  void isLessThenTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i < j, (BigInt(i) < BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isLessThenTest");
+  }
+  void isEqualToTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i == j, (BigInt(i) == BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isEqualToTest");
+  }
+
+  void notEqualToTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i != j, (BigInt(i) != BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "notEqualToTest");
+  }
+  void isMoreThenTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i > j, (BigInt(i) > BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isMoreThenTest");
+  }
+  void isLessOrEqualTo() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i <= j, (BigInt(i) <= BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isLessOrEqualTo");
+  }
+  void isMoreOrEqualTo() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      for (int j = from; j < to; j++) {
+
+        std::vector<std::string> values{std::to_string(i), std::to_string(j)};
+        if (!assertion(i >= j, (BigInt(i) >= BigInt(j)), values)) {
+
+          isPassed = false;
+        }
+      }
+    }
+    testMessage(isPassed, "isMoreOrEqualTo");
+  }
+
+  void intAssignmentTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+
+      BigInt bi = i;
+
+      std::vector<std::string> values{std::to_string(i)};
+      if (!assertion(std::to_string(i), bi.toString(), values)) {
+
+        isPassed = false;
+      }
+    }
+    testMessage(isPassed, "intAssignmentTest");
+  }
+
+  void stringAssignmentTest() {
+
+    int from = -150;
+    int to = 150;
+    int isPassed = true;
+
+    for (int i = from; i < to; i++) {
+      BigInt bi = std::to_string(i);
+      std::vector<std::string> values{std::to_string(i)};
+      if (!assertion(std::to_string(i), bi.toString(), values)) {
+        isPassed = false;
+      }
+    }
+    testMessage(isPassed, "stringAssignmentTest");
+  }
+
+  // TODO
+  void charArrAssignmentTest();
 
   /*
     Utilities methods testing
   */
-
+  // TODO
   void stringValidationTest();
 };
