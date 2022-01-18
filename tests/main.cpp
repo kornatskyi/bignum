@@ -4,23 +4,41 @@
 #include <iterator>
 #include <string>
 
-#define MAX_DIGITS 10
 int main(int argc, const char **argv) {
 
-  TestBigInt testing;
+  // std::cout << sizeof(number) << std::endl;
 
-  // testing.additionTest();
-  // testing.substructTest();
+  try {
+    TestBigInt testing;
 
-  // testing.intAssignmentTest();
-  // testing.stringAssignmentTest();
+    // testing.additionTest();
+    // testing.substructTest();
+    // testing.multiplyTest();
+    // testing.devideTest();
 
-  // testing.isEqualToTest();
-  // testing.notEqualToTest();
-  // testing.isLessOrEqualTo();
-  // testing.isMoreOrEqualTo();
-  // testing.isMoreThenTest();
-  // testing.isLessThenTest();
+    // testing.intAssignmentTest();
+    // testing.stringAssignmentTest();
+
+    // testing.isEqualToTest();
+    // testing.notEqualToTest();
+    // testing.isLessOrEqualTo();
+    // testing.isMoreOrEqualTo();
+    // testing.isMoreThenTest();
+    // testing.isLessThenTest();
+
+    BigInt n1 =
+        "99999999999999999999999999999999999999999999999999999999999999";
+
+    BigInt n2 =
+        "99999999999999999999999999999999999999999999999999999999999999";
+    // std::cout << 149 * 149 << std::endl;
+    // 22201
+    BigInt res = n1 * n2;
+    res.print();
+
+  } catch (const char *e) {
+    std::cout << e << std::endl;
+  }
 
   return 0;
 }

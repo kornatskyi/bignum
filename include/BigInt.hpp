@@ -41,11 +41,12 @@ public:
   BigInt operator+(const BigInt rhnumber) const;
   BigInt operator-(const BigInt rhnumber) const;
   BigInt operator*(BigInt rhnumber) const;
+  BigInt operator/(BigInt rhnumber) const;
 
   BigInt add(const BigInt rhnumber) const;
   BigInt substruct(const BigInt rhnumber) const;
   BigInt multiply(const BigInt rhnumber) const;
-  // BigInt divide(BigInt rhnumber);
+  BigInt divide(const BigInt rhnumber) const;
 
   /* Comparison operators */
   bool isLessThen(const BigInt rhnumber) const;

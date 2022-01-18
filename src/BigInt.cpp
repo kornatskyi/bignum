@@ -10,6 +10,13 @@ BigInt BigInt::operator+(const BigInt rhnumber) const { return add(rhnumber); };
 BigInt BigInt::operator-(const BigInt rhnumber) const {
   return substruct(rhnumber);
 }
+BigInt BigInt::operator*(const BigInt rhnumber) const {
+  return multiply(rhnumber);
+}
+
+BigInt BigInt::operator/(const BigInt rhnumber) const {
+  return divide(rhnumber);
+}
 
 BigInt BigInt::add(const BigInt rhnumber) const {
 
@@ -49,7 +56,6 @@ BigInt BigInt::add(const BigInt rhnumber) const {
     if (i < n2.getNumberOfDigits()) {
       res = res + n2.getDigit(i);
     }
-
     if (res >= 10) {
       res = res - 10;
       carry = 1;
@@ -137,6 +143,54 @@ BigInt BigInt::substruct(const BigInt rhnumber) const {
   return result;
 }
 
+BigInt BigInt::multiply(const BigInt rhnumber) const {
+
+  BigInt result;
+  int carryOver = 0;
+
+  for (int i = 0; i <= getNumberOfDigits(); i++) {
+    BigInt temp;
+    for (int j = 0; j <= rhnumber.getNumberOfDigits(); j++) {
+      int mult = (getDigit(i) * rhnumber.getDigit(j)) + carryOver;
+
+      carryOver = mult / 10;
+      temp.setDigit(j + i, mult % 10);
+    }
+    result = result.add(temp);
+  }
+
+  // int leftOver = 0;
+  // int maxLength = std::max(getNumberOfDigits(),
+  // rhnumber.getNumberOfDigits()); result.allocateVector(maxLength); for (int i
+  // = 0; i < maxLength; i++) {
+  //   BigInt temp;
+
+  //   for (int j = 0; j < maxLength; j++) {
+  //     int mult = (getDigit(j) * rhnumber.getDigit(i)) + leftOver;
+
+  //     leftOver = mult / 10;
+
+  //     if ((i + j) < 9) {
+  //       temp.setDigit(i + j, mult % 10);
+  //     }
+  //   }
+
+  //   result = result.add(temp);
+  // }
+
+  if ((getSignMult() * rhnumber.getSignMult()) == -1) {
+    result.setSign('-');
+  }
+
+  return result;
+}
+
+BigInt BigInt::divide(const BigInt rhnumber) const {
+
+  BigInt result;
+
+  return result;
+}
 /*
 
 
@@ -457,7 +511,8 @@ bool BigInt::isMoreOrEqualTo(const BigInt rhnumber) const {
 int BigInt::getDigit(int index) const {
 
   // return 0 if index is out of vector scope
-  if (index > getNumberOfDigits() - 1) {
+  if (_digits[index] == '\0' || _digits[index] == '\000' || !_digits[index] ||
+      index > getNumberOfDigits() - 1) {
     return 0;
   }
 
@@ -530,8 +585,9 @@ void BigInt::setDigit(int index, char value) {
     std::cout << value << std::endl;
     // throw "[setDigit()]: Value must be >= 0 and <= 9";
   }
+  // Allocating more space if needed
   if (index >= _digits.size()) {
-    _digits.resize(index + 1, 0);
+    _digits.resize(index + 1, '0');
   }
   this->_digits.at(index) = value;
 }
@@ -539,10 +595,12 @@ void BigInt::setDigit(int index, char value) {
 void BigInt::setDigit(int index, int value) {
 
   if (value > 9 || value < 0) {
-    std::cout << value << std::endl;
     throw "[setDigit()]: Value must be >= 0 and <= 9";
   }
-
+  // Allocating more space if needed
+  if (index >= _digits.size()) {
+    _digits.resize(index + 1, '0');
+  }
   this->_digits[index] = value + '0';
 }
 

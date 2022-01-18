@@ -67,14 +67,16 @@ public:
     for (int i = from; i < to; i++) {
       for (int j = from; j < to; j++) {
 
+        BigInt res = BigInt(i) * BigInt(j);
         std::vector<std::string> values{std::to_string(i), std::to_string(j)};
-        if (!assertion(i < j, (BigInt(i) < BigInt(j)), values)) {
+
+        if (!assertion(std::to_string(i * j), res.toString(), values)) {
 
           isPassed = false;
         }
       }
     }
-    testMessage(isPassed, "isLessThenTest");
+    testMessage(isPassed, "multiplyTest");
   }
   void devideTest() {
 
@@ -84,15 +86,15 @@ public:
 
     for (int i = from; i < to; i++) {
       for (int j = from; j < to; j++) {
-
+        BigInt res = BigInt(i) / BigInt(j);
         std::vector<std::string> values{std::to_string(i), std::to_string(j)};
-        if (!assertion(i < j, (BigInt(i) < BigInt(j)), values)) {
+        if (!assertion(std::to_string(i / j), res.toString(), values)) {
 
           isPassed = false;
         }
       }
     }
-    testMessage(isPassed, "isLessThenTest");
+    testMessage(isPassed, "devideTest");
   }
   void modulusTest() {
 
@@ -110,7 +112,7 @@ public:
         }
       }
     }
-    testMessage(isPassed, "isLessThenTest");
+    testMessage(isPassed, "modulusTest");
   }
 
   /*
