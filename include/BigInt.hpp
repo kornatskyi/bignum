@@ -19,6 +19,7 @@ public:
   BigInt(int initial);
   BigInt(std::string digits);
   BigInt(const char *digits);
+  BigInt(const std::vector<int> initial);
 
   //   void setNumber(int number);
   //   void setNumber(char *number);
@@ -29,6 +30,7 @@ public:
   const BigInt &operator=(int initial);
   const BigInt &operator=(std::string initial);
   const BigInt &operator=(const char *initial);
+  const BigInt &operator=(const std::vector<int> initial);
   // Comparison operators
   bool operator==(const BigInt &rhs) const;
   bool operator!=(const BigInt &rhs) const;
@@ -98,13 +100,15 @@ private:
 
   int getDigit(int index) const;
 
-  int getHighestDigit(int index);
-  std::string getNDigitsFromHighest(int n);
-  std::string getNDigitsFromLowest(int n);
-  int getLength();
+  int getHighestDigit(int index) const;
+  std::string getNDigitsFromHighest(int n) const;
+  std::string getNDigitsFromLowest(int n) const;
+  int getLength() const;
   int getSignMult() const;
   int getNumberOfDigits() const;
   bool isDigit(char c);
+
+  void removeLeadingZeros();
 
   void allocateVector(int size);
 };

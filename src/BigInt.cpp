@@ -1,6 +1,9 @@
 #include "../include/BigInt.hpp"
+#include <iterator>
+#include <sstream>
+#include <string>
 #include <tuple>
-
+#include <vector>
 /*
 
 *** Arithmetical operations ***
@@ -184,7 +187,7 @@ BigInt BigInt::substruct(const BigInt rhnumber) const {
       result.setDigit(i, res);
     }
   }
-
+  result.removeLeadingZeros();
   return result;
 }
 
@@ -224,9 +227,55 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
     throw std::runtime_error("Math error: Attempted to divide by Zero\n");
   }
 
-  BigInt result;
+  BigInt dividend = *this;
+  BigInt divisor = rhnumber;
+  dividend.setSign(true);
+  divisor.setSign(true);
 
+  if (dividend < divisor) {
+    return 0;
+  }
+  if (dividend == divisor) {
+    if ((*this).getSign() != rhnumber.getSign()) {
+      return -1;
+    }
+    return 1;
+  }
+
+  BigInt tempDividend = getNDigitsFromHighest(divisor.getNumberOfDigits());
+  int i = 0;
+
+  // This vector will contain every quotient digit
+  std::vector<int> res;
+
+  while (i + divisor.getNumberOfDigits() <= dividend.getNumberOfDigits()) {
+
+    int tempQuotient = 0;
+    // every time except the firs one reassigning tempDividend to
+    // tempDivident plus one digit
+    if (i > 0) {
+      tempDividend =
+          (tempDividend == 0 ? "" : tempDividend.toString()) +
+          std::to_string(getHighestDigit(divisor.getNumberOfDigits() + i - 1));
+    }
+
+    while (tempDividend >= divisor) {
+      tempDividend -= divisor;
+      tempQuotient++;
+    }
+    i++;
+    res.push_back(tempQuotient);
+  }
+
+  BigInt result = res;
+
+  if ((*this).getSign() != rhnumber.getSign()) {
+    result.setSign(false);
+  }
+
+  // result.print();
   return result;
+  // return rhnumber;
 }
 
 // TODO
@@ -356,6 +405,14 @@ BigInt::BigInt(const char *digits) {
   }
 }
 
+BigInt::BigInt(std::vector<int> initialReversed) : BigInt() {
+
+  for (int var = initialReversed.size() - 1; var >= 0; var--) {
+    _digits.push_back(initialReversed[var] + '0');
+  }
+  removeLeadingZeros();
+}
+
 /*
 
 *** Assignment operators overloading ***
@@ -371,6 +428,11 @@ const BigInt &BigInt::operator=(const std::string initial) {
 }
 const BigInt &BigInt::operator=(const char *initial) {
   *this = BigInt(initial);
+  return *this;
+}
+
+const BigInt &BigInt::operator=(const std::vector<int> initialReversed) {
+  *this = BigInt(initialReversed);
   return *this;
 }
 
@@ -604,6 +666,28 @@ void BigInt::print() { std::cout << toString() << std::endl; }
 *** Private Utils ***
 
 */
+int BigInt::getHighestDigit(int index) const {
+
+  if (index < 0 || index >= getNumberOfDigits()) {
+    return 0;
+  }
+
+  return _digits[getNumberOfDigits() - index - 1] - '0';
+}
+
+std::string BigInt::getNDigitsFromHighest(int index) const {
+
+  std::vector<char> slice =
+      std::vector<char>(_digits.end() - index, _digits.end());
+
+  std::string result;
+
+  for (int i = 0; i < slice.size(); i++) {
+    result = slice[i] + result;
+  }
+
+  return result;
+}
 
 int BigInt::getSignMult() const { return (_sign ? 1 : -1); }
 
@@ -646,6 +730,14 @@ void BigInt::setDigit(int index, int value) {
 }
 
 void BigInt::allocateVector(int size) { _digits.resize(size, 0); }
+
+void BigInt::removeLeadingZeros() {
+  while (_digits.size() != 1 &&
+         (_digits.back() == '0' || _digits.back() == '\0' ||
+          _digits.back() == '\000')) {
+    _digits.pop_back();
+  }
+}
 
 /* Validation */
 

@@ -24,13 +24,13 @@ int main(int argc, const char **argv) {
     // testing.isMoreThenTest();
     // testing.isLessThenTest();
 
-    BigInt n1 = "123";
+    BigInt n1 = "99";
 
-    BigInt n2 = "3";
+    BigInt n2 = "11";
 
     // std::cout << 149 * 149 << std::endl;
     // 22201
-    BigInt res;
+    BigInt res = n1 / n2;
     res.print();
 
   } catch (const char *e) {
