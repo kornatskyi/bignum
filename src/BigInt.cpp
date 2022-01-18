@@ -1,10 +1,51 @@
 #include "../include/BigInt.hpp"
+#include <tuple>
 
 /*
 
 *** Arithmetical operations ***
 
 */
+
+BigInt &BigInt::operator+=(const BigInt &rhnumber) {
+  *this = add(rhnumber);
+  return *this;
+}
+BigInt &BigInt::operator-=(const BigInt &rhnumber) {
+  *this = substruct(rhnumber);
+  return *this;
+}
+BigInt &BigInt::operator*=(const BigInt &rhnumber) {
+  *this = multiply(rhnumber);
+  return *this;
+}
+BigInt &BigInt::operator/=(const BigInt &rhnumber) {
+  *this = divide(rhnumber);
+  return *this;
+}
+BigInt &BigInt::operator%=(const BigInt &rhnumber) {
+  *this = modulus(rhnumber);
+  return *this;
+}
+
+BigInt &BigInt::operator++() {
+  *this = add(BigInt(1));
+  return *this;
+} // pre-increment
+BigInt &BigInt::operator--() {
+  *this = substruct(BigInt(1));
+  return *this;
+} // pre-decrement
+BigInt BigInt::operator++(int) {
+  BigInt res = *this;
+  *this = add(BigInt(1));
+  return res;
+} // post-increment
+BigInt BigInt::operator--(int) {
+  BigInt res = *this;
+  *this = substruct(BigInt(1));
+  return res;
+} // post-decrement
 
 BigInt BigInt::operator+(const BigInt rhnumber) const { return add(rhnumber); };
 BigInt BigInt::operator-(const BigInt rhnumber) const {
@@ -16,6 +57,10 @@ BigInt BigInt::operator*(const BigInt rhnumber) const {
 
 BigInt BigInt::operator/(const BigInt rhnumber) const {
   return divide(rhnumber);
+}
+
+BigInt BigInt::operator%(const BigInt rhnumber) const {
+  return modulus(rhnumber);
 }
 
 BigInt BigInt::add(const BigInt rhnumber) const {
@@ -143,6 +188,13 @@ BigInt BigInt::substruct(const BigInt rhnumber) const {
   return result;
 }
 
+/*
+ *
+ * O(n^2) multiplication algorithm
+ * TODO: Change to Karatsuba's algorithm in the future
+ *
+ */
+
 BigInt BigInt::multiply(const BigInt rhnumber) const {
 
   BigInt result;
@@ -159,25 +211,6 @@ BigInt BigInt::multiply(const BigInt rhnumber) const {
     result = result.add(temp);
   }
 
-  // int leftOver = 0;
-  // int maxLength = std::max(getNumberOfDigits(),
-  // rhnumber.getNumberOfDigits()); result.allocateVector(maxLength); for (int i
-  // = 0; i < maxLength; i++) {
-  //   BigInt temp;
-
-  //   for (int j = 0; j < maxLength; j++) {
-  //     int mult = (getDigit(j) * rhnumber.getDigit(i)) + leftOver;
-
-  //     leftOver = mult / 10;
-
-  //     if ((i + j) < 9) {
-  //       temp.setDigit(i + j, mult % 10);
-  //     }
-  //   }
-
-  //   result = result.add(temp);
-  // }
-
   if ((getSignMult() * rhnumber.getSignMult()) == -1) {
     result.setSign('-');
   }
@@ -187,10 +220,18 @@ BigInt BigInt::multiply(const BigInt rhnumber) const {
 
 BigInt BigInt::divide(const BigInt rhnumber) const {
 
+  if (rhnumber == BigInt(0)) {
+    throw std::runtime_error("Math error: Attempted to divide by Zero\n");
+  }
+
   BigInt result;
 
   return result;
 }
+
+// TODO
+BigInt BigInt::modulus(const BigInt rhnumber) const { return rhnumber; }
+
 /*
 
 

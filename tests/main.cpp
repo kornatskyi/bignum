@@ -6,8 +6,6 @@
 
 int main(int argc, const char **argv) {
 
-  // std::cout << sizeof(number) << std::endl;
-
   try {
     TestBigInt testing;
 
@@ -26,14 +24,13 @@ int main(int argc, const char **argv) {
     // testing.isMoreThenTest();
     // testing.isLessThenTest();
 
-    BigInt n1 =
-        "99999999999999999999999999999999999999999999999999999999999999";
+    BigInt n1 = "123";
 
-    BigInt n2 =
-        "99999999999999999999999999999999999999999999999999999999999999";
+    BigInt n2 = "3";
+
     // std::cout << 149 * 149 << std::endl;
     // 22201
-    BigInt res = n1 * n2;
+    BigInt res;
     res.print();
 
   } catch (const char *e) {
