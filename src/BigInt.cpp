@@ -1,4 +1,5 @@
 #include "../include/BigInt.hpp"
+#include <cmath>
 #include <iterator>
 #include <sstream>
 #include <string>
@@ -217,7 +218,7 @@ BigInt BigInt::multiply(const BigInt rhnumber) const {
   if ((getSignMult() * rhnumber.getSignMult()) == -1) {
     result.setSign('-');
   }
-
+  result.removeLeadingZeros();
   return result;
 }
 
@@ -306,6 +307,7 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
       tempQuotient++;
     }
     i++;
+
     /* Storing quotient value to vector */
     res.push_back(tempQuotient);
   }
@@ -322,7 +324,13 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
 }
 
 // TODO
-BigInt BigInt::modulus(const BigInt rhnumber) const { return rhnumber; }
+BigInt BigInt::modulus(const BigInt rhnumber) const {
+
+  BigInt result = *this / rhnumber;
+  result = rhnumber * result;
+  result = (*this) - result;
+  return result;
+}
 
 /*
 
@@ -351,13 +359,7 @@ BigInt BigInt::modulus(const BigInt rhnumber) const { return rhnumber; }
 */
 
 /* Constructors */
-BigInt::BigInt() {
-  // Initialize _digits to the null values
-  // for (int i = 0; i < LENGTH; i++) {
-  //   _digits[i] = '0';
-  // }
-  // _digits.push_back('0);
-}
+BigInt::BigInt() {}
 /*
 
   int -> BigInt
@@ -662,7 +664,7 @@ int BigInt::getDigit(int index) const {
     return 0;
   }
 
-  return this->_digits[index] - '0';
+  return _digits[index] - '0';
 }
 
 int BigInt::getNumberOfDigits() const { return _digits.size(); }
@@ -671,20 +673,20 @@ bool BigInt::getSign() const { return _sign; }
 
 void BigInt::setSign(const bool sign) { _sign = sign; }
 
-std::string BigInt::toString() {
+std::string BigInt::toString() const {
   bool isPadding = true;
   std::string str;
 
   for (int i = _digits.size() - 1; i >= 0; i--) {
-    if (!this->getCharAt(i) || (this->getCharAt(i) == '0' && isPadding)) {
+    if (!getCharAt(i) || (getCharAt(i) == '0' && isPadding)) {
       continue;
     }
 
-    if (this->getCharAt(i)) {
+    if (getCharAt(i)) {
       isPadding = false;
     }
 
-    str = str + this->getCharAt(i);
+    str = str + getCharAt(i);
     // std::cout << c;
   }
   if (str == "") {
@@ -695,14 +697,14 @@ std::string BigInt::toString() {
     str = '-' + str;
   }
   // If all values are 0 or \0 and firs digit is 0 return "0"
-  if (str.length() == 0 && this->getCharAt(0) == '0') {
+  if (str.length() == 0 && getCharAt(0) == '0') {
     return "0";
   }
   return str;
 }
 
 // Prints number to the console
-void BigInt::print() { std::cout << toString() << std::endl; }
+void BigInt::print() const { std::cout << toString() << std::endl; }
 
 /*
 
@@ -746,7 +748,7 @@ void BigInt::push(int value) { _digits.push_back(value + '0'); }
 
 void BigInt::push(char value) { _digits.push_back(value); }
 
-char BigInt::getCharAt(int index) { return _digits.at(index); }
+char BigInt::getCharAt(int index) const { return _digits.at(index); }
 
 void BigInt::setDigit(int index, char value) {
   if ((value - '0') > 9 || (value - '0') < 0) {

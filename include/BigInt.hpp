@@ -78,9 +78,9 @@ public:
   /* Utils */
   static int parseInt(char c);
 
-  std::string toString();
+  std::string toString() const;
 
-  void print();
+  void print() const;
 
   // TODO: Change to private later
 private:
@@ -91,7 +91,7 @@ private:
   void push(int value);
   void push(char value);
 
-  char getCharAt(int index);
+  char getCharAt(int index) const;
 
   /* Getters and setters */
   bool getSign() const;
