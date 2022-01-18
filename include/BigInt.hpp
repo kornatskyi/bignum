@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -70,6 +71,10 @@ public:
   bool notEqualTo(const BigInt rhnumber) const;
   bool isLessOrEqualTo(const BigInt rhnumber) const;
   bool isMoreOrEqualTo(const BigInt rhnumber) const;
+
+  /* Input/Output operators */
+  friend std::istream &operator>>(std::istream &, BigInt &bigInt);
+  friend std::ostream &operator<<(std::ostream &out, const BigInt &bigInt);
 
   /* Validation */
 

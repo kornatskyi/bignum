@@ -323,7 +323,6 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
   return result;
 }
 
-// TODO
 BigInt BigInt::modulus(const BigInt rhnumber) const {
 
   BigInt result = *this / rhnumber;
@@ -508,6 +507,20 @@ bool BigInt::operator<=(const BigInt &rhnumber) const {
 
 bool BigInt::operator>=(const BigInt &rhnumber) const {
   return isMoreOrEqualTo(rhnumber);
+}
+
+/* Input/Output operators */
+
+std::istream &operator>>(std::istream &in, BigInt &bigInt) {
+  std::string input;
+  in >> input;
+  bigInt = BigInt(input); // remove sign from value and set sign, if exists
+  return in;
+}
+
+std::ostream &operator<<(std::ostream &out, const BigInt &bigInt) {
+  out << bigInt.toString();
+  return out;
 }
 
 /*
