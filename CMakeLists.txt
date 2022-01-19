@@ -16,10 +16,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 set(source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # *** Executable ***
-add_executable(bignum src/main.cpp src/BigInt.cpp include/BigInt.hpp)
+add_executable(bignum src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp)
 
 # *** Library ***
-add_library(bignum_lib STATIC src/main.cpp src/BigInt.cpp include/BigInt.hpp)
+add_library(bignum_lib STATIC src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp)
 
 target_include_directories(bignum_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

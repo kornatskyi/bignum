@@ -1,5 +1,5 @@
 {
-  "substructTestTestCases": [
+  "subtractTestTestCases": [
     {
       "values": ["10", "2"],
       "expected": "8"

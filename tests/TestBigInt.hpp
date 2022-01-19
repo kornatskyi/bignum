@@ -38,7 +38,7 @@ public:
     testMessage(isPassed, "additionTest");
   }
 
-  void substructTest() {
+  void subtractTest() {
 
     int from = -150;
     int to = 150;
@@ -56,7 +56,7 @@ public:
         }
       }
     }
-    testMessage(isPassed, "substructTest");
+    testMessage(isPassed, "subtractTest");
   }
   void multiplyTest() {
 

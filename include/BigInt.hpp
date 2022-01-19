@@ -48,7 +48,7 @@ public:
   BigInt operator%(BigInt rhnumber) const;
 
   BigInt add(const BigInt rhnumber) const;
-  BigInt substruct(const BigInt rhnumber) const;
+  BigInt subtract(const BigInt rhnumber) const;
   BigInt multiply(const BigInt rhnumber) const;
   BigInt divide(const BigInt rhnumber) const;
   BigInt modulus(const BigInt rhnumber) const;
