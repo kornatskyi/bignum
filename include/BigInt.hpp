@@ -6,7 +6,6 @@
 
 class BigInt {
 private:
-  int NUMBER_OF_DIGITS;
   std::vector<char> _digits;
   bool _sign = true;
 
@@ -71,7 +70,6 @@ private:
   /* Validation */
   bool isValidString(std::string str);
 
-  void changeDigit(int index, int value);
   void setDigit(int index, int value);
   void setDigit(int index, char value);
 
@@ -88,9 +86,9 @@ private:
 
   int getNthMSD(int index) const;
   std::string getNMSD(int n) const;
-  std::string getNDigitsFromLowest(int n) const;
-  int getLength() const;
+
   int getSignMult() const;
+
   bool isDigit(char c);
 
   void removeLeadingZeros();

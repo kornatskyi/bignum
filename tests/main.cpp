@@ -10,39 +10,14 @@
 int main(int argc, const char **argv) {
 
   try {
-    // ArithmeticsTest().runAll();
-    // ComparisonTest().runAll();
-    // AssignmentTest().runAll();
-    // AssignmentTest().addAssignTest();
+    ArithmeticsTest().runAll();
+    ComparisonTest().runAll();
+    AssignmentTest().runAll();
+    AssignmentTest().addAssignTest();
 
   } catch (const char *e) {
     std::cout << e << std::endl;
   }
-
-  // TODO
-  /*
-      CASE{
-
-        BigInt n;
-        n %= 10;
-        cout << n;
-
-      }
-
-      CASE{
-
-        BigInt n;
-        n *= 10;
-        cout << n;
-
-      }
-
-      CASE {
-        incrementation
-        decrementattion
-        do test cases
-      }
-  */
 
   return 0;
 }

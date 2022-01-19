@@ -21,9 +21,9 @@ add_executable(bignum src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/As
 # *** Library ***
 add_library(bignum_lib STATIC src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp src/UnaryOperators.cpp)
 
-target_include_directories(bignum_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+# target_include_directories(bignum_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_include_directories(bignum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+# target_include_directories(bignum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # If you only include this third party in PRIVATE source files, you do not
 # need to install it when your main project gets installed.
