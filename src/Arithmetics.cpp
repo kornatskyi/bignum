@@ -10,7 +10,6 @@ BigInt BigInt::operator+(const BigInt rhnumber) const {
   BigInt n1 = *this;
   BigInt n2 = rhnumber;
   BigInt result;
-  // tests.isEqualToBrootTest();
 
   // Initialising sings multipliers to -1 if '-' or 1 if '+'
   int n1sm = n1.getSignMult();
@@ -68,7 +67,7 @@ BigInt BigInt::operator-(const BigInt rhnumber) const {
 
   BigInt n1;
   BigInt n2;
-  // Switch numbers is left number less then right
+  // Switch numbers if left number less then right
   // to be able to use subtraction algorithm
   BigInt abs1 = (*this);
   abs1.setSign('+');

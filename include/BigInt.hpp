@@ -54,6 +54,10 @@ public:
   BigInt operator++(int); // post-increment
   BigInt operator--(int); // post-decrement
 
+  // Unary operators
+  BigInt operator+();
+  BigInt operator-();
+
   /* Input/Output operators */
   friend std::istream &operator>>(std::istream &, BigInt &bigInt);
   friend std::ostream &operator<<(std::ostream &out, const BigInt &bigInt);

@@ -11,9 +11,11 @@
  */
 int BigInt::getNthLSD(int n) const {
 
+  if (n < 0 || n > length() - 1) {
+    return 0;
+  }
   // return 0 if index is out of vector scope
-  if (_digits[n] == '\0' || _digits[n] == '\000' || !_digits[n] ||
-      n > length() - 1) {
+  if (_digits[n] == '\0' || _digits[n] == '\000' || !_digits[n]) {
     return 0;
   }
 

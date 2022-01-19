@@ -12,9 +12,18 @@
 #define BOLDRED "\033[1m\033[31m"   /* Bold Red */
 #define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
 
+#include "../libs/json/single_include/nlohmann/json.hpp"
+
 class Testing {
+protected:
+  nlohmann::json _json;
 
 public:
+  Testing() {
+    std::ifstream i("./tests/cases/testData.json");
+    i >> _json;
+  }
+
   bool assertion(bool expected, bool exact, std::vector<std::string> values) {
     if (expected == exact) {
       // std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;

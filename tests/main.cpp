@@ -1,5 +1,7 @@
 #include "../include/BigInt.hpp"
-#include "TestBigInt.hpp"
+#include "ArithmeticsTest.hpp"
+#include "AssignmentTest.hpp"
+#include "ComparisonTest.hpp"
 #include <cstdio>
 #include <iostream>
 #include <iterator>
@@ -8,27 +10,10 @@
 int main(int argc, const char **argv) {
 
   try {
-    TestBigInt testing;
-
-    testing.additionTest();
-    testing.subtractTest();
-    testing.multiplyTest();
-    testing.devideTest();
-    testing.modulusTest();
-
-    testing.intAssignmentTest();
-    testing.stringAssignmentTest();
-
-    testing.isEqualToTest();
-    testing.notEqualToTest();
-    testing.isLessOrEqualTo();
-    testing.isMoreOrEqualTo();
-    testing.isMoreThenTest();
-    testing.isLessThenTest();
-    // BigInt b;
-    // std::cout << b.length() << std::endl;
-    // b *= 10;
-    // std::cout << b << std::endl;
+    // ArithmeticsTest().runAll();
+    // ComparisonTest().runAll();
+    // AssignmentTest().runAll();
+    // AssignmentTest().addAssignTest();
 
   } catch (const char *e) {
     std::cout << e << std::endl;
