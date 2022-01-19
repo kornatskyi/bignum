@@ -26,6 +26,7 @@ int main(int argc, const char **argv) {
     testing.isMoreThenTest();
     testing.isLessThenTest();
     // BigInt b;
+    // std::cout << b.length() << std::endl;
     // b *= 10;
     // std::cout << b << std::endl;
 

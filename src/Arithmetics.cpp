@@ -6,78 +6,7 @@
  * Addition (BigInt + BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator+(const BigInt rhnumber) const { return add(rhnumber); };
-
-/**
- * Subtraction (BigInt - BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt BigInt::operator-(const BigInt rhnumber) const {
-  return subtract(rhnumber);
-}
-
-/**
- * Multiplication (BigInt * BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt BigInt::operator*(const BigInt rhnumber) const {
-  return multiply(rhnumber);
-}
-
-/**
- * Division (BigInt / BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt BigInt::operator/(const BigInt rhnumber) const {
-  return divide(rhnumber);
-}
-
-/**
- * Modulus division (BigInt % BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt BigInt::operator%(const BigInt rhnumber) const {
-  return modulus(rhnumber);
-}
-
-/**
- * Post Increment (BigInt++)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-
-BigInt &BigInt::operator++() {
-  *this = (*this) + 1;
-  return *this;
-}
-/**
- * Post Decrement (BigInt--)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt &BigInt::operator--() {
-  *this = (*this) - 1;
-  return *this;
-}
-/**
- * Pre Increment (++BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt BigInt::operator++(int) {
-  BigInt res = *this;
-  *this = (*this) + 1;
-  return res;
-}
-/**
- * Pre Decrement (--BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-BigInt BigInt::operator--(int) {
-  BigInt res = *this;
-  *this = (*this) - 1;
-  return res;
-}
-
-BigInt BigInt::add(const BigInt rhnumber) const {
-
+BigInt BigInt::operator+(const BigInt rhnumber) const {
   BigInt n1 = *this;
   BigInt n2 = rhnumber;
   BigInt result;
@@ -90,29 +19,29 @@ BigInt BigInt::add(const BigInt rhnumber) const {
   if (n1sm > 0 && n2sm < 0) {
     BigInt local = n2;
     local.setSign('+');
-    return n1.subtract(local);
+    return n1 - local;
   }
 
   if (n1sm < 0 && n2sm > 0) {
     BigInt local = n1;
     local.setSign('+');
-    return n2.subtract(local);
+    return n2 - local;
   }
 
   int carry = 0;
 
-  int resLength = std::max(n1.getNumberOfDigits(), n2.getNumberOfDigits()) + 1;
+  int resLength = std::max(n1.length(), n2.length()) + 1;
   // Allocating enough space for the result
   result.allocateVector(resLength);
 
   for (int i = 0; i < resLength; i++) {
     int res = carry;
 
-    if (i < n1.getNumberOfDigits()) {
-      res = res + n1.getDigit(i);
+    if (i < n1.length()) {
+      res = res + n1.getNthLSD(i);
     }
-    if (i < n2.getNumberOfDigits()) {
-      res = res + n2.getDigit(i);
+    if (i < n2.length()) {
+      res = res + n2.getNthLSD(i);
     }
     if (res >= 10) {
       res = res - 10;
@@ -129,9 +58,13 @@ BigInt BigInt::add(const BigInt rhnumber) const {
   }
 
   return result;
-}
+};
 
-BigInt BigInt::subtract(const BigInt rhnumber) const {
+/**
+ * Subtraction (BigInt - BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt BigInt::operator-(const BigInt rhnumber) const {
 
   BigInt n1;
   BigInt n2;
@@ -163,25 +96,25 @@ BigInt BigInt::subtract(const BigInt rhnumber) const {
   if (n2sm < 0 && n1sm > 0) {
     BigInt local = rhnumber;
     local.setSign('+');
-    return (*this).add(local);
+    return (*this) + local;
   }
   if (n1sm < 0 && n2sm > 0) {
     BigInt local = rhnumber;
     local.setSign('-');
-    return (*this).add(local);
+    return (*this) + local;
   }
 
   int carry = 0;
 
-  int resLength = std::max(n1.getNumberOfDigits(), n2.getNumberOfDigits());
+  int resLength = std::max(n1.length(), n2.length());
   // Allocating enough space for the result
   result.allocateVector(resLength);
 
   for (int i = 0; i < resLength; i++) {
-    int res = 10 + n1.getDigit(i);
+    int res = 10 + n1.getNthLSD(i);
 
-    if (n1.getNumberOfDigits() > i) {
-      res = res - carry - n2.getDigit(i);
+    if (n1.length() > i) {
+      res = res - carry - n2.getNthLSD(i);
 
       if (res < 10) {
         // res = res * (-1);
@@ -201,27 +134,30 @@ BigInt BigInt::subtract(const BigInt rhnumber) const {
   return result;
 }
 
+/**
+ * Multiplication (BigInt * BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
 /*
  *
  * O(n^2) multiplication algorithm
  * TODO: Change to Karatsuba's algorithm in the future
  *
  */
-
-BigInt BigInt::multiply(const BigInt rhnumber) const {
+BigInt BigInt::operator*(const BigInt rhnumber) const {
 
   BigInt result;
   int carryOver = 0;
 
-  for (int i = 0; i <= getNumberOfDigits(); i++) {
+  for (int i = 0; i <= length(); i++) {
     BigInt temp;
-    for (int j = 0; j <= rhnumber.getNumberOfDigits(); j++) {
-      int mult = (getDigit(i) * rhnumber.getDigit(j)) + carryOver;
+    for (int j = 0; j <= rhnumber.length(); j++) {
+      int mult = (getNthLSD(i) * rhnumber.getNthLSD(j)) + carryOver;
 
       carryOver = mult / 10;
       temp.setDigit(j + i, mult % 10);
     }
-    result = result.add(temp);
+    result = result + (temp);
   }
 
   if ((getSignMult() * rhnumber.getSignMult()) == -1) {
@@ -232,12 +168,15 @@ BigInt BigInt::multiply(const BigInt rhnumber) const {
 }
 
 /**
- * @brief
-
- * Lets use next example: *this = 173; rhnumber = -13;
+ * Division (BigInt / BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
+/**
+* @brief
 
-BigInt BigInt::divide(const BigInt rhnumber) const {
+* Lets use next example: *this = 173; rhnumber = -13;
+*/
+BigInt BigInt::operator/(const BigInt rhnumber) const {
 
   if (rhnumber == BigInt(0)) {
     throw std::runtime_error("Math error: Attempted to divide by Zero\n");
@@ -271,16 +210,16 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
    * On each upper loop adding tempQuotient to the vector
    * and in the end conver the vector to the result object
    */
-  BigInt tempDividend = getNDigitsFromHighest(divisor.getNumberOfDigits());
+  BigInt tempDividend = getNMSD(divisor.length());
 
   /* Will iterate difference between dividend and divisor lendth. n ==
     dividend.size() -  divisor.size() Example: 173.size() - 13.size() == 1 */
-  int i = divisor.getNumberOfDigits(); //< 2   // because (13).size() == 2
+  int i = divisor.length(); //< 2   // because (13).size() == 2
 
   // This vector will contain every quotient digit
   std::vector<int> res;
 
-  while (i <= dividend.getNumberOfDigits()) {
+  while (i <= dividend.length()) {
 
     /* After each nested loop will represend how many times divisor fits into
      tempDivident */
@@ -288,13 +227,13 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
 
     /* every time, except the firs one, reassigning tempDividend to
      tempDivident plus one digit (sliding window) */
-    if (i > divisor.getNumberOfDigits()) {
+    if (i > divisor.length()) {
       /* convert previos tempDivident to the string */
       std::string prevTempDividentStr =
           tempDividend == 0 ? "" : tempDividend.toString();
       /* Getting next digit in devident as a string */
       std::string nextDigit = std::to_string(
-          getHighestDigit(i - 1)); //< Getting next digit from the divident
+          getNthMSD(i - 1)); //< Getting next digit from the divident
 
       /* Reassigning tempDevident to previos value that left after division and
         next digit */
@@ -332,10 +271,50 @@ BigInt BigInt::divide(const BigInt rhnumber) const {
   return result;
 }
 
-BigInt BigInt::modulus(const BigInt rhnumber) const {
+/**
+ * Modulus division (BigInt % BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt BigInt::operator%(const BigInt rhnumber) const {
 
   BigInt result = *this / rhnumber;
   result = rhnumber * result;
   result = (*this) - result;
   return result;
+}
+
+/**
+ * Post Increment (BigInt++)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+
+BigInt &BigInt::operator++() {
+  *this = (*this) + 1;
+  return *this;
+}
+/**
+ * Post Decrement (BigInt--)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt &BigInt::operator--() {
+  *this = (*this) - 1;
+  return *this;
+}
+/**
+ * Pre Increment (++BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt BigInt::operator++(int) {
+  BigInt res = *this;
+  *this = (*this) + 1;
+  return res;
+}
+/**
+ * Pre Decrement (--BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt BigInt::operator--(int) {
+  BigInt res = *this;
+  *this = (*this) - 1;
+  return res;
 }

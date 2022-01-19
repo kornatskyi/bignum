@@ -3,35 +3,44 @@
 /*** Public utils methods ***/
 
 /**
- * Addition (BigInt + BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- * @param index-index of a digit starting from lowest grade and up.
- * Example: num = 1234567890, num.getDigit(2) -> 8, num.getDigit(0) -> 0;
- * @return int digit under the index or 0 if index is out of bounds
+ * Returns n-th least significant digit(LSD)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param n-index of a digit starting from lowest grade and up.
+ * Example: num = 1234567890, num.getNthLSD(2) -> 8, num.getNthLSD(0) -> 0;
+ * @return int digit under the index(n) or 0 if index(n) is out of bounds
  */
-int BigInt::getDigit(int index) const {
+int BigInt::getNthLSD(int n) const {
 
   // return 0 if index is out of vector scope
-  if (_digits[index] == '\0' || _digits[index] == '\000' || !_digits[index] ||
-      index > getNumberOfDigits() - 1) {
+  if (_digits[n] == '\0' || _digits[n] == '\000' || !_digits[n] ||
+      n > length() - 1) {
     return 0;
   }
 
-  return _digits[index] - '0';
+  return _digits[n] - '0';
 }
 
 /**
- * Addition (BigInt + BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- * Example: num = 1234, num.getDigit(2) -> 8, num.getDigit(0) -> 0;
- * @return int digit under the index or 0 if index is out of bounds
+ * Returns number of digits in the number without counting a sign
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * Example: num1 = 1234, num1.length() -> 4; num2 = 0; num.length(0) -> 1;
+ * num3 num3.length() -> 0;
+ * @return int
  */
-int BigInt::getNumberOfDigits() const { return _digits.size(); }
+int BigInt::length() const { return _digits.size(); }
 
+/**
+ * Returns bool value depending on the number sign
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @return bool where false is '-' and true is '+'
+ */
 bool BigInt::getSign() const { return _sign; }
 
-void BigInt::setSign(const bool sign) { _sign = sign; }
-
+/**
+ * Returns string representation of a number including a sign
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @return std::string
+ */
 std::string BigInt::toString() const {
   bool isPadding = true;
   std::string str;
@@ -61,6 +70,3 @@ std::string BigInt::toString() const {
   }
   return str;
 }
-
-// Prints number to the console
-void BigInt::print() const { std::cout << toString() << std::endl; }

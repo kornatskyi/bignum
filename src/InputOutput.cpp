@@ -1,6 +1,6 @@
 #include "../include/BigInt.hpp"
 
-/* Input/Output operators */
+/* Input/Output operators overloading*/
 
 std::istream &operator>>(std::istream &in, BigInt &bigInt) {
   std::string input;

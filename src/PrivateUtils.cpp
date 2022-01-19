@@ -1,23 +1,33 @@
 #include "../include/BigInt.hpp"
 
-/*
+/*** Private Utils ***/
 
-*** Private Utils ***
+/**
+ * Returns n-th most significant digit(MSD)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param n-index of a digit starting from highest grade and down.
+ * Example: num = 1234567890, num.getNthMSD(2) -> 3,
+ * num.getNthMSD(0) -> 1;
+ * @return int digit under the index(n) from the end or 0 if index(n) is out of
+ * bounds
+ */
+int BigInt::getNthMSD(int n) const {
 
-*/
-int BigInt::getHighestDigit(int index) const {
-
-  if (index < 0 || index >= getNumberOfDigits()) {
+  if (n < 0 || n >= length()) {
     return 0;
   }
-
-  return _digits[getNumberOfDigits() - index - 1] - '0';
+  return _digits[length() - n - 1] - '0';
 }
 
-std::string BigInt::getNDigitsFromHighest(int index) const {
+/**
+ * Returns n most significant digits(MSD)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param n-represents how many digits will be returned
+ * @return std::string with n most significant digits
+ */
+std::string BigInt::getNMSD(int n) const {
 
-  std::vector<char> slice =
-      std::vector<char>(_digits.end() - index, _digits.end());
+  std::vector<char> slice = std::vector<char>(_digits.end() - n, _digits.end());
 
   std::string result;
 
@@ -28,8 +38,25 @@ std::string BigInt::getNDigitsFromHighest(int index) const {
   return result;
 }
 
+/**
+ * Sets number's sign
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param sign-bool value, true -> '+' false -> '-'
+ */
+void BigInt::setSign(const bool sign) { _sign = sign; }
+
+/**
+ * Returns 1 or -1 depending on a digit sign
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @return int - '+' -> 1, '-' -> -1
+ */
 int BigInt::getSignMult() const { return (_sign ? 1 : -1); }
 
+/**
+ * Sets number's sign
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param sign-char value, '+' -> '+'  '-' -> '-'
+ */
 void BigInt::setSign(char sign) {
   if (sign != '-' && sign != '+') {
     throw "Wrong sign character in setSign() method";
@@ -38,12 +65,33 @@ void BigInt::setSign(char sign) {
   _sign = (sign == '-' ? false : true);
 }
 
+/**
+ * Pushes digit to the _digits vector
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param value - int value, should be a digit
+ */
 void BigInt::push(int value) { _digits.push_back(value + '0'); }
 
+/**
+ * Pushes digit to the _digits vector
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param value - char value, should be a digit
+ */
 void BigInt::push(char value) { _digits.push_back(value); }
 
+/**
+ * Get char at index
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param index - index of a digit if _digits vector
+ */
 char BigInt::getCharAt(int index) const { return _digits.at(index); }
 
+/**
+ * Set a digit on index
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param index - int index on which value will be setted in _digits vector
+ * @param value - char value, must be a digit
+ */
 void BigInt::setDigit(int index, char value) {
   if ((value - '0') > 9 || (value - '0') < 0) {
     std::cout << value << std::endl;
@@ -56,6 +104,12 @@ void BigInt::setDigit(int index, char value) {
   this->_digits.at(index) = value;
 }
 
+/**
+ * Set a digit on index
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param index - int index on which value will be setted in _digits vector
+ * @param value - int value, must be a digit
+ */
 void BigInt::setDigit(int index, int value) {
 
   if (value > 9 || value < 0) {
@@ -68,8 +122,17 @@ void BigInt::setDigit(int index, int value) {
   this->_digits[index] = value + '0';
 }
 
+/**
+ * Allocating more space in _digits vector
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param size - int value which represents allocation size
+ */
 void BigInt::allocateVector(int size) { _digits.resize(size, 0); }
 
+/**
+ * Removes zeros from the leading positions
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
 void BigInt::removeLeadingZeros() {
   while (_digits.size() != 1 &&
          (_digits.back() == '0' || _digits.back() == '\0' ||
@@ -80,6 +143,10 @@ void BigInt::removeLeadingZeros() {
 
 /* Validation */
 
+/**
+ * Validates is string is a valid number
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
 bool BigInt::isValidString(std::string str) {
 
   bool isValid = false;

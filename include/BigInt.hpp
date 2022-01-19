@@ -5,34 +5,28 @@
 #include <vector>
 
 class BigInt {
-  // TODO: Public for now, change later
-public:
-  static const int LENGTH = 10;
-  // Using char array datastructure with fixed length to store big int
-
-  // int LENGTH;
+private:
   int NUMBER_OF_DIGITS;
   std::vector<char> _digits;
   bool _sign = true;
 
 public:
+  /* Constructors */
   BigInt();
   BigInt(int initial);
   BigInt(std::string digits);
   BigInt(const char *digits);
   BigInt(const std::vector<int> initial);
 
-  //   void setNumber(int number);
-  //   void setNumber(char *number);
-  //   void setNumber(std::string number);
-
   /* Operator overloading */
+
   // Assignment
   const BigInt &operator=(int initial);
   const BigInt &operator=(std::string initial);
   const BigInt &operator=(const char *initial);
   const BigInt &operator=(const std::vector<int> initial);
-  // Comparison operators
+
+  // Comparison
   bool operator==(const BigInt &rhs) const;
   bool operator!=(const BigInt &rhs) const;
   bool operator<(const BigInt &rhs) const;
@@ -40,55 +34,39 @@ public:
   bool operator>(const BigInt &rhs) const;
   bool operator>=(const BigInt &rhs) const;
 
-  /* Operations */
+  // Arithmetics
   BigInt operator+(const BigInt rhnumber) const;
   BigInt operator-(const BigInt rhnumber) const;
   BigInt operator*(BigInt rhnumber) const;
   BigInt operator/(BigInt rhnumber) const;
   BigInt operator%(BigInt rhnumber) const;
 
-  BigInt add(const BigInt rhnumber) const;
-  BigInt subtract(const BigInt rhnumber) const;
-  BigInt multiply(const BigInt rhnumber) const;
-  BigInt divide(const BigInt rhnumber) const;
-  BigInt modulus(const BigInt rhnumber) const;
-
+  // Arithmetic assignments
   BigInt &operator+=(const BigInt &);
   BigInt &operator-=(const BigInt &);
   BigInt &operator*=(const BigInt &);
   BigInt &operator/=(const BigInt &);
   BigInt &operator%=(const BigInt &);
 
+  // Incrementing/Decrementing
   BigInt &operator++();   // pre-increment
   BigInt &operator--();   // pre-decrement
   BigInt operator++(int); // post-increment
   BigInt operator--(int); // post-decrement
 
-  /* Comparison operators */
-  bool isLessThen(const BigInt rhnumber) const;
-  bool isMoreThen(const BigInt rhnumber) const;
-  bool isEqualTo(const BigInt rhnumber) const;
-  bool notEqualTo(const BigInt rhnumber) const;
-  bool isLessOrEqualTo(const BigInt rhnumber) const;
-  bool isMoreOrEqualTo(const BigInt rhnumber) const;
-
   /* Input/Output operators */
   friend std::istream &operator>>(std::istream &, BigInt &bigInt);
   friend std::ostream &operator<<(std::ostream &out, const BigInt &bigInt);
 
-  /* Validation */
+  /* Utils */
+  bool getSign() const;
+  std::string toString() const;
+  int length() const;
 
+private:
+  /* Validation */
   bool isValidString(std::string str);
 
-  /* Utils */
-  static int parseInt(char c);
-
-  std::string toString() const;
-
-  void print() const;
-
-  // TODO: Change to private later
-private:
   void changeDigit(int index, int value);
   void setDigit(int index, int value);
   void setDigit(int index, char value);
@@ -98,19 +76,17 @@ private:
 
   char getCharAt(int index) const;
 
-  /* Getters and setters */
-  bool getSign() const;
+  /* Setters */
   void setSign(const bool sign);
   void setSign(const char sign);
 
-  int getDigit(int index) const;
+  int getNthLSD(int index) const;
 
-  int getHighestDigit(int index) const;
-  std::string getNDigitsFromHighest(int n) const;
+  int getNthMSD(int index) const;
+  std::string getNMSD(int n) const;
   std::string getNDigitsFromLowest(int n) const;
   int getLength() const;
   int getSignMult() const;
-  int getNumberOfDigits() const;
   bool isDigit(char c);
 
   void removeLeadingZeros();

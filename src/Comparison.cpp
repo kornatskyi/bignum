@@ -11,13 +11,12 @@
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 bool BigInt::operator==(const BigInt &rhnumber) const {
-  if (getSign() != rhnumber.getSign() ||
-      getNumberOfDigits() != rhnumber.getNumberOfDigits()) {
+  if (getSign() != rhnumber.getSign() || length() != rhnumber.length()) {
     return false;
   }
 
-  for (int i = 0; i < getNumberOfDigits(); i++) {
-    if (getDigit(i) != rhnumber.getDigit(i)) {
+  for (int i = 0; i < length(); i++) {
+    if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
       return false;
     }
   }
@@ -36,19 +35,19 @@ bool BigInt::operator>(const BigInt &rhnumber) const {
     return false;
   }
 
-  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+  if (length() > rhnumber.length()) {
     return getSign() ? true : false;
   }
 
-  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+  if (length() < rhnumber.length()) {
     return getSign() ? false : true;
   }
 
-  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-    if (getDigit(i) < rhnumber.getDigit(i)) {
+  for (int i = length() - 1; i >= 0; i--) {
+    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
       return getSign() ? false : true;
     }
-    if (getDigit(i) > rhnumber.getDigit(i)) {
+    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
       return getSign() ? true : false;
     }
   }
@@ -67,19 +66,19 @@ bool BigInt::operator<(const BigInt &rhnumber) const {
     return true;
   }
 
-  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+  if (length() > rhnumber.length()) {
     return getSign() ? false : true;
   }
 
-  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+  if (length() < rhnumber.length()) {
     return getSign() ? true : false;
   }
 
-  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-    if (getDigit(i) < rhnumber.getDigit(i)) {
+  for (int i = length() - 1; i >= 0; i--) {
+    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
       return getSign() ? true : false;
     }
-    if (getDigit(i) > rhnumber.getDigit(i)) {
+    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
       return getSign() ? false : true;
     }
   }
@@ -90,13 +89,12 @@ bool BigInt::operator<(const BigInt &rhnumber) const {
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 bool BigInt::operator!=(const BigInt &rhnumber) const {
-  if (getSign() != rhnumber.getSign() ||
-      getNumberOfDigits() != rhnumber.getNumberOfDigits()) {
+  if (getSign() != rhnumber.getSign() || length() != rhnumber.length()) {
     return true;
   }
 
-  for (int i = 0; i < getNumberOfDigits(); i++) {
-    if (getDigit(i) != rhnumber.getDigit(i)) {
+  for (int i = 0; i < length(); i++) {
+    if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
       return true;
     }
   }
@@ -114,19 +112,19 @@ bool BigInt::operator<=(const BigInt &rhnumber) const {
     return true;
   }
 
-  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+  if (length() > rhnumber.length()) {
     return getSign() ? false : true;
   }
 
-  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+  if (length() < rhnumber.length()) {
     return getSign() ? true : false;
   }
 
-  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-    if (getDigit(i) < rhnumber.getDigit(i)) {
+  for (int i = length() - 1; i >= 0; i--) {
+    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
       return getSign() ? true : false;
     }
-    if (getDigit(i) > rhnumber.getDigit(i)) {
+    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
       return getSign() ? false : true;
     }
   }
@@ -144,19 +142,19 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
     return false;
   }
 
-  if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+  if (length() > rhnumber.length()) {
     return getSign() ? true : false;
   }
 
-  if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+  if (length() < rhnumber.length()) {
     return getSign() ? false : true;
   }
 
-  for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-    if (getDigit(i) < rhnumber.getDigit(i)) {
+  for (int i = length() - 1; i >= 0; i--) {
+    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
       return getSign() ? false : true;
     }
-    if (getDigit(i) > rhnumber.getDigit(i)) {
+    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
       return getSign() ? true : false;
     }
   }
@@ -172,12 +170,12 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 // bool BigInt::isEqualTo(const BigInt rhnumber) const {
 
 //   if (getSign() != rhnumber.getSign() ||
-//       getNumberOfDigits() != rhnumber.getNumberOfDigits()) {
+//       length() != rhnumber.length()) {
 //     return false;
 //   }
 
-//   for (int i = 0; i < getNumberOfDigits(); i++) {
-//     if (getDigit(i) != rhnumber.getDigit(i)) {
+//   for (int i = 0; i < length(); i++) {
+//     if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
 //       return false;
 //     }
 //   }
@@ -193,19 +191,19 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 //     return false;
 //   }
 
-//   if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+//   if (length() > rhnumber.length()) {
 //     return getSign() ? true : false;
 //   }
 
-//   if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+//   if (length() < rhnumber.length()) {
 //     return getSign() ? false : true;
 //   }
 
-//   for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-//     if (getDigit(i) < rhnumber.getDigit(i)) {
+//   for (int i = length() - 1; i >= 0; i--) {
+//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
-//     if (getDigit(i) > rhnumber.getDigit(i)) {
+//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
 //   }
@@ -221,19 +219,19 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 //     return true;
 //   }
 
-//   if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+//   if (length() > rhnumber.length()) {
 //     return getSign() ? false : true;
 //   }
 
-//   if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+//   if (length() < rhnumber.length()) {
 //     return getSign() ? true : false;
 //   }
 
-//   for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-//     if (getDigit(i) < rhnumber.getDigit(i)) {
+//   for (int i = length() - 1; i >= 0; i--) {
+//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
-//     if (getDigit(i) > rhnumber.getDigit(i)) {
+//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
 //   }
@@ -243,12 +241,12 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 // bool BigInt::notEqualTo(const BigInt rhnumber) const {
 
 //   if (getSign() != rhnumber.getSign() ||
-//       getNumberOfDigits() != rhnumber.getNumberOfDigits()) {
+//       length() != rhnumber.length()) {
 //     return true;
 //   }
 
-//   for (int i = 0; i < getNumberOfDigits(); i++) {
-//     if (getDigit(i) != rhnumber.getDigit(i)) {
+//   for (int i = 0; i < length(); i++) {
+//     if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
 //       return true;
 //     }
 //   }
@@ -263,19 +261,19 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 //     return true;
 //   }
 
-//   if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+//   if (length() > rhnumber.length()) {
 //     return getSign() ? false : true;
 //   }
 
-//   if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+//   if (length() < rhnumber.length()) {
 //     return getSign() ? true : false;
 //   }
 
-//   for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-//     if (getDigit(i) < rhnumber.getDigit(i)) {
+//   for (int i = length() - 1; i >= 0; i--) {
+//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
-//     if (getDigit(i) > rhnumber.getDigit(i)) {
+//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
 //   }
@@ -290,19 +288,19 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 //     return false;
 //   }
 
-//   if (getNumberOfDigits() > rhnumber.getNumberOfDigits()) {
+//   if (length() > rhnumber.length()) {
 //     return getSign() ? true : false;
 //   }
 
-//   if (getNumberOfDigits() < rhnumber.getNumberOfDigits()) {
+//   if (length() < rhnumber.length()) {
 //     return getSign() ? false : true;
 //   }
 
-//   for (int i = getNumberOfDigits() - 1; i >= 0; i--) {
-//     if (getDigit(i) < rhnumber.getDigit(i)) {
+//   for (int i = length() - 1; i >= 0; i--) {
+//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
-//     if (getDigit(i) > rhnumber.getDigit(i)) {
+//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
 //   }
