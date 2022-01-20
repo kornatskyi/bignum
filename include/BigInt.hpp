@@ -67,31 +67,30 @@ public:
   int length() const;
 
 private:
-  /* Validation */
-  bool isValidString(std::string str);
+  /* Getters */
+  char getCharAt(int index) const;
+  int getNthLSD(int index) const;
+  int getNthMSD(int index) const;
+  std::string getNMSD(int n) const;
+  int getSignMult() const;
 
+  /* Setters */
   void setDigit(int index, int value);
   void setDigit(int index, char value);
 
-  void push(int value);
-  void push(char value);
-
-  char getCharAt(int index) const;
-
-  /* Setters */
   void setSign(const bool sign);
   void setSign(const char sign);
 
-  int getNthLSD(int index) const;
-
-  int getNthMSD(int index) const;
-  std::string getNMSD(int n) const;
-
-  int getSignMult() const;
+  /* Private Utils  */
+  void push(int value);
+  void push(char value);
 
   bool isDigit(char c);
 
   void removeLeadingZeros();
 
   void allocateVector(int size);
+
+  /* Validation */
+  bool isValidString(std::string str);
 };
