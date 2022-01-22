@@ -1,4 +1,4 @@
-#include "../include/BigInt.hpp"
+#include "BigInt.hpp"
 #include "ArithmeticsTest.hpp"
 #include "AssignmentTest.hpp"
 #include "ComparisonTest.hpp"
@@ -10,9 +10,9 @@
 int main(int argc, const char **argv) {
 
   try {
-    ArithmeticsTest().runAll();
-    ComparisonTest().runAll();
-    AssignmentTest().runAll();
+    // ArithmeticsTest().runAll();
+    // ComparisonTest().runAll();
+    // AssignmentTest().runAll();
     AssignmentTest().addAssignTest();
 
   } catch (const char *e) {

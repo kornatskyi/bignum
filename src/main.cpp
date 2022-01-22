@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 
-#include "../include/BigInt.hpp"
+#include "BigInt.hpp"
 
 #include <stdio.h>
 

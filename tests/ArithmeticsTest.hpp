@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../include/BigInt.hpp"
+#include "BigInt.hpp"
 #include "Testing.hpp"
 
 class ArithmeticsTest : public Testing {

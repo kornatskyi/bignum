@@ -1,6 +1,6 @@
 /* Unary operators */
 
-#include "../include/BigInt.hpp"
+#include "BigInt.hpp"
 
 /**
  * Unary minus

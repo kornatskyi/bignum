@@ -1,18 +1,14 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(bignum VERSION 0.1.0 DESCRIPTION "Big Numbers" LANGUAGES CXX)
 
-include(CTest)
-enable_testing()
 
-include(CPack)
-
-include_directories(include)
+# Set path to include directory with header files
+include_directories(bignum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-
 set(source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # *** Executable ***
@@ -20,6 +16,9 @@ add_executable(bignum src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/As
 
 # *** Library ***
 add_library(bignum_lib STATIC src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp src/UnaryOperators.cpp)
+add_library(json STATIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/json/single_include/nlohmann/json.hpp)
+
+
 
 # target_include_directories(bignum_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -42,4 +41,12 @@ add_executable(bignum_test tests/main.cpp  tests/Testing.hpp tests/ArithmeticsTe
 # Linkig the test executable to the library
 target_link_libraries(bignum_test PUBLIC bignum_lib)
 
-target_link_libraries(bignum_test PRIVATE nlohmann_json::nlohmann_json)
+
+# *** Connecting json librarry ***
+# Fix such an error: CMake Error: CMake can not determine linker language for target: json
+set_target_properties(json PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(bignum_test PUBLIC json)
+include_directories(bignum_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/json/single_include/nlohmann) 
+
+
+# target_link_libraries(bignum_test PRIVATE nlohmann_json::nlohmann_json)
