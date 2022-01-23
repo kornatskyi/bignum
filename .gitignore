@@ -3,3 +3,4 @@ bin
 .vscode
 .cache
 src/BigIntOld.cpp
+out
