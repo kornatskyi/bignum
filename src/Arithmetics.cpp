@@ -55,6 +55,7 @@ BigInt BigInt::operator+(const BigInt rhnumber) const {
   if (n1.getSignMult() < 0 && n2.getSignMult() < 0) {
     result.setSign('-');
   }
+  result.removeLeadingZeros();
 
   return result;
 };
@@ -266,6 +267,7 @@ BigInt BigInt::operator/(const BigInt rhnumber) const {
   if ((*this).getSign() != rhnumber.getSign()) {
     result.setSign(false);
   }
+  result.removeLeadingZeros();
 
   return result;
 }
