@@ -65,6 +65,7 @@ public:
   bool getSign() const;
   std::string toString() const;
   int length() const;
+  int toInteger() const;
 
 private:
   /* Getters */

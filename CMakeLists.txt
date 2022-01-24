@@ -20,6 +20,6 @@ add_library(bignum_lib STATIC src/main.cpp include/BigInt.hpp src/Arithmetics.cp
 
 
 # *** Test ***
-add_executable(bignum_test tests/main.cpp  tests/Testing.hpp tests/ArithmeticsTest.hpp tests/AssignmentTest.hpp tests/ComparisonTest.hpp tests/PublicUtilsTest.hpp )
+add_executable(bignum_test tests/main.cpp  tests/Testing.hpp tests/ArithmeticsTest.hpp tests/AssignmentTest.hpp tests/ComparisonTest.hpp tests/PublicUtilsTest.hpp tests/ConstructorsTest.hpp)
 # Linkig the test executable to the library
 target_link_libraries(bignum_test PUBLIC bignum_lib)

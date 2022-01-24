@@ -19,7 +19,7 @@ public:
 
     int from = -150;
     int to = 150;
-    int isPassed = true;
+    bool isPassed = true;
 
     for (int i = from; i < to; i++) {
 
@@ -38,7 +38,7 @@ public:
 
     int from = -150;
     int to = 150;
-    int isPassed = true;
+    bool isPassed = true;
 
     for (int i = from; i < to; i++) {
       BigInt bi = std::to_string(i);
@@ -54,7 +54,7 @@ public:
 
   void addAssignTest() {
 
-    int isPassed = true;
+    bool isPassed = true;
     // isPassed = assertion();
 
     testMessage(isPassed, "addAssignTest");

@@ -17,13 +17,40 @@ public:
     multiplyTest();
     devideTest();
     modulusTest();
+    additionBruteTest();
+    subtractBruteTest();
+    multiplyBruteTest();
+    devideBruteTest();
+    modulusBruteTest();
   }
   /*
     Arithmetic operations testing
 
   */
-
   void additionTest() {
+    bool isPassed = true;
+    bool *isPassedP = &isPassed;
+
+    auto lambda = [&](std::string expected, std::string value) {
+      try {
+        *isPassedP = (*this).assertion(expected, BigInt(value).toString(),
+                                       std::vector<std::string>{value});
+
+      } catch (...) {
+        std::cout << "Exception in stringConstructorTest: \n"
+                  << "value: " << value << std::endl;
+      }
+    };
+    lambda("0", (BigInt("2147483647") + BigInt("-2147483647")).toString());
+
+    testMessage(isPassed, "additionTest");
+  }
+  void subtractTest() {}
+  void multiplyTest() {}
+  void devideTest() {}
+  void modulusTest() {}
+
+  void additionBruteTest() {
 
     int from = -150;
     int to = 150;
@@ -41,10 +68,10 @@ public:
         }
       }
     }
-    testMessage(isPassed, "additionTest");
+    testMessage(isPassed, "additionBruteTest");
   }
 
-  void subtractTest() {
+  void subtractBruteTest() {
 
     int from = -150;
     int to = 150;
@@ -62,9 +89,9 @@ public:
         }
       }
     }
-    testMessage(isPassed, "subtractTest");
+    testMessage(isPassed, "subtractBruteTest");
   }
-  void multiplyTest() {
+  void multiplyBruteTest() {
 
     int from = -150;
     int to = 150;
@@ -82,9 +109,9 @@ public:
         }
       }
     }
-    testMessage(isPassed, "multiplyTest");
+    testMessage(isPassed, "multiplyBruteTest");
   }
-  void devideTest() {
+  void devideBruteTest() {
 
     int from = -150;
     int to = 150;
@@ -102,9 +129,9 @@ public:
         }
       }
     }
-    testMessage(isPassed, "devideTest");
+    testMessage(isPassed, "devideBruteTest");
   }
-  void modulusTest() {
+  void modulusBruteTest() {
 
     int from = -150;
     int to = 150;
@@ -122,6 +149,6 @@ public:
         }
       }
     }
-    testMessage(isPassed, "modulusTest");
+    testMessage(isPassed, "modulusBruteTest");
   }
 };

@@ -1,4 +1,5 @@
 #include "BigInt.hpp"
+#include <string>
 
 /*** Public utils methods ***/
 
@@ -72,3 +73,11 @@ std::string BigInt::toString() const {
   }
   return str;
 }
+
+/**
+ * Converts BigInt to integer
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * std::stoi thoughts an error if string number is more then int size
+ * @return int
+ */
+int BigInt::toInteger() const { return std::stoi(toString()); }

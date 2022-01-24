@@ -12,8 +12,6 @@
 
 int main(int, char **) {
 
-  BigInt bigInt1("16");
-
-  std::cout << "/* message */" << std::endl;
+  std::cout << "Main function in src/" << std::endl;
   return 0;
 }

@@ -13,7 +13,6 @@
 #define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
 
 class Testing {
-protected:
 public:
   bool assertion(bool expected, bool exact, std::vector<std::string> values) {
     if (expected == exact) {
@@ -24,6 +23,23 @@ public:
                 << "\nExpected: " << expected << " Exact: " << exact << " ";
       int i = 1;
       for (std::string val : values) {
+        std::cout << "Value" << i << ": " << val << " ";
+        i++;
+      }
+      std::cout << RESET << std::endl;
+      return false;
+    }
+  }
+
+  bool assertion(int expected, int exact, std::vector<int> values) {
+    if (expected == exact) {
+      // std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+      return true;
+    } else {
+      std::cout << RED << "ASSERTION FAILED!"
+                << "\nExpected: " << expected << " Exact: " << exact << " ";
+      int i = 1;
+      for (int val : values) {
         std::cout << "Value" << i << ": " << val << " ";
         i++;
       }
