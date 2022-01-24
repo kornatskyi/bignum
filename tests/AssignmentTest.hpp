@@ -55,11 +55,6 @@ public:
   void addAssignTest() {
 
     int isPassed = true;
-    for (nlohmann::json jcase : _json["addAssignTest"]) {
-
-      std::cout << jcase.dump() << std::endl;
-    }
-
     // isPassed = assertion();
 
     testMessage(isPassed, "addAssignTest");
