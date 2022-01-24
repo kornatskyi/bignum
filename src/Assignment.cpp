@@ -10,6 +10,38 @@ const BigInt &BigInt::operator=(const int initial) {
   *this = BigInt(initial);
   return *this;
 }
+/**
+ * BigInt = float
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+const BigInt &BigInt::operator=(const float initial) {
+  *this = BigInt(initial);
+  return *this;
+}
+/**
+ * BigInt = double
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+const BigInt &BigInt::operator=(const double initial) {
+  *this = BigInt(initial);
+  return *this;
+}
+/**
+ * BigInt = long
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+const BigInt &BigInt::operator=(const long initial) {
+  *this = BigInt(initial);
+  return *this;
+}
+/**
+ * BigInt = long long
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+const BigInt &BigInt::operator=(const long long initial) {
+  *this = BigInt(initial);
+  return *this;
+}
 
 /**
  * BigInt = std::string

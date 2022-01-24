@@ -1,5 +1,6 @@
 #include "BigInt.hpp"
 #include <stdexcept>
+#include <string>
 
 /*** Constructors ***/
 
@@ -98,6 +99,27 @@ BigInt::BigInt(const char *digits) {
     push(digits[i]);
   }
 }
+
+/**
+ * float -> BigInt
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt::BigInt(float initial) { (*this) = std::to_string((int)initial); }
+/**
+ * double -> BigInt
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt::BigInt(double initial) { (*this) = std::to_string((long)initial); }
+/**
+ * long -> BigInt
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt::BigInt(long initial) { (*this) = std::to_string(initial); }
+/**
+ * long long -> BigInt
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+BigInt::BigInt(long long initial) { (*this) = std::to_string(initial); }
 
 /**
  * vector -> BigInt

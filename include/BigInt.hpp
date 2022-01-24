@@ -13,6 +13,10 @@ public:
   /* Constructors */
   BigInt();
   BigInt(int initial);
+  BigInt(float initial);
+  BigInt(double initial);
+  BigInt(long initial);
+  BigInt(long long initial);
   BigInt(std::string digits);
   BigInt(const char *digits);
   BigInt(const std::vector<int> initial);
@@ -21,6 +25,10 @@ public:
 
   // Assignment
   const BigInt &operator=(int initial);
+  const BigInt &operator=(float initial);
+  const BigInt &operator=(double initial);
+  const BigInt &operator=(long initial);
+  const BigInt &operator=(long long initial);
   const BigInt &operator=(std::string initial);
   const BigInt &operator=(const char *initial);
   const BigInt &operator=(const std::vector<int> initial);

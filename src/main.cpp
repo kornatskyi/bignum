@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <bitset>
 #include <chrono>
+#include <cmath>
+#include <cstdlib>
 #include <iostream>
 #include <math.h>
 
@@ -35,23 +37,29 @@ void messureExecutionTime(const std::function<void()> &function,
 
 int main(int, char **) {
 
-  BigInt n1 =
-      "3567983423927357293759823795345734769347678348758723759772340238";
+  // BigInt n1 =
+  //     "3567983423927357293759823795345734769347678348758723759772340238";
 
-  BigInt n2 = "2375977234023840234232349078503479857349758934798578934735679834"
-              "23927357";
+  // BigInt n2 =
+  //     "2375977234023840234232349078503479857349758934798578934735679834";
 
-  auto addition = [=]() { n1 + n2; };
-  auto substruction = [=]() { n1 - n2; };
-  auto division = [=]() { n1 / n2; };
-  auto multiplication = [=]() { n1 *n2; };
-  auto modulus = [=]() { BigInt("123"); };
+  // auto addition = [=]() { n1 + n2; };
+  // auto substruction = [=]() { n1 - n2; };
+  // auto division = [=]() { n1 / n2; };
+  // auto multiplication = [=]() { n1 *n2; };
+  // auto modulus = [=]() { BigInt("123"); };
 
-  messureExecutionTime(addition, (n1.toString() + " + " + n2.toString()));
-  messureExecutionTime(substruction, (n1.toString() + " - " + n2.toString()));
-  messureExecutionTime(multiplication, (n1.toString() + " * " + n2.toString()));
-  messureExecutionTime(division, (n1.toString() + " / " + n2.toString()));
-  messureExecutionTime(modulus, (n1.toString() + " % " + n2.toString()));
+  // messureExecutionTime(addition, (n1.toString() + " + " + n2.toString()));
+  // messureExecutionTime(substruction, (n1.toString() + " - " +
+  // n2.toString())); messureExecutionTime(multiplication, (n1.toString() + " *
+  // " + n2.toString())); messureExecutionTime(division, (n1.toString() + " / "
+  // + n2.toString())); messureExecutionTime(modulus, (n1.toString() + " % " +
+  // n2.toString()));
+
+  for (int i = 1; i < 20; i++) {
+    BigInt random = rand() % (pow(10, (i + 1))) + pow(10, i);
+    std::cout << random << std::endl;
+  }
 
   // std::cout << "Main function in src/" << std::endl;
   return 0;
