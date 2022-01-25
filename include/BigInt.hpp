@@ -103,3 +103,5 @@ private:
   /* Validation */
   bool isValidString(std::string str);
 };
+// Math
+BigInt power(const BigInt base, const int power);

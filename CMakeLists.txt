@@ -12,14 +12,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 set(source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # *** Executable ***
-add_executable(bignum src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp src/UnaryOperators.cpp)
+add_executable(bignum src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp src/UnaryOperators.cpp src/Math.cpp)
 
 # *** Library ***
-add_library(bignum_lib STATIC src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp src/UnaryOperators.cpp)
+add_library(bignum_lib STATIC src/main.cpp include/BigInt.hpp src/Arithmetics.cpp src/Assignment.cpp src/Comparison.cpp src/InputOutput.cpp src/PrivateUtils.cpp src/PublicUtils.cpp src/Constructors.cpp src/UnaryOperators.cpp src/Math.cpp)
 
 
 
 # *** Test ***
-add_executable(bignum_test tests/main.cpp  tests/Testing.hpp tests/ArithmeticsTest.hpp tests/AssignmentTest.hpp tests/ComparisonTest.hpp tests/PublicUtilsTest.hpp tests/ConstructorsTest.hpp)
+add_executable(bignum_test tests/main.cpp  tests/Testing.hpp tests/ArithmeticsTest.hpp tests/AssignmentTest.hpp tests/ComparisonTest.hpp tests/PublicUtilsTest.hpp tests/ConstructorsTest.hpp tests/DataSet.hpp tests/PerformanceTest.hpp)
 # Linkig the test executable to the library
 target_link_libraries(bignum_test PUBLIC bignum_lib)
