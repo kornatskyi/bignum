@@ -15,6 +15,6 @@
 
 int main(int, char **) {
 
-  // std::cout << "Main function in src/" << std::endl;
+  std::cout << "Main function in src/" << std::endl;
   return 0;
 }

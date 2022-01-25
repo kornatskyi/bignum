@@ -6,8 +6,6 @@
 #include <fstream>
 #include <iostream>
 #include <math.h>
-
-#include <fstream>
 #include <string>
 
 #include "BigInt.hpp"
@@ -17,7 +15,7 @@
 
 class PerformanceTest {
   DataSet _dataset;
-  std::string _output = "time(ms)|n*m|n|m|operation\n";
+  std::string _output = "time(ms)|n+m|n|m|operation\n";
 
 public:
   void messureExecutionTime(const std::function<void()> &function,
@@ -46,7 +44,7 @@ public:
 
   void addition() {
 
-    _output = "time(ms)|n*m|n|m|operation\n";
+    _output = "time(ms)|n+m|n|m|operation\n";
 
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
@@ -55,18 +53,20 @@ public:
 
       int n = n1->length();
       int m = n2->length();
-      std::string result = std::to_string(n * m) + "|" + std::to_string(n) +
+      std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|+";
 
       messureExecutionTime(addition, result);
     }
-    writeOutputToTheFile("addition_performance_test.txt");
+    writeOutputToTheFile(
+        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
+        "school_arithmetic_algorithms/addition_performance_test.txt");
   }
 
   void substruction() {
 
     // Reset output
-    _output = "time(ms)|n*m|n|m|operation\n";
+    _output = "time(ms)|n+m|n|m|operation\n";
 
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
@@ -75,16 +75,18 @@ public:
 
       int n = n1->length();
       int m = n2->length();
-      std::string result = std::to_string(n * m) + "|" + std::to_string(n) +
+      std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|-";
 
       messureExecutionTime(addition, result);
     }
-    writeOutputToTheFile("substruction_performance_test.txt");
+    writeOutputToTheFile(
+        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
+        "school_arithmetic_algorithms/substruction_performance_test.txt");
   }
   void multiplication() {
 
-    _output = "time(ms)|n*m|n|m|operation\n";
+    _output = "time(ms)|n+m|n|m|operation\n";
 
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
@@ -93,17 +95,19 @@ public:
 
       int n = n1->length();
       int m = n2->length();
-      std::string result = std::to_string(n * m) + "|" + std::to_string(n) +
+      std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|*";
 
       messureExecutionTime(addition, result);
     }
-    writeOutputToTheFile("multiplication_performance_test.txt");
+    writeOutputToTheFile(
+        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
+        "school_arithmetic_algorithms/multiplication_performance_test.txt");
   }
 
   void division() {
 
-    _output = "time(ms)|n*m|n|m|operation\n";
+    _output = "time(ms)|n+m|n|m|operation\n";
 
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
@@ -112,16 +116,20 @@ public:
 
       int n = n1->length();
       int m = n2->length();
-      std::string result = std::to_string(n * m) + "|" + std::to_string(n) +
+      if (n + m == 683) {
+      }
+      std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|/";
 
       messureExecutionTime(addition, result);
     }
-    writeOutputToTheFile("division_performance_test.txt");
+    writeOutputToTheFile(
+        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
+        "school_arithmetic_algorithms/division_performance_test.txt");
   }
   void modulus() {
 
-    _output = "time(ms)|n*m|n|m|operation\n";
+    _output = "time(ms)|n+m|n|m|operation\n";
 
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
@@ -130,12 +138,14 @@ public:
 
       int n = n1->length();
       int m = n2->length();
-      std::string result = std::to_string(n * m) + "|" + std::to_string(n) +
+      std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|%";
 
       messureExecutionTime(addition, result);
     }
-    writeOutputToTheFile("modulus_performance_test.txt");
+    writeOutputToTheFile(
+        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
+        "school_arithmetic_algorithms/modulus_performance_test.txt");
   }
 
   void printOutput() { std::cout << _output << std::endl; }

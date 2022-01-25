@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <string>
@@ -13,18 +14,8 @@
 #include "PublicUtilsTest.hpp"
 
 int main(int argc, const char **argv) {
+
   PerformanceTest ptest;
-  DataSet dataset;
-
-  // Seed pseudo-random number generator
-  // Should be seeded only once before the program execution
-  srand(time(NULL));
-
-  ptest.addition();
-  ptest.substruction();
-  ptest.multiplication();
-  ptest.division();
-  ptest.modulus();
 
   try {
     // ArithmeticsTest().runAll();
@@ -34,6 +25,12 @@ int main(int argc, const char **argv) {
     // PublicUtilsTest().toStringTest();
     // ConstructorsTest().intConstructorTest();
     // ConstructorsTest().stringConstructorTest();
+    // ptest.addition();
+    // ptest.substruction();
+    // ptest.multiplication();
+    // ptest.division();
+    // ptest.modulus();
+    // ArithmeticsTest().multiplyTest();
 
   } catch (const char *e) {
     // std::cout << e << std::endl;
