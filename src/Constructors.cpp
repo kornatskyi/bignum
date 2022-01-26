@@ -45,10 +45,9 @@ BigInt::BigInt(int initial) : BigInt() {
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 BigInt::BigInt(std::string digits) : BigInt() {
-  // Validate string, if string invalid through the error
-  if (!isValidString(digits)) {
-    throw std::invalid_argument("Cannot create number of this string: " +
-                                digits);
+  if (digits.length() == 0) {
+    push(0);
+    return;
   }
 
   // Check the firs char of the string

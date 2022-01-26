@@ -1,6 +1,23 @@
 #include "BigInt.hpp"
 
 /*** Private Utils ***/
+/* Get absolute value */
+BigInt BigInt::abs() const {
+  BigInt result;
+  result._digits = _digits;
+  return result;
+}
+
+BigInt BigInt::multiplyByTenth(int n) const {
+  if ((*this) == 0) {
+    return 0;
+  }
+  std::string result = (*this).toString();
+  for (int i = 0; i < n; i++) {
+    result += "0";
+  }
+  return result;
+}
 
 /**
  * Returns n-th most significant digit(MSD)
@@ -26,16 +43,43 @@ int BigInt::getNthMSD(int n) const {
  * @return std::string with n most significant digits
  */
 std::string BigInt::getNMSD(int n) const {
+  if (n < 0) {
+    return "";
+  }
 
   std::vector<char> slice = std::vector<char>(_digits.end() - n, _digits.end());
+
+  std::string result = "";
+
+  for (int i = 0; i < slice.size(); i++) {
+    result = slice[i] + result;
+  }
+  BigInt res = result;
+  res.removeLeadingZeros();
+  return res.toString();
+}
+/**
+ * Returns n least significant digits(LSD)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * @param n-represents how many digits will be returned
+ * @return std::string with n least significant digits
+ */
+std::string BigInt::getNLSD(int n) const {
+  if (n > length()) {
+    return toString();
+  }
+
+  std::vector<char> slice =
+      std::vector<char>(_digits.begin(), _digits.end() - (length() - n));
 
   std::string result;
 
   for (int i = 0; i < slice.size(); i++) {
     result = slice[i] + result;
   }
-
-  return result;
+  BigInt res = result;
+  res.removeLeadingZeros();
+  return res.toString();
 }
 
 /**
@@ -151,6 +195,9 @@ bool BigInt::isValidString(std::string str) {
 
   bool isValid = false;
   int hasSign = 0;
+  if (str.length() == 0) {
+    return true;
+  }
   const char SIGNS[] = {
       '-',
       '+',

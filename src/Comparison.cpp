@@ -10,13 +10,13 @@
  * BigInt == BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-bool BigInt::operator==(const BigInt &rhnumber) const {
-  if (getSign() != rhnumber.getSign() || length() != rhnumber.length()) {
+bool BigInt::operator==(const BigInt &rhn) const {
+  if (getSign() != rhn.getSign() || length() != rhn.length()) {
     return false;
   }
 
   for (int i = 0; i < length(); i++) {
-    if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) != rhn.getNthLSD(i)) {
       return false;
     }
   }
@@ -27,27 +27,27 @@ bool BigInt::operator==(const BigInt &rhnumber) const {
  * BigInt > BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-bool BigInt::operator>(const BigInt &rhnumber) const {
-  if (getSign() && !rhnumber.getSign()) {
+bool BigInt::operator>(const BigInt &rhn) const {
+  if (getSign() && !rhn.getSign()) {
     return true;
   }
-  if (!getSign() && rhnumber.getSign()) {
+  if (!getSign() && rhn.getSign()) {
     return false;
   }
 
-  if (length() > rhnumber.length()) {
+  if (length() > rhn.length()) {
     return getSign() ? true : false;
   }
 
-  if (length() < rhnumber.length()) {
+  if (length() < rhn.length()) {
     return getSign() ? false : true;
   }
 
   for (int i = length() - 1; i >= 0; i--) {
-    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) < rhn.getNthLSD(i)) {
       return getSign() ? false : true;
     }
-    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) > rhn.getNthLSD(i)) {
       return getSign() ? true : false;
     }
   }
@@ -58,27 +58,27 @@ bool BigInt::operator>(const BigInt &rhnumber) const {
  * BigInt < BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-bool BigInt::operator<(const BigInt &rhnumber) const {
-  if (getSign() && !rhnumber.getSign()) {
+bool BigInt::operator<(const BigInt &rhn) const {
+  if (getSign() && !rhn.getSign()) {
     return false;
   }
-  if (!getSign() && rhnumber.getSign()) {
+  if (!getSign() && rhn.getSign()) {
     return true;
   }
 
-  if (length() > rhnumber.length()) {
+  if (length() > rhn.length()) {
     return getSign() ? false : true;
   }
 
-  if (length() < rhnumber.length()) {
+  if (length() < rhn.length()) {
     return getSign() ? true : false;
   }
 
   for (int i = length() - 1; i >= 0; i--) {
-    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) < rhn.getNthLSD(i)) {
       return getSign() ? true : false;
     }
-    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) > rhn.getNthLSD(i)) {
       return getSign() ? false : true;
     }
   }
@@ -88,13 +88,13 @@ bool BigInt::operator<(const BigInt &rhnumber) const {
  * BigInt != BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-bool BigInt::operator!=(const BigInt &rhnumber) const {
-  if (getSign() != rhnumber.getSign() || length() != rhnumber.length()) {
+bool BigInt::operator!=(const BigInt &rhn) const {
+  if (getSign() != rhn.getSign() || length() != rhn.length()) {
     return true;
   }
 
   for (int i = 0; i < length(); i++) {
-    if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) != rhn.getNthLSD(i)) {
       return true;
     }
   }
@@ -104,27 +104,27 @@ bool BigInt::operator!=(const BigInt &rhnumber) const {
  * BigInt <= BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-bool BigInt::operator<=(const BigInt &rhnumber) const {
-  if (getSign() && !rhnumber.getSign()) {
+bool BigInt::operator<=(const BigInt &rhn) const {
+  if (getSign() && !rhn.getSign()) {
     return false;
   }
-  if (!getSign() && rhnumber.getSign()) {
+  if (!getSign() && rhn.getSign()) {
     return true;
   }
 
-  if (length() > rhnumber.length()) {
+  if (length() > rhn.length()) {
     return getSign() ? false : true;
   }
 
-  if (length() < rhnumber.length()) {
+  if (length() < rhn.length()) {
     return getSign() ? true : false;
   }
 
   for (int i = length() - 1; i >= 0; i--) {
-    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) < rhn.getNthLSD(i)) {
       return getSign() ? true : false;
     }
-    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) > rhn.getNthLSD(i)) {
       return getSign() ? false : true;
     }
   }
@@ -134,27 +134,27 @@ bool BigInt::operator<=(const BigInt &rhnumber) const {
  * BigInt >= BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-bool BigInt::operator>=(const BigInt &rhnumber) const {
-  if (getSign() && !rhnumber.getSign()) {
+bool BigInt::operator>=(const BigInt &rhn) const {
+  if (getSign() && !rhn.getSign()) {
     return true;
   }
-  if (!getSign() && rhnumber.getSign()) {
+  if (!getSign() && rhn.getSign()) {
     return false;
   }
 
-  if (length() > rhnumber.length()) {
+  if (length() > rhn.length()) {
     return getSign() ? true : false;
   }
 
-  if (length() < rhnumber.length()) {
+  if (length() < rhn.length()) {
     return getSign() ? false : true;
   }
 
   for (int i = length() - 1; i >= 0; i--) {
-    if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) < rhn.getNthLSD(i)) {
       return getSign() ? false : true;
     }
-    if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+    if (getNthLSD(i) > rhn.getNthLSD(i)) {
       return getSign() ? true : false;
     }
   }
@@ -167,140 +167,140 @@ bool BigInt::operator>=(const BigInt &rhnumber) const {
 
 */
 
-// bool BigInt::isEqualTo(const BigInt rhnumber) const {
+// bool BigInt::isEqualTo(const BigInt rhn) const {
 
-//   if (getSign() != rhnumber.getSign() ||
-//       length() != rhnumber.length()) {
+//   if (getSign() != rhn.getSign() ||
+//       length() != rhn.length()) {
 //     return false;
 //   }
 
 //   for (int i = 0; i < length(); i++) {
-//     if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) != rhn.getNthLSD(i)) {
 //       return false;
 //     }
 //   }
 //   return true;
 // }
 
-// bool BigInt::isMoreThen(const BigInt rhnumber) const {
+// bool BigInt::isMoreThen(const BigInt rhn) const {
 
-//   if (getSign() && !rhnumber.getSign()) {
+//   if (getSign() && !rhn.getSign()) {
 //     return true;
 //   }
-//   if (!getSign() && rhnumber.getSign()) {
+//   if (!getSign() && rhn.getSign()) {
 //     return false;
 //   }
 
-//   if (length() > rhnumber.length()) {
+//   if (length() > rhn.length()) {
 //     return getSign() ? true : false;
 //   }
 
-//   if (length() < rhnumber.length()) {
+//   if (length() < rhn.length()) {
 //     return getSign() ? false : true;
 //   }
 
 //   for (int i = length() - 1; i >= 0; i--) {
-//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) < rhn.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
-//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) > rhn.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
 //   }
 //   return false;
 // }
 
-// bool BigInt::isLessThen(const BigInt rhnumber) const {
+// bool BigInt::isLessThen(const BigInt rhn) const {
 
-//   if (getSign() && !rhnumber.getSign()) {
+//   if (getSign() && !rhn.getSign()) {
 //     return false;
 //   }
-//   if (!getSign() && rhnumber.getSign()) {
+//   if (!getSign() && rhn.getSign()) {
 //     return true;
 //   }
 
-//   if (length() > rhnumber.length()) {
+//   if (length() > rhn.length()) {
 //     return getSign() ? false : true;
 //   }
 
-//   if (length() < rhnumber.length()) {
+//   if (length() < rhn.length()) {
 //     return getSign() ? true : false;
 //   }
 
 //   for (int i = length() - 1; i >= 0; i--) {
-//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) < rhn.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
-//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) > rhn.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
 //   }
 //   return false;
 // }
 
-// bool BigInt::notEqualTo(const BigInt rhnumber) const {
+// bool BigInt::notEqualTo(const BigInt rhn) const {
 
-//   if (getSign() != rhnumber.getSign() ||
-//       length() != rhnumber.length()) {
+//   if (getSign() != rhn.getSign() ||
+//       length() != rhn.length()) {
 //     return true;
 //   }
 
 //   for (int i = 0; i < length(); i++) {
-//     if (getNthLSD(i) != rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) != rhn.getNthLSD(i)) {
 //       return true;
 //     }
 //   }
 //   return false;
 // }
 
-// bool BigInt::isLessOrEqualTo(const BigInt rhnumber) const {
-//   if (getSign() && !rhnumber.getSign()) {
+// bool BigInt::isLessOrEqualTo(const BigInt rhn) const {
+//   if (getSign() && !rhn.getSign()) {
 //     return false;
 //   }
-//   if (!getSign() && rhnumber.getSign()) {
+//   if (!getSign() && rhn.getSign()) {
 //     return true;
 //   }
 
-//   if (length() > rhnumber.length()) {
+//   if (length() > rhn.length()) {
 //     return getSign() ? false : true;
 //   }
 
-//   if (length() < rhnumber.length()) {
+//   if (length() < rhn.length()) {
 //     return getSign() ? true : false;
 //   }
 
 //   for (int i = length() - 1; i >= 0; i--) {
-//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) < rhn.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
-//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) > rhn.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
 //   }
 //   return true;
 // }
 
-// bool BigInt::isMoreOrEqualTo(const BigInt rhnumber) const {
-//   if (getSign() && !rhnumber.getSign()) {
+// bool BigInt::isMoreOrEqualTo(const BigInt rhn) const {
+//   if (getSign() && !rhn.getSign()) {
 //     return true;
 //   }
-//   if (!getSign() && rhnumber.getSign()) {
+//   if (!getSign() && rhn.getSign()) {
 //     return false;
 //   }
 
-//   if (length() > rhnumber.length()) {
+//   if (length() > rhn.length()) {
 //     return getSign() ? true : false;
 //   }
 
-//   if (length() < rhnumber.length()) {
+//   if (length() < rhn.length()) {
 //     return getSign() ? false : true;
 //   }
 
 //   for (int i = length() - 1; i >= 0; i--) {
-//     if (getNthLSD(i) < rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) < rhn.getNthLSD(i)) {
 //       return getSign() ? false : true;
 //     }
-//     if (getNthLSD(i) > rhnumber.getNthLSD(i)) {
+//     if (getNthLSD(i) > rhn.getNthLSD(i)) {
 //       return getSign() ? true : false;
 //     }
 //   }

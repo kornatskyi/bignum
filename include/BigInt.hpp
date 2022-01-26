@@ -42,11 +42,13 @@ public:
   bool operator>=(const BigInt &rhs) const;
 
   // Arithmetics
-  BigInt operator+(const BigInt rhnumber) const;
-  BigInt operator-(const BigInt rhnumber) const;
-  BigInt operator*(BigInt rhnumber) const;
-  BigInt operator/(BigInt rhnumber) const;
-  BigInt operator%(BigInt rhnumber) const;
+  BigInt operator+(const BigInt rhn) const;
+  BigInt operator-(const BigInt rhn) const;
+  BigInt operator*(const BigInt &rhn) const;
+  BigInt operator/(BigInt rhn) const;
+  BigInt operator%(BigInt rhn) const;
+  BigInt multiply(const BigInt rhn) const;
+  BigInt karatsuba(const BigInt &rhn) const;
 
   // Arithmetic assignments
   BigInt &operator+=(const BigInt &);
@@ -77,10 +79,18 @@ public:
 
 private:
   /* Getters */
+  BigInt multiplyByTenth(int n) const;
+
+  BigInt abs() const;
+
   char getCharAt(int index) const;
+
   int getNthLSD(int index) const;
   int getNthMSD(int index) const;
+
   std::string getNMSD(int n) const;
+  std::string getNLSD(int n) const;
+
   int getSignMult() const;
 
   /* Setters */

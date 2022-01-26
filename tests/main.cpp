@@ -27,7 +27,7 @@ int main(int argc, const char **argv) {
     // ConstructorsTest().stringConstructorTest();
     // ptest.addition();
     // ptest.substruction();
-    // ptest.multiplication();
+    ptest.multiplication();
     // ptest.division();
     // ptest.modulus();
     // ArithmeticsTest().multiplyTest();

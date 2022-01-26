@@ -49,14 +49,14 @@ public:
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
       BigInt *n2 = &_dataset.data[i].number2;
-      auto addition = [=]() { (*n1) + (*n2); };
+      auto lambda = [=]() { (*n1) + (*n2); };
 
       int n = n1->length();
       int m = n2->length();
       std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|+";
 
-      messureExecutionTime(addition, result);
+      messureExecutionTime(lambda, result);
     }
     writeOutputToTheFile(
         "/home/bohdan/Projects/C++/bignum/performance_test_results/"
@@ -71,14 +71,14 @@ public:
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
       BigInt *n2 = &_dataset.data[i].number2;
-      auto addition = [=]() { (*n1) - (*n2); };
+      auto lambda = [=]() { (*n1) - (*n2); };
 
       int n = n1->length();
       int m = n2->length();
       std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|-";
 
-      messureExecutionTime(addition, result);
+      messureExecutionTime(lambda, result);
     }
     writeOutputToTheFile(
         "/home/bohdan/Projects/C++/bignum/performance_test_results/"
@@ -91,14 +91,14 @@ public:
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
       BigInt *n2 = &_dataset.data[i].number2;
-      auto addition = [=]() { (*n1) * (*n2); };
+      auto lambda = [=]() { (*n1) * (*n2); };
 
       int n = n1->length();
       int m = n2->length();
       std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|*";
 
-      messureExecutionTime(addition, result);
+      messureExecutionTime(lambda, result);
     }
     writeOutputToTheFile(
         "/home/bohdan/Projects/C++/bignum/performance_test_results/"
@@ -112,7 +112,7 @@ public:
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
       BigInt *n2 = &_dataset.data[i].number2;
-      auto addition = [=]() { (*n1) / (*n2); };
+      auto lambda = [=]() { (*n1) / (*n2); };
 
       int n = n1->length();
       int m = n2->length();
@@ -121,7 +121,7 @@ public:
       std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|/";
 
-      messureExecutionTime(addition, result);
+      messureExecutionTime(lambda, result);
     }
     writeOutputToTheFile(
         "/home/bohdan/Projects/C++/bignum/performance_test_results/"
@@ -134,14 +134,14 @@ public:
     for (int i = 0; i < _dataset.data.size(); i++) {
       BigInt *n1 = &_dataset.data[i].number1;
       BigInt *n2 = &_dataset.data[i].number2;
-      auto addition = [=]() { (*n1) % (*n2); };
+      auto lambda = [=]() { (*n1) % (*n2); };
 
       int n = n1->length();
       int m = n2->length();
       std::string result = std::to_string(n + m) + "|" + std::to_string(n) +
                            "|" + std::to_string(m) + "|%";
 
-      messureExecutionTime(addition, result);
+      messureExecutionTime(lambda, result);
     }
     writeOutputToTheFile(
         "/home/bohdan/Projects/C++/bignum/performance_test_results/"

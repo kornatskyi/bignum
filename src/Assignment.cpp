@@ -78,8 +78,8 @@ const BigInt &BigInt::operator=(const std::vector<int> initialReversed) {
  * BigInt += BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt &BigInt::operator+=(const BigInt &rhnumber) {
-  *this = (*this) + rhnumber;
+BigInt &BigInt::operator+=(const BigInt &rhn) {
+  *this = (*this) + rhn;
   return *this;
 }
 
@@ -87,8 +87,8 @@ BigInt &BigInt::operator+=(const BigInt &rhnumber) {
  * BigInt -= BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt &BigInt::operator-=(const BigInt &rhnumber) {
-  *this = (*this) - rhnumber;
+BigInt &BigInt::operator-=(const BigInt &rhn) {
+  *this = (*this) - rhn;
   return *this;
 }
 
@@ -96,8 +96,8 @@ BigInt &BigInt::operator-=(const BigInt &rhnumber) {
  * BigInt *= BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt &BigInt::operator*=(const BigInt &rhnumber) {
-  *this = (*this) * rhnumber;
+BigInt &BigInt::operator*=(const BigInt &rhn) {
+  *this = (*this) * rhn;
   return *this;
 }
 
@@ -105,8 +105,8 @@ BigInt &BigInt::operator*=(const BigInt &rhnumber) {
  * BigInt /= BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt &BigInt::operator/=(const BigInt &rhnumber) {
-  *this = (*this) / rhnumber;
+BigInt &BigInt::operator/=(const BigInt &rhn) {
+  *this = (*this) / rhn;
   return *this;
 }
 
@@ -114,7 +114,7 @@ BigInt &BigInt::operator/=(const BigInt &rhnumber) {
  * BigInt %= BigInt
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt &BigInt::operator%=(const BigInt &rhnumber) {
-  *this = (*this) % rhnumber;
+BigInt &BigInt::operator%=(const BigInt &rhn) {
+  *this = (*this) % rhn;
   return *this;
 }

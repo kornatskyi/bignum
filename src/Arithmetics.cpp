@@ -1,14 +1,88 @@
 #include "BigInt.hpp"
+#include <algorithm>
 
 /*** Arithmetical operations ***/
+
+/**
+ * Multiplication (BigInt * BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+/*
+ *
+ * O(n^lg3) Karatsuba's multiplication algorithm
+ * Inefficient for small realtively small numbers
+ *
+ */
+BigInt BigInt::operator*(const BigInt &rhn) const {
+
+  BigInt result;
+  if ((*this).length() == 1 || rhn.length() == 1) {
+    return (*this).multiply(rhn);
+  }
+  const BigInt &x = (*this);
+  const BigInt &y = rhn;
+  int max = std::max(x.length(), y.length());
+  int n = max % 2 == 0 ? max : max + 1;
+
+  BigInt x1 = x.getNMSD((n / 2) - (n - x.length()));
+  BigInt y1 = y.getNMSD((n / 2) - (n - y.length()));
+  BigInt x0 = x.getNLSD(n / 2);
+  BigInt y0 = y.getNLSD(n / 2);
+  BigInt h = x1 * y1;
+  BigInt l = x0 * y0;
+  BigInt m = ((x1 + x0) * (y1 + y0)) - h - l;
+
+  result = h.multiplyByTenth(n) + m.multiplyByTenth(n / 2) + l;
+
+  if (getSign() == rhn.getSign()) {
+    result.setSign(true);
+  } else {
+    result.setSign(false);
+  }
+  // result = ;
+
+  return result;
+}
+
+/**
+ * Multiplication (BigInt * BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ */
+/*
+ *
+ * O(n^2) school multiplication algorithm
+ *
+ */
+BigInt BigInt::multiply(const BigInt rhn) const {
+
+  BigInt result;
+  int carryOver = 0;
+
+  for (int i = 0; i <= length(); i++) {
+    BigInt temp;
+    for (int j = 0; j <= rhn.length(); j++) {
+      int mult = (getNthLSD(i) * rhn.getNthLSD(j)) + carryOver;
+
+      carryOver = mult / 10;
+      temp.setDigit(j + i, mult % 10);
+    }
+    result = result + (temp);
+  }
+
+  if ((getSignMult() * rhn.getSignMult()) == -1) {
+    result.setSign('-');
+  }
+  result.removeLeadingZeros();
+  return result;
+}
 
 /**
  * Addition (BigInt + BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator+(const BigInt rhnumber) const {
+BigInt BigInt::operator+(const BigInt rhn) const {
   BigInt n1 = *this;
-  BigInt n2 = rhnumber;
+  BigInt n2 = rhn;
   BigInt result;
 
   // Initialising sings multipliers to -1 if '-' or 1 if '+'
@@ -64,7 +138,7 @@ BigInt BigInt::operator+(const BigInt rhnumber) const {
  * Subtraction (BigInt - BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator-(const BigInt rhnumber) const {
+BigInt BigInt::operator-(const BigInt rhn) const {
 
   BigInt n1;
   BigInt n2;
@@ -72,18 +146,18 @@ BigInt BigInt::operator-(const BigInt rhnumber) const {
   // to be able to use subtraction algorithm
   BigInt abs1 = (*this);
   abs1.setSign('+');
-  BigInt abs2 = rhnumber;
+  BigInt abs2 = rhn;
   abs2.setSign('+');
   BigInt result;
   if (abs1 < abs2) {
-    n1 = rhnumber;
+    n1 = rhn;
     n2 = *this;
   } else {
     n1 = *this;
-    n2 = rhnumber;
+    n2 = rhn;
   }
 
-  if ((*this) < rhnumber) {
+  if ((*this) < rhn) {
     result.setSign('-');
   } else {
     result.setSign('+');
@@ -91,15 +165,15 @@ BigInt BigInt::operator-(const BigInt rhnumber) const {
 
   // Initialising sings multipliers to -1 if '-' or 1 if '+'
   int n1sm = (*this).getSignMult();
-  int n2sm = rhnumber.getSignMult();
+  int n2sm = rhn.getSignMult();
 
   if (n2sm < 0 && n1sm > 0) {
-    BigInt local = rhnumber;
+    BigInt local = rhn;
     local.setSign('+');
     return (*this) + local;
   }
   if (n1sm < 0 && n2sm > 0) {
-    BigInt local = rhnumber;
+    BigInt local = rhn;
     local.setSign('-');
     return (*this) + local;
   }
@@ -135,55 +209,22 @@ BigInt BigInt::operator-(const BigInt rhnumber) const {
 }
 
 /**
- * Multiplication (BigInt * BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- */
-/*
- *
- * O(n^2) multiplication algorithm
- * TODO: Change to Karatsuba's algorithm in the future
- *
- */
-BigInt BigInt::operator*(const BigInt rhnumber) const {
-
-  BigInt result;
-  int carryOver = 0;
-
-  for (int i = 0; i <= length(); i++) {
-    BigInt temp;
-    for (int j = 0; j <= rhnumber.length(); j++) {
-      int mult = (getNthLSD(i) * rhnumber.getNthLSD(j)) + carryOver;
-
-      carryOver = mult / 10;
-      temp.setDigit(j + i, mult % 10);
-    }
-    result = result + (temp);
-  }
-
-  if ((getSignMult() * rhnumber.getSignMult()) == -1) {
-    result.setSign('-');
-  }
-  result.removeLeadingZeros();
-  return result;
-}
-
-/**
  * Division (BigInt / BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 /**
 * @brief
 
-* Lets use next example: *this = 173; rhnumber = -13;
+* Lets use next example: *this = 173; rhn = -13;
 */
-BigInt BigInt::operator/(const BigInt rhnumber) const {
+BigInt BigInt::operator/(const BigInt rhn) const {
 
-  if (rhnumber == BigInt(0)) {
+  if (rhn == BigInt(0)) {
     throw std::runtime_error("Math error: Attempted to divide by Zero\n");
   }
   /* Creating copies of initial values */
-  BigInt dividend = *this;   //< 173
-  BigInt divisor = rhnumber; //< -13
+  BigInt dividend = *this; //< 173
+  BigInt divisor = rhn;    //< -13
 
   /* Setting absolute values */
   dividend.setSign(true); //< 173
@@ -197,7 +238,7 @@ BigInt BigInt::operator/(const BigInt rhnumber) const {
   /* Check if absolute values are equal */
   if (dividend == divisor) {
     /* Setting a sign */
-    if ((*this).getSign() != rhnumber.getSign()) {
+    if ((*this).getSign() != rhn.getSign()) {
       return -1;
     }
     return 1;
@@ -264,7 +305,7 @@ BigInt BigInt::operator/(const BigInt rhnumber) const {
   BigInt result = res;
 
   /* Checking a sign */
-  if ((*this).getSign() != rhnumber.getSign()) {
+  if ((*this).getSign() != rhn.getSign()) {
     result.setSign(false);
   }
   result.removeLeadingZeros();
@@ -276,10 +317,10 @@ BigInt BigInt::operator/(const BigInt rhnumber) const {
  * Modulus division (BigInt % BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator%(const BigInt rhnumber) const {
+BigInt BigInt::operator%(const BigInt rhn) const {
 
-  BigInt result = *this / rhnumber;
-  result = rhnumber * result;
+  BigInt result = *this / rhn;
+  result = rhn * result;
   result = (*this) - result;
   return result;
 }
