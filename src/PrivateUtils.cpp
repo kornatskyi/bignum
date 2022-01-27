@@ -43,6 +43,10 @@ int BigInt::getNthMSD(int n) const {
  * @return std::string with n most significant digits
  */
 std::string BigInt::getNMSD(int n) const {
+  if (length() == 0) {
+    return "";
+  }
+
   if (n < 0) {
     return 0;
   }

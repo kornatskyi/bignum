@@ -42,20 +42,22 @@ public:
   bool operator>=(const BigInt &rhs) const;
 
   // Arithmetics
-  BigInt operator+(const BigInt rhn) const;
-  BigInt operator-(const BigInt rhn) const;
+  BigInt operator+(const BigInt &rhn) const;
+  BigInt operator-(const BigInt &rhn) const;
   BigInt operator*(const BigInt &rhn) const;
-  BigInt operator/(BigInt rhn) const;
-  BigInt operator%(BigInt rhn) const;
-  BigInt longMultiplication(const BigInt rhn) const;
+  BigInt operator/(const BigInt &rhn) const;
+  BigInt operator%(const BigInt &rhn) const;
+
+  /* Multiplication algorithms */
+  BigInt longMultiplication(const BigInt &rhn) const;
   BigInt karatsubaMultiplication(const BigInt &rhn) const;
 
   // Arithmetic assignments
-  BigInt &operator+=(const BigInt &);
-  BigInt &operator-=(const BigInt &);
-  BigInt &operator*=(const BigInt &);
-  BigInt &operator/=(const BigInt &);
-  BigInt &operator%=(const BigInt &);
+  BigInt &operator+=(const BigInt &rhn);
+  BigInt &operator-=(const BigInt &rhn);
+  BigInt &operator*=(const BigInt &rhn);
+  BigInt &operator/=(const BigInt &rhn);
+  BigInt &operator%=(const BigInt &rhn);
 
   // Incrementing/Decrementing
   BigInt &operator++();   // pre-increment

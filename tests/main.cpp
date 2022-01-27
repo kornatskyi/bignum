@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <vector>
 
 #include "ArithmeticsTest.hpp"
 #include "AssignmentTest.hpp"
@@ -77,15 +78,18 @@ void generateNumbersSet() {
 int main(int argc, const char **argv) {
   // generateNumbersSet();
 
-  BigInt b1 = "-150";
-  BigInt b2 = "-13";
+  BigInt b1 = "45673458760754645068945";
+  BigInt b2 = "-674537867980453706894357";
+  std::cout << b1 + b2 << std::endl;
 
-  std::cout << b1 / b2 << std::endl;
-
-  PerformanceTest ptest;
+  // std::cout << b1 * b2 << std::endl;
+  // std::vector<int> x;
+  // PerformanceTest ptest;
 
   try {
-    // ArithmeticsTest().runAll();
+    ArithmeticsTest().runAll();
+    // ArithmeticsTest().additionBruteTest();
+    // ArithmeticsTest().multiplyBruteTest();
     // ArithmeticsTest().devideBruteTest();
     // ComparisonTest().runAll();
     // AssignmentTest().runAll();
@@ -98,7 +102,7 @@ int main(int argc, const char **argv) {
     // ptest.karatsubaMultiplication();
     // ptest.longMultiplication();
     // ptest.division();
-    ptest.modulus();
+    // ptest.modulus();
     // ArithmeticsTest().multiplyTest();
 
   } catch (const char *e) {

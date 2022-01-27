@@ -15,7 +15,7 @@ BigInt BigInt::operator*(const BigInt &rhn) const {
  *
  * O(n^lg3) Karatsuba's multiplication algorithm
  * Inefficient for small realtively small numbers
- *
+ * TODO:Not working
  */
 BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
 
@@ -57,7 +57,7 @@ BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
  * O(n^2) school multiplication algorithm
  *
  */
-BigInt BigInt::longMultiplication(const BigInt rhn) const {
+BigInt BigInt::longMultiplication(const BigInt &rhn) const {
 
   BigInt result;
   int carryOver = 0;
@@ -84,42 +84,36 @@ BigInt BigInt::longMultiplication(const BigInt rhn) const {
  * Addition (BigInt + BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator+(const BigInt rhn) const {
-  BigInt n1 = *this;
-  BigInt n2 = rhn;
-  BigInt result;
+BigInt BigInt::operator+(const BigInt &rhn) const {
 
-  // Initialising sings multipliers to -1 if '-' or 1 if '+'
-  int n1sm = n1.getSignMult();
-  int n2sm = n2.getSignMult();
+  BigInt result = "";
 
-  if (n1sm > 0 && n2sm < 0) {
-    BigInt local = n2;
+  if ((*this).getSignMult() > 0 && rhn.getSignMult() < 0) {
+    BigInt local = rhn;
     local.setSign('+');
-    return n1 - local;
+    return (*this) - local;
   }
 
-  if (n1sm < 0 && n2sm > 0) {
-    BigInt local = n1;
+  if ((*this).getSignMult() < 0 && rhn.getSignMult() > 0) {
+    BigInt local = (*this);
     local.setSign('+');
-    return n2 - local;
+    return rhn - local;
   }
 
   int carry = 0;
 
-  int resLength = std::max(n1.length(), n2.length()) + 1;
+  // Calculate max possible result number length
+  int resLength = std::max((*this).length(), rhn.length()) + 1;
   // Allocating enough space for the result
   result.allocateVector(resLength);
 
   for (int i = 0; i < resLength; i++) {
     int res = carry;
-
-    if (i < n1.length()) {
-      res = res + n1.getNthLSD(i);
+    if (i < (*this).length()) {
+      res = res + (*this).getNthLSD(i);
     }
-
-    if (i < n2.length()) {
-      res = res + n2.getNthLSD(i);
+    if (i < rhn.length()) {
+      res = res + rhn.getNthLSD(i);
     }
     if (res >= 10) {
       res = res - 10;
@@ -127,12 +121,11 @@ BigInt BigInt::operator+(const BigInt rhn) const {
     } else {
       carry = 0;
     }
-
     result.setDigit(i, res);
   }
   // If both numbers is negative the sum will be negative as well
-  //  -n1 + -n2 = -(n1 + n2)
-  if (n1.getSignMult() < 0 && n2.getSignMult() < 0) {
+  //  -(*this) + -rhn = -((*this) + rhn)
+  if ((*this).getSignMult() < 0 && rhn.getSignMult() < 0) {
     result.setSign('-');
   }
   result.removeLeadingZeros();
@@ -144,7 +137,7 @@ BigInt BigInt::operator+(const BigInt rhn) const {
  * Subtraction (BigInt - BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator-(const BigInt rhn) const {
+BigInt BigInt::operator-(const BigInt &rhn) const {
 
   BigInt n1;
   BigInt n2;
@@ -223,7 +216,7 @@ BigInt BigInt::operator-(const BigInt rhn) const {
 
 * Lets use next example: *this = 173; rhn = -13;
 */
-BigInt BigInt::operator/(const BigInt rhn) const {
+BigInt BigInt::operator/(const BigInt &rhn) const {
 
   if (rhn == BigInt(0)) {
     throw std::runtime_error("Math error: Attempted to divide by Zero\n");
@@ -323,7 +316,7 @@ BigInt BigInt::operator/(const BigInt rhn) const {
  * Modulus division (BigInt % BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
-BigInt BigInt::operator%(const BigInt rhn) const {
+BigInt BigInt::operator%(const BigInt &rhn) const {
 
   BigInt result = *this / rhn;
   result = rhn * result;

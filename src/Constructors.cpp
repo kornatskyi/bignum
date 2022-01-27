@@ -1,4 +1,5 @@
 #include "BigInt.hpp"
+#include <algorithm>
 #include <stdexcept>
 #include <string>
 
@@ -94,13 +95,17 @@ BigInt::BigInt(const char *digits) {
   while (digits[i] != '\0') {
     i++;
   }
-  if (i == 0) {
-    push(0);
-  }  // Pushing each char to the _digits vector
-  while (i > signCorrection) {
-    i--;
-    push(digits[i]);
+  std::string sdigits = "";
+  bool firsZeroes = true;
+  for (int j = 0; j < i; j++) {
+    if (digits[j] == 0 && firsZeroes) {
+      continue;
+    }
+    sdigits = sdigits + digits[j];
+    firsZeroes = false;
   }
+
+  *this = sdigits;
 }
 
 /**
