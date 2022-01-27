@@ -11,6 +11,9 @@
  * @return int digit under the index(n) or 0 if index(n) is out of bounds
  */
 int BigInt::getNthLSD(int n) const {
+  if (length() == 0) {
+    return 0;
+  }
 
   if (n < 0 || n > length() - 1) {
     return 0;

@@ -45,11 +45,18 @@ BigInt::BigInt(int initial) : BigInt() {
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 BigInt::BigInt(std::string digits) : BigInt() {
+
   if (digits.length() == 0) {
     push(0);
     return;
   }
 
+  // Removing leading zeroes on the string
+  int k = 0;
+  while (digits[k] == '0') {
+    digits = digits.substr(1, digits.length() - 1);
+    k++;
+  }
   // Check the firs char of the string
   // if it is a sign char set this sign to the BigInt and
   // set value of signCorrection to 1
@@ -72,13 +79,8 @@ BigInt::BigInt(std::string digits) : BigInt() {
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 BigInt::BigInt(const char *digits) {
-  // Validate string, if string invalid through the error
-  if (!isValidString(digits)) {
-    throw std::invalid_argument("Cannot create number of this string: " +
-                                std::string(digits));
-  }
-  int i = 0;
 
+  int i = 0;
   // Check the firs char of the array
   // if it is a sign char set this sign to the BigInt and
   // set value of signCorrection to 1
@@ -92,7 +94,9 @@ BigInt::BigInt(const char *digits) {
   while (digits[i] != '\0') {
     i++;
   }
-  // Pushing each char to the _digits vector
+  if (i == 0) {
+    push(0);
+  }  // Pushing each char to the _digits vector
   while (i > signCorrection) {
     i--;
     push(digits[i]);

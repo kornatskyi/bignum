@@ -3,6 +3,10 @@
 
 /*** Arithmetical operations ***/
 
+BigInt BigInt::operator*(const BigInt &rhn) const {
+  return longMultiplication(rhn);
+}
+
 /**
  * Multiplication (BigInt * BigInt)
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -13,11 +17,11 @@
  * Inefficient for small realtively small numbers
  *
  */
-BigInt BigInt::operator*(const BigInt &rhn) const {
+BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
 
   BigInt result;
   if ((*this).length() == 1 || rhn.length() == 1) {
-    return (*this).multiply(rhn);
+    return (*this).longMultiplication(rhn);
   }
   const BigInt &x = (*this);
   const BigInt &y = rhn;
@@ -45,15 +49,15 @@ BigInt BigInt::operator*(const BigInt &rhn) const {
 }
 
 /**
- * Multiplication (BigInt * BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * Long Multiplication (BigInt * BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 /*
  *
  * O(n^2) school multiplication algorithm
  *
  */
-BigInt BigInt::multiply(const BigInt rhn) const {
+BigInt BigInt::longMultiplication(const BigInt rhn) const {
 
   BigInt result;
   int carryOver = 0;
@@ -113,6 +117,7 @@ BigInt BigInt::operator+(const BigInt rhn) const {
     if (i < n1.length()) {
       res = res + n1.getNthLSD(i);
     }
+
     if (i < n2.length()) {
       res = res + n2.getNthLSD(i);
     }
@@ -122,6 +127,7 @@ BigInt BigInt::operator+(const BigInt rhn) const {
     } else {
       carry = 0;
     }
+
     result.setDigit(i, res);
   }
   // If both numbers is negative the sum will be negative as well

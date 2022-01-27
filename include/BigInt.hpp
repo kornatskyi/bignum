@@ -47,8 +47,8 @@ public:
   BigInt operator*(const BigInt &rhn) const;
   BigInt operator/(BigInt rhn) const;
   BigInt operator%(BigInt rhn) const;
-  BigInt multiply(const BigInt rhn) const;
-  BigInt karatsuba(const BigInt &rhn) const;
+  BigInt longMultiplication(const BigInt rhn) const;
+  BigInt karatsubaMultiplication(const BigInt &rhn) const;
 
   // Arithmetic assignments
   BigInt &operator+=(const BigInt &);

@@ -44,7 +44,7 @@ int BigInt::getNthMSD(int n) const {
  */
 std::string BigInt::getNMSD(int n) const {
   if (n < 0) {
-    return "";
+    return 0;
   }
 
   std::vector<char> slice = std::vector<char>(_digits.end() - n, _digits.end());
@@ -138,8 +138,7 @@ char BigInt::getCharAt(int index) const { return _digits.at(index); }
  */
 void BigInt::setDigit(int index, char value) {
   if ((value - '0') > 9 || (value - '0') < 0) {
-    std::cout << value << std::endl;
-    // throw "[setDigit()]: Value must be >= 0 and <= 9";
+    throw "[setDigit()]: Value must be >= 0 and <= 9";
   }
   // Allocating more space if needed
   if (index >= _digits.size()) {
@@ -178,6 +177,9 @@ void BigInt::allocateVector(int size) { _digits.resize(size, 0); }
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 void BigInt::removeLeadingZeros() {
+  if (length() == 0) {
+    return;
+  }
   while (_digits.size() != 1 &&
          (_digits.back() == '0' || _digits.back() == '\0' ||
           _digits.back() == '\000')) {
