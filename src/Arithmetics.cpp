@@ -6,7 +6,7 @@
  * Multiplication
  */
 BigInt BigInt::operator*(const BigInt &rhn) const {
-  return longMultiplication(rhn);
+  return karatsubaMultiplication(rhn);
 }
 
 /**
@@ -20,19 +20,23 @@ BigInt BigInt::operator*(const BigInt &rhn) const {
  */
 BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
 
-  BigInt result;
+  if ((*this) == 0 && rhn == 0) {
+    return 0;
+  }
+
+  BigInt result = "";
   if ((*this).length() == 1 || rhn.length() == 1) {
     return (*this).longMultiplication(rhn);
   }
-  const BigInt &x = (*this);
-  const BigInt &y = rhn;
+  BigInt x = (*this);
+  BigInt y = rhn;
   int max = std::max(x.length(), y.length());
   int n = max % 2 == 0 ? max : max + 1;
-
   BigInt x1 = x.getNMSD((n / 2) - (n - x.length()));
   BigInt y1 = y.getNMSD((n / 2) - (n - y.length()));
   BigInt x0 = x.getNLSD(n / 2);
   BigInt y0 = y.getNLSD(n / 2);
+
   BigInt h = x1 * y1;
   BigInt l = x0 * y0;
   BigInt m = ((x1 + x0) * (y1 + y0)) - h - l;
@@ -63,7 +67,7 @@ BigInt BigInt::longMultiplication(const BigInt &rhn) const {
   int carryOver = 0;
 
   for (int i = 0; i <= length(); i++) {
-    BigInt temp;
+    BigInt temp = "";
     for (int j = 0; j <= rhn.length(); j++) {
       int mult = (getNthLSD(i) * rhn.getNthLSD(j)) + carryOver;
 
@@ -190,8 +194,6 @@ BigInt BigInt::operator-(const BigInt &rhn) const {
       res = res - carry - n2.getNthLSD(i);
 
       if (res < 10) {
-        // res = res * (-1);
-
         carry = 1;
       } else {
         carry = 0;

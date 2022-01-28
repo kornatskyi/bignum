@@ -44,19 +44,21 @@ int BigInt::getNthMSD(int n) const {
  */
 std::string BigInt::getNMSD(int n) const {
   if (length() == 0) {
-    return "";
+    return "0";
   }
 
   if (n < 0) {
     return "0";
   }
+  std::vector<char> slice;
 
-  std::vector<char> slice = std::vector<char>(_digits.end() - n, _digits.end());
-
+  for (int i = 0; i < n; i++) {
+    slice.push_back(getNthMSD(i) + '0');
+  }
   std::string result = "";
 
   for (int i = 0; i < slice.size(); i++) {
-    result = slice[i] + result;
+    result = result + slice[i];
   }
   BigInt res = result;
   res.removeLeadingZeros();
@@ -69,6 +71,9 @@ std::string BigInt::getNMSD(int n) const {
  * @return std::string with n least significant digits
  */
 std::string BigInt::getNLSD(int n) const {
+  if (length() == 0) {
+    return "0";
+  }
   if (n > length()) {
     return toString();
   }
@@ -158,6 +163,11 @@ void BigInt::setDigit(int index, char value) {
  * @param value - int value, must be a digit
  */
 void BigInt::setDigit(int index, int value) {
+  removeLeadingZeros();
+
+  if (length() < 1) {
+    allocateVector(1);
+  }
 
   if (value > 9 || value < 0) {
     throw "[setDigit()]: Value must be >= 0 and <= 9";

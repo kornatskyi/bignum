@@ -37,18 +37,23 @@ void messureExecutionTime(const std::function<void()> &function,
 
 int main(int, char **) {
 
+  BigInt x;
+  x.allocateVector(1);
+
   BigInt lhn =
-      "654635645075565463564506546356450755265463564507552654635645075526546356"
-      "450755265463564507552654635645075526546356450755265463564507552654635645"
-      "5";
+      "547698734589679843576878934769845796874596547698734589679843576878934769"
+      "3576878934769845796874596";
   BigInt rhn =
-      "-654635645654635646546356450755654635645075526546356450755265463"
-      "564507552";
+      "547698734589679843576878934769845796874596547698734589679843576878934769"
+      "84579687459654769873458967984357687893476984579687459654769873458967984"
+      "3";
+  // std::cout << lhn.longMultiplication(rhn) << std::endl;
+  // std::cout << lhn.karatsubaMultiplication(rhn) << std::endl;
 
   BigInt res = lhn.longMultiplication(rhn);
-  std::cout << "Muliplication:" << res << std::endl;
+  // std::cout << "Muliplication:" << res << std::endl;
   BigInt resKaratsuba = lhn.karatsubaMultiplication(rhn);
-  std::cout << "Karatsuba:" << resKaratsuba << std::endl;
+  // std::cout << "Karatsuba:" << resKaratsuba << std::endl;
 
   BigInt *n1 = &lhn;
   BigInt *n2 = &rhn;

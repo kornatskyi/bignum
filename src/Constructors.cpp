@@ -19,7 +19,7 @@ BigInt::BigInt(int initial) : BigInt() {
 
   // Special case when initial == 0
   if (initial == 0) {
-    _digits.push_back('0');
+
     return;
   }
 
@@ -48,7 +48,7 @@ BigInt::BigInt(int initial) : BigInt() {
 BigInt::BigInt(std::string digits) : BigInt() {
 
   if (digits.length() == 0) {
-    push(0);
+    *this = BigInt(0);
     return;
   }
 

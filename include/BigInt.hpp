@@ -79,7 +79,7 @@ public:
   int length() const;
   int toInteger() const;
 
-private:
+  // private:
   /* Getters */
   BigInt multiplyByTenth(int n) const;
 

@@ -48,6 +48,7 @@ const BigInt &BigInt::operator=(const long long initial) {
  * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 const BigInt &BigInt::operator=(const std::string initial) {
+
   *this = BigInt(initial);
   return *this;
 }
