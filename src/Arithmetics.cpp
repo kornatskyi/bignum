@@ -2,20 +2,21 @@
 #include <algorithm>
 
 /*** Arithmetical operations ***/
-
+/**
+ * Multiplication
+ */
 BigInt BigInt::operator*(const BigInt &rhn) const {
   return longMultiplication(rhn);
 }
 
 /**
- * Multiplication (BigInt * BigInt)
- * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ * Karatsuba's Multiplication (BigInt * BigInt)
+ * ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
  */
 /*
  *
  * O(n^lg3) Karatsuba's multiplication algorithm
  * Inefficient for small realtively small numbers
- * TODO:Not working
  */
 BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
 
@@ -43,7 +44,6 @@ BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
   } else {
     result.setSign(false);
   }
-  // result = ;
 
   return result;
 }
@@ -198,7 +198,6 @@ BigInt BigInt::operator-(const BigInt &rhn) const {
       }
 
       res = res % 10;
-      // std::cout << res << std::endl;
 
       result.setDigit(i, res);
     }

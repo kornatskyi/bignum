@@ -78,32 +78,20 @@ void generateNumbersSet() {
 int main(int argc, const char **argv) {
   // generateNumbersSet();
 
-  BigInt b1 = "45673458760754645068945";
-  BigInt b2 = "-674537867980453706894357";
-  std::cout << b1 + b2 << std::endl;
-
-  // std::cout << b1 * b2 << std::endl;
-  // std::vector<int> x;
-  // PerformanceTest ptest;
+  PerformanceTest ptest;
 
   try {
     ArithmeticsTest().runAll();
-    // ArithmeticsTest().additionBruteTest();
-    // ArithmeticsTest().multiplyBruteTest();
-    // ArithmeticsTest().devideBruteTest();
-    // ComparisonTest().runAll();
-    // AssignmentTest().runAll();
-    // AssignmentTest().addAssignTest();
-    // PublicUtilsTest().toStringTest();
-    // ConstructorsTest().intConstructorTest();
-    // ConstructorsTest().stringConstructorTest();
-    // ptest.addition();
-    // ptest.substruction();
-    // ptest.karatsubaMultiplication();
-    // ptest.longMultiplication();
-    // ptest.division();
-    // ptest.modulus();
-    // ArithmeticsTest().multiplyTest();
+    ComparisonTest().runAll();
+    AssignmentTest().runAll();
+    ConstructorsTest().intConstructorTest();
+    ConstructorsTest().stringConstructorTest();
+    ptest.addition();
+    ptest.substruction();
+    ptest.karatsubaMultiplication();
+    ptest.longMultiplication();
+    ptest.division();
+    ptest.modulus();
 
   } catch (const char *e) {
     std::cout << e << std::endl;

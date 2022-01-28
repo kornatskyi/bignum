@@ -6,18 +6,6 @@
 #include <vector>
 class ArithmeticsTest : public Testing {
 public:
-  void runAll() {
-    additionTest();
-    subtractTest();
-    multiplyTest();
-    devideTest();
-    modulusTest();
-    additionBruteTest();
-    subtractBruteTest();
-    multiplyBruteTest();
-    devideBruteTest();
-    modulusBruteTest();
-  }
   /*
     Arithmetic operations testing
   */
@@ -66,6 +54,18 @@ public:
     testMessage(isPassed, "additionBruteTest");
   }
 
+  void runAll() {
+    additionTest();
+    subtractTest();
+    multiplyTest();
+    devideTest();
+    modulusTest();
+    additionBruteTest();
+    subtractBruteTest();
+    multiplyBruteTest();
+    devideBruteTest();
+    modulusBruteTest();
+  }
   void subtractTest() {}
   void multiplyTest() {}
   void devideTest() {}

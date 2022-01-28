@@ -48,7 +48,7 @@ std::string BigInt::getNMSD(int n) const {
   }
 
   if (n < 0) {
-    return 0;
+    return "0";
   }
 
   std::vector<char> slice = std::vector<char>(_digits.end() - n, _digits.end());
