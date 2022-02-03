@@ -16,6 +16,8 @@
 class PerformanceTest {
   DataSet _dataset;
   std::string _output = "time(ms)|n+m|n|m|operation\n";
+  std::string OUTPUT_FOLDER =
+      "../performance_test_results/school_arithmetic_algorithms/";
 
 public:
   void messureExecutionTime(const std::function<void()> &function,
@@ -58,9 +60,7 @@ public:
 
       messureExecutionTime(lambda, result);
     }
-    writeOutputToTheFile(
-        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
-        "school_arithmetic_algorithms/addition_performance_test.txt");
+    writeOutputToTheFile(OUTPUT_FOLDER + "addition_performance_test.txt");
   }
 
   void substruction() {
@@ -80,9 +80,7 @@ public:
 
       messureExecutionTime(lambda, result);
     }
-    writeOutputToTheFile(
-        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
-        "school_arithmetic_algorithms/substruction_performance_test.txt");
+    writeOutputToTheFile(OUTPUT_FOLDER + "substruction_performance_test.txt");
   }
   void longMultiplication() {
 
@@ -100,9 +98,8 @@ public:
 
       messureExecutionTime(lambda, result);
     }
-    writeOutputToTheFile(
-        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
-        "school_arithmetic_algorithms/longMultiplication_performance_test.txt");
+    writeOutputToTheFile(OUTPUT_FOLDER +
+                         "longMultiplication_performance_test.txt");
   }
 
   void karatsubaMultiplication() {
@@ -121,10 +118,8 @@ public:
 
       messureExecutionTime(lambda, result);
     }
-    writeOutputToTheFile(
-        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
-        "school_arithmetic_algorithms/"
-        "karatsubaMultiplication_performance_test.txt");
+    writeOutputToTheFile(OUTPUT_FOLDER +
+                         "karatsubaMultiplication_performance_test.txt");
   }
 
   void division() {
@@ -144,9 +139,7 @@ public:
 
       messureExecutionTime(lambda, result);
     }
-    writeOutputToTheFile(
-        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
-        "school_arithmetic_algorithms/division_performance_test.txt");
+    writeOutputToTheFile(OUTPUT_FOLDER + "division_performance_test.txt");
   }
 
   void modulus() {
@@ -166,9 +159,7 @@ public:
       messureExecutionTime(lambda, result);
     }
 
-    writeOutputToTheFile(
-        "/home/bohdan/Projects/C++/bignum/performance_test_results/"
-        "school_arithmetic_algorithms/modulus_performance_test.txt");
+    writeOutputToTheFile(OUTPUT_FOLDER + "modulus_performance_test.txt");
   }
 
   void printOutput() { std::cout << _output << std::endl; }
