@@ -81,17 +81,17 @@ int main(int argc, const char **argv) {
   PerformanceTest ptest;
 
   try {
-    ArithmeticsTest().runAll();
-    ComparisonTest().runAll();
-    AssignmentTest().runAll();
-    ConstructorsTest().intConstructorTest();
-    ConstructorsTest().stringConstructorTest();
+    // ArithmeticsTest().runAll();
+    // ComparisonTest().runAll();
+    // AssignmentTest().runAll();
+    // ConstructorsTest().intConstructorTest();
+    // ConstructorsTest().stringConstructorTest();
     // ptest.addition();
     // ptest.substruction();
-    // ptest.karatsubaMultiplication();
-    // ptest.longMultiplication();
-    // ptest.division();
-    // ptest.modulus();
+    ptest.karatsubaMultiplication();
+    ptest.longMultiplication();
+    ptest.division();
+    ptest.modulus();
 
   } catch (const char *e) {
     std::cout << e << std::endl;
