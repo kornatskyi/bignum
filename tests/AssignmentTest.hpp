@@ -51,12 +51,4 @@ public:
   }
 
   /* Arithmetic assignmet */
-
-  void addAssignTest() {
-
-    bool isPassed = true;
-    // isPassed = assertion();
-
-    testMessage(isPassed, "addAssignTest");
-  }
 };

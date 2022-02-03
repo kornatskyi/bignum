@@ -20,7 +20,7 @@ BigInt BigInt::operator*(const BigInt &rhn) const {
  */
 BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
 
-  if ((*this) == 0 && rhn == 0) {
+  if (((*this) == 0 && rhn == 0) || (length() == 0 && rhn.length() == 0)) {
     return 0;
   }
 

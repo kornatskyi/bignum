@@ -1,4 +1,5 @@
 #pragma once
+#include "BigInt.hpp"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -50,6 +51,24 @@ public:
   bool assertion(std::string expected, std::string exact,
                  std::vector<std::string> values) {
     if (expected.compare(exact) == 0) {
+      // std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
+      return true;
+    } else {
+      std::cout << RED << "ASSERTION FAILED!"
+                << "\nExpected: " << expected << " Exact: " << exact << " ";
+      int i = 1;
+      for (std::string val : values) {
+        std::cout << "Value" << i << ": " << val << " ";
+        i++;
+      }
+      std::cout << RESET << std::endl;
+      return false;
+    }
+  }
+
+  bool assertion(BigInt expected, BigInt exact,
+                 std::vector<std::string> values) {
+    if (expected == exact) {
       // std::cout << BOLDGREEN << "[ASSERTION] PASSED!" << RESET << std::endl;
       return true;
     } else {

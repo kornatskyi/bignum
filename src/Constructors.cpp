@@ -19,6 +19,7 @@ BigInt::BigInt(int initial) : BigInt() {
 
   // Special case when initial == 0
   if (initial == 0) {
+    _digits = {'0'};
 
     return;
   }
@@ -47,10 +48,15 @@ BigInt::BigInt(int initial) : BigInt() {
  */
 BigInt::BigInt(std::string digits) : BigInt() {
 
+  // If the string is empty the digits vector will remain empty as well
   if (digits.length() == 0) {
-    *this = BigInt(0);
     return;
   }
+  // Is string consist of one zero char, set digits to the {'0'} vector
+  if(digits.length() == 1 && digits[0] == '0') {
+    _digits = {'0'};
+    return;
+  } 
 
   // Removing leading zeroes on the string
   int k = 0;
@@ -95,6 +101,11 @@ BigInt::BigInt(const char *digits) {
   while (digits[i] != '\0') {
     i++;
   }
+    // Is string consist of one zero char, set digits to the {'0'} vector
+  if(i == 1 && digits[0] == '0') {
+    _digits = {'0'};
+    return;
+  } 
   std::string sdigits = "";
   bool firsZeroes = true;
   for (int j = 0; j < i; j++) {

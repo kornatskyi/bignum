@@ -23,7 +23,7 @@ int main(int argc, const char **argv) {
   // See more description in DataGeneration.hpp
   // DataGenerator::generateNumberSets();
   try {
-    // ArithmeticsTest().runAll();
+    ArithmeticsTest().runAll();
     // ComparisonTest().runAll();
     // AssignmentTest().runAll();
     // ConstructorsTest().intConstructorTest();
