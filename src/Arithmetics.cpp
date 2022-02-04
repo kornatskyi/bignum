@@ -24,7 +24,7 @@ BigInt BigInt::karatsubaMultiplication(const BigInt &rhn) const {
     return 0;
   }
 
-  BigInt result = "";
+  BigInt result;
   if ((*this).length() == 1 || rhn.length() == 1) {
     return (*this).longMultiplication(rhn);
   }
