@@ -4,15 +4,12 @@
 
 ### Objectives of the project
 
-Main goal of this library is to explore and understand how does arbitrary precision arithmetic work.
-It's not most efficient solution, and you will most likely find better solution for practical reasons.
-This project more for people who is learning C++ and got interesting in arbitrary precision arithmetic.
-If you have any question, willing to collaborate or just to discus some parts of a code, feel free to reach out to me.
+Main objective of creating this library is to explore and understand how does arbitrary precision arithmetic works.
+Don't use this soulution for any production need, only for educational purposes.
+If you have any question, willing to collaborate or just to discus some parts of the project, feel free to reach out to me.
 bohdan.kornatskyi@gmail.com
 
 ### How to use
-
-For testing the project
 
 #### Ubuntu
 
